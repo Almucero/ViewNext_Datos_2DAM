@@ -1,0 +1,43 @@
+<!--
+  Copyright (c) 2015, 2025, Oracle and/or its affiliates.
+  Licensed under The Universal Permissive License (UPL), Version 1.0
+  as shown at https://oss.oracle.com/licenses/upl/
+
+-->
+<oj-dialog
+  :id="[[dialogId]]"
+  style="display: none"
+  cancel-behavior="icon"
+>
+  <div slot="header" style="width: 100%; text-align: center;" class="oj-sm-margin-4x-bottom">
+    <span class="oj-dialog-title" style="font-weight: bold; font-size: 1.2rem;">
+      <oj-bind-text value="[[dialogTitle]]"></oj-bind-text>
+    </span>
+  </div>
+
+  <div slot="body">
+    <demo-update-item
+      mode="[[properties.mode]]"
+      item="{{properties.item}}"
+    ></demo-update-item>
+  </div>
+
+  <div slot="footer">
+    <oj-bind-if test="[[properties.mode === 'create']]">
+      <oj-button on-oj-action="[[createItem]]">Submit</oj-button>
+    </oj-bind-if>
+
+    <oj-bind-if test="[[properties.mode === 'edit']]">
+      <oj-button on-oj-action="[[updateItem]]">Submit</oj-button>
+    </oj-bind-if>
+
+    <oj-bind-if test="[[properties.mode === 'delete']]">
+      <oj-button on-oj-action="[[deleteItem]]">Delete</oj-button>
+      <oj-button on-oj-action="[[close]]">Cancel</oj-button>
+    </oj-bind-if>
+
+    <oj-bind-if test="[[properties.mode === 'view']]">
+      <oj-button on-oj-action="[[close]]">Close</oj-button>
+    </oj-bind-if>
+  </div>
+</oj-dialog>

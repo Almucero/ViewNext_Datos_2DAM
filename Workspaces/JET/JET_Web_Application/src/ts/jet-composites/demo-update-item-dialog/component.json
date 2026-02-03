@@ -1,0 +1,33 @@
+{
+  "name": "demo-update-item-dialog",
+  "version": "1.0.0",
+  "jetVersion": "^16.0.0",
+  "displayName": "demo-update-item-dialog",
+  "description": "A web component that contains the demo-update-item component's functionality within a dialog",
+  "properties": {
+    "item": {
+      "type": "object",
+      "writeback": true
+    },
+    "mode": {
+      "type": "string"
+    },
+    "activityKey": {
+      "type": "number"
+    },
+    "restUrl": {
+      "type": "string"
+    }
+  },
+  "methods": {
+    "open": {},
+    "close": {}
+  },
+  "events": {
+    "actionComplete": {
+      "description": "Fired when an item is created, updated, or deleted",
+      "bubbles": true,
+      "cancelable": false
+    }
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "extends": "../tsconfig",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "*": [
+        // add the "../src/ts/*" entry
+        "../src/ts/*",
+        "../src/ts/jet-composites/*",
+        "../src/js/jet-composites/*",
+        "../node_modules/*"
+      ], // add the "viewModels/*": ["../src/ts/viewModels/*"], entry
+      "viewModels/*": ["../src/ts/viewModels/*"],
+      "ojs/*": ["../node_modules/@oracle/oraclejet/dist/types/*"]
+    },
+    "typeRoots": [
+      "../node_modules/@types",
+      "../node_modules/@oracle/oraclejet/dist/types"
+    ],
+    "lib": ["dom", "es2021"],
+    "moduleResolution": "node",
+    "module": "amd",
+    "target": "es6"
+  },
+  "include": [
+    // add the "../src/ts/__tests__/*.ts" entry
+    "../src/ts/__tests__/*.ts",
+    "../src/ts/jet-composites/**/__tests__/**/*.ts",
+    "../src/js/jet-composites/**/__tests__/**/*.ts",
+    "../node_modules/@oracle/oraclejet/dist/types/requirejs-plugins.d.ts"
+  ]
+}

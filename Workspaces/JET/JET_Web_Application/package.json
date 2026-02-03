@@ -1,0 +1,47 @@
+{
+  "name": "JET_Web_Application",
+  "version": "1.0.0",
+  "description": "An Oracle JavaScript Extension Toolkit(JET) web app",
+  "scripts": {
+    "build": "npx ojet build",
+    "serve": "npx ojet serve",
+    "test": "npx karma start test-config/karma.conf.js"
+  },
+  "dependencies": {
+    "@oracle/oraclejet": "~16.0.0",
+    "@oracle/oraclejet-core-pack": "~16.0.0",
+    "archiver": "^6.0.1"
+  },
+  "devDependencies": {
+    "@oracle/ojet-cli": "^19.0.1",
+    "@types/chai": "4.3.4",
+    "@types/jest": "^30.0.0",
+    "@types/karma-fixture": "0.2.5",
+    "@types/mocha": "10.0.1",
+    "@types/sinon": "10.0.13",
+    "chai": "4.5.0",
+    "coverage": "^0.0.0",
+    "extract-zip": "^1.7.0",
+    "fs-extra": "^8.1.0",
+    "glob": "7.2.0",
+    "karma": "6.4.4",
+    "karma-chai": "0.1.0",
+    "karma-chrome-launcher": "3.1.1",
+    "karma-coverage": "2.2.0",
+    "karma-fixture": "0.2.6",
+    "karma-mocha": "2.0.1",
+    "karma-mocha-reporter": "2.2.5",
+    "karma-requirejs": "1.1.0",
+    "karma-sinon": "1.0.5",
+    "karma-typescript": "^5.5.4",
+    "mocha": "^11.3.0",
+    "sinon": "21.0.1",
+    "typescript": "^5.3.2",
+    "underscore": "^1.10.2",
+    "yargs-parser": "13.1.2"
+  },
+  "engines": {
+    "node": ">=12.21.0"
+  },
+  "private": true
+}

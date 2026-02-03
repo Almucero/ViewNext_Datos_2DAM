@@ -1,0 +1,164 @@
+<!--Create-->
+<oj-bind-if test="[[properties.mode === 'create']]">
+  <oj-form-layout label-edge="[[labelEdge]]">
+    <!--Name-->
+    <oj-input-text
+      value="{{properties.item.itemName}}"
+      placeholder="Enter the item name"
+      label-hint="Item Name"
+    ></oj-input-text>
+    <!--Price-->
+    <oj-input-text
+      value="{{properties.item.itemPrice}}"
+      help.instruction="Enter an amount with or without grouping separator"
+      placeholder="Enter the item price"
+      converter="[[currency]]"
+      label-hint="Item Price"
+    ></oj-input-text>
+    <!--Desc-->
+    <oj-input-text
+      value="{{properties.item.itemDesc}}"
+      validators="[[validators]]"
+      placeholder="Enter a description of 5-50 characters"
+      label-hint="Item Description"
+    ></oj-input-text>
+    <!--inStock-->
+    <oj-input-text
+      value="{{properties.item.quantity_instock}}"
+      label-hint="Quantity: In-Stock"
+      placeholder="Enter the quantity in stock"
+      converter="[[numberConverter]]"
+    ></oj-input-text>
+    <!--Shipped-->
+    <oj-input-text
+      value="{{properties.item.quantity_shipped}}"
+      label-hint="Quantity: Shipped"
+      placeholder="Enter the quantity shipped"
+      converter="[[numberConverter]]"
+    ></oj-input-text>
+    <!--Image Selector-->
+    <oj-select-single
+      value="{{properties.item.itemImage}}"
+      on-value-changed="[[handleImageChange]]"
+      label-hint="Item Image"
+      placeholder="Select an image for the item"
+      data="[[imageOptionsDP]]"
+      item-text="label"
+    >
+      <template slot="itemTemplate" data-oj-as="item">
+        <div style="display: flex; align-items: center">
+          <img
+            data-bind="attr: { src: item.data.value }"
+            class="demo-thumbnail"
+          />
+          <oj-bind-text value="[[item.data.label]]"></oj-bind-text>
+        </div>
+      </template>
+    </oj-select-single>
+    <!--Image Preview-->
+    <oj-label-value :style.display="[[imagePreview() ? '' : 'none']]">
+      <oj-label slot="label">Item Image</oj-label>
+      <div slot="value">
+        <img :src="[[imagePreview]]" class="thumbnail" alt="Image Preview" />
+      </div>
+    </oj-label-value>
+  </oj-form-layout>
+</oj-bind-if>
+
+<!--Edit-->
+<oj-bind-if test="[[properties.mode === 'edit']]">
+  <oj-form-layout label-edge="[[labelEdge]]">
+    <!--Id-->
+    <oj-label-value>
+      <oj-label slot="label">Item ID</oj-label>
+      <div slot="value">
+        <oj-bind-text value="[[$properties.item.id]]"></oj-bind-text>
+      </div>
+    </oj-label-value>
+    <!--Name-->
+    <oj-input-text
+      value="{{properties.item.itemName}}"
+      label-hint="Item Name"
+      placeholder="Enter the item name"
+    ></oj-input-text>
+    <!--Price-->
+    <oj-input-text
+      value="{{properties.item.itemPrice}}"
+      help.instruction="enter an amount with or without grouping separator"
+      placeholder="Enter the item price"
+      converter="[[currency]]"
+      label-hint="Item Price"
+    ></oj-input-text>
+    <!--Desc-->
+    <oj-input-text
+      value="{{properties.item.itemDesc}}"
+      validators="[[validators]]"
+      placeholder="Enter a description of 5-50 characters"
+      label-hint="Item Description"
+    ></oj-input-text>
+  </oj-form-layout>
+</oj-bind-if>
+
+<!--View & Delete-->
+<oj-bind-if
+  test="[[properties.mode === 'view' ||properties.mode === 'delete']]"
+>
+  <oj-form-layout label-edge="[[labelEdge]]">
+    <!--Id-->
+    <oj-label-value>
+      <oj-label slot="label">Item ID</oj-label>
+      <div slot="value">
+        <oj-bind-text value="[[$properties.item.id]]"></oj-bind-text>
+      </div>
+    </oj-label-value>
+    <!--Name-->
+    <oj-input-text
+      value="{{properties.item.itemName}}"
+      label-hint="Item Name"
+      readonly="true"
+    ></oj-input-text>
+    <!--Price-->
+    <oj-input-text
+      value="{{properties.item.itemPrice}}"
+      help.instruction="enter an amount with or without grouping separator"
+      converter="[[currency]]"
+      label-hint="Item Price"
+      readonly="true"
+    ></oj-input-text>
+    <!--Desc-->
+    <oj-input-text
+      value="{{properties.item.itemDesc}}"
+      validators="[[validators]]"
+      placeholder="Enter a description of 5-50 characters"
+      label-hint="Item Description"
+      readonly="true"
+    ></oj-input-text>
+    <!--inStock-->
+    <oj-input-text
+      value="{{properties.item.quantity_instock}}"
+      label-hint="Quantity: In-Stock"
+      converter="[[numberConverter]]"
+      readonly="true"
+    ></oj-input-text>
+    <!--Shipped-->
+    <oj-input-text
+      value="{{properties.item.quantity_shipped}}"
+      label-hint="Quantity: Shipped"
+      converter="[[numberConverter]]"
+      readonly="true"
+    ></oj-input-text>
+    <!--Image Preview-->
+    <oj-label-value
+      :style.display="[[properties.item.itemImage ? '' : 'none']]"
+    >
+      <oj-label slot="label">Item Image</oj-label>
+      <div slot="value">
+        <img
+          :src="[[properties.item.itemImage]]"
+          class="thumbnail"
+          alt="Image Preview"
+        />
+      </div>
+    </oj-label-value>
+  </oj-form-layout>
+</oj-bind-if>

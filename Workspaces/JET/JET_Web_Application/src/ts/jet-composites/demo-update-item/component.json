@@ -1,0 +1,48 @@
+{
+  "name": "demo-update-item",
+  "version": "1.0.0",
+  "jetVersion": "^16.0.0",
+  "displayName": "demo-update-item",
+  "description": "A Web Component for creating, updating, viewing, and deleting an item",
+  "properties": {
+    "item": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "number"
+        },
+        "itemName": {
+          "type": "string",
+          "writeback": true
+        },
+        "itemPrice": {
+          "type": "number",
+          "writeback": true
+        },
+        "itemDesc": {
+          "type": "string",
+          "writeback": true
+        },
+        "quantity_instock": {
+          "type": "number",
+          "writeback": true
+        },
+        "quantity_shipped": {
+          "type": "number",
+          "writeback": true
+        },
+        "itemImage": {
+          "type": "string",
+          "writeback": true
+        }
+      }
+    },
+    "mode": {
+      "type": "string",
+      "enumValues": ["create", "edit", "delete", "view"]
+    }
+  },
+  "methods": {},
+  "events": {},
+  "slots": {}
+}
