@@ -41,6 +41,15 @@ interface ItemDialogProperties {
 // Configuración del modelo base para los Items, definiendo el atributo ID.
 const ItemModel = model.Model.extend({
   idAttribute: "id",
+  parseSave: function (attrs) {
+    return {
+      itemId: attrs.id,
+      name: attrs.name,
+      short_desc: attrs.short_desc,
+      price: attrs.price,
+      activity_id: attrs.activity_id,
+    }
+  }
 });
 
 // Define una colección que contendrá instancias de ItemModel.
@@ -177,7 +186,7 @@ export default class ViewModel
     if (currentRow != null) {
       // Prepara datos actualizados para el payload.
       const row = {
-        itemId: currentRow.id,
+        id: currentRow.id,
         name: currentRow.itemName,
         short_desc: currentRow.itemDesc,
         price: currentRow.itemPrice,
@@ -195,12 +204,17 @@ export default class ViewModel
         wait: true,
         method: "PUT",
         success: (model: any, response: any) => {
-          collection.refresh();
-          // Importante: Pasa la respuesta (datos nuevos) al notificar éxito.
-          this.notifySuccess(response);
+          this.notifySuccess(response || row);
         },
         error: (model: any, xhr: any) => {
-          console.log("Error updating item: ", xhr);
+          // A veces Backbone interpreta un 200 sin cuerpo como error de parseo.
+          // Si el status es 200 (OK) o 204 (No Content), es un éxito real.
+          if (xhr.status >= 200 && xhr.status < 300) {
+            collection.refresh();
+            this.notifySuccess(row);
+          } else {
+            console.log("Error updating item: ", xhr);
+          }
         },
       });
       this.close();
