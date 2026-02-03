@@ -31,7 +31,9 @@
     "declaration": true,
     "noEmitOnError": true,
     "experimentalDecorators": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "resolveJsonModule": false,
+    "esModuleInterop": false
   },
   "include": ["./src/ts/**/*"]
 }

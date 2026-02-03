@@ -1,3 +1,11 @@
+/**
+ * @license
+ * Copyright (c) 2014, 2024, Oracle and/or its affiliates.
+ * Licensed under The Universal Permissive License (UPL), Version 1.0
+ * as shown at https://oss.oracle.com/licenses/upl/
+ * @ignore
+ */
+
 "use strict";
 
 // --- Importaciones ---
@@ -8,26 +16,11 @@ import * as Composite from "ojs/ojcomposite";
 import "ojs/ojdialog";
 import { ojDialog } from "ojs/ojdialog";
 import * as model from "ojs/ojmodel";
-import { Collection, Model } from "ojs/ojmodel";
 import Context = require("ojs/ojcontext");
-import CollectionDataProvider = require("ojs/ojcollectiondataprovider");
 
-// --- Definición de Tipos ---
-// Estructura de un Item tal como viene de la base de datos/API.
-type Item = {
-  id: number;
-  name: string;
-  short_desc: string;
-  price: number;
-  quantity: number;
-  quantity_shipped: number;
-  quantity_instock: number;
-  activity_id: number;
-  image: string;
-  value?: string;
-};
+// --- Interfaces ---
 
-// Propiedades que este componente recibe desde su padre.
+// Propiedades que este componente recibe desde su padre (Dashboard).
 interface ItemDialogProperties {
   item: {
     id: number | null;
@@ -38,12 +31,14 @@ interface ItemDialogProperties {
     quantity_shipped: number | null;
     itemImage: string | null;
   };
-  mode: string;
-  activityKey: number;
-  restUrl: string;
+  mode: string;        // Modo de operación: 'create', 'edit', 'delete', 'view'
+  activityKey: number; // ID de la actividad padre
+  restUrl: string;     // URL base del servicio REST
 }
 
 // --- Definición del Modelo de Datos (Common Model) ---
+
+// Configuración del modelo base para los Items, definiendo el atributo ID.
 const ItemModel = model.Model.extend({
   idAttribute: "id",
 });
@@ -53,58 +48,14 @@ const ItemCollection = model.Collection.extend({
   model: ItemModel,
 });
 
+// --- ViewModel Principal ---
 export default class ViewModel
   implements Composite.ViewModel<ItemDialogProperties>
 {
+  // Control del contexto de ocupado (BusyContext) para la carga asíncrona.
   busyResolve: () => void;
   composite: Element;
   properties: Composite.PropertiesType;
-  identifier: string = "";
-  private activitiesURL =
-    "https://apex.oracle.com/pls/apex/oraclejet/lp/activities/";
-
-  // Observables para almacenar las colecciones de datos.
-  private activityItemsColl: ko.Observable = ko.observable();
-  private itemsColl: ko.Observable = ko.observable();
-
-  // DataProviders: Intermediarios que conectan los datos (Collection) con la UI (listas, tablas).
-  private dataSourceActivity: ko.Observable = ko.observable();
-  private dataSourceItem: ko.Observable = ko.observable();
-
-  // Función para transformar datos antes de guardarlos (en este caso, los pasa tal cual).
-  private parseSaveItem = (response: Item) => {
-    return {
-      ...response,
-    };
-  };
-  itemsDataProvider: CollectionDataProvider<any, any>;
-
-  // Función para procesar los datos recibidos del servidor antes de usarlos.
-  private parseItem = (response: {
-    id: number;
-    name: string;
-    short_desc: string;
-    price: number;
-    quantity: number;
-    quantity_shipped: number;
-    quantity_instock: number;
-    activity_id: number;
-    image: string;
-    value?: string;
-  }): Item => {
-    return {
-      ...response,
-    };
-  };
-
-  // Definición local de una colección específica para Actividades.
-  private ActivityItemCollection = Collection.extend({
-    url: this.activitiesURL,
-    comparator: "id",
-  });
-
-  // Instancia de la colección de items.
-  private itemCollection = new ItemCollection();
 
   // Variables para la UI del diálogo.
   dialogTitle: ko.Computed<string>;
@@ -113,6 +64,7 @@ export default class ViewModel
 
   constructor(context: Composite.ViewModelContext<Composite.PropertiesType>) {
     // 1. Configuración del contexto de espera (BusyContext).
+    // Esto previene que la UI interactúe antes de que el componente esté listo.
     const elementContext: Context = Context.getContext(context.element);
     const busyContext: Context.BusyContext = elementContext.getBusyContext();
     const options = { description: "Web Component Startup - Waiting for data" };
@@ -121,42 +73,15 @@ export default class ViewModel
     this.composite = context.element;
     this.properties = context.properties;
 
+    // Resolvemos el estado de espera inmediatamente ya que no hay carga inicial de datos.
     this.busyResolve();
 
-    // 2. Inicialización de un formulario vacío por defecto.
-    this.properties.itemForm = {
-      id: 0,
-      name: "",
-      short_desc: "",
-      price: 0,
-      quantity: 0,
-      quantity_shipped: 0,
-      quantity_instock: 0,
-      activity_id: null,
-      image: "",
-    };
-
-    // 3. Configuración dinámica de la URL de la colección basada en propiedades recibidas.
-    this.itemCollection[
-      "url"
-    ] = `https://apex.oracle.com/pls/apex/oraclejet/lp/activities/${this.properties.idactividad}/items/`;
-
-    // 4. Creación de DataProviders para enlazar con la UI.
-    this.itemsDataProvider = new CollectionDataProvider(this.itemCollection);
-    this.activityItemsColl(new this.ActivityItemCollection());
-    this.itemsColl(this.createCollection());
-    this.dataSourceActivity(
-      new CollectionDataProvider(this.activityItemsColl())
-    );
-    this.dataSourceItem(new CollectionDataProvider(this.itemsColl()));
-
-    this.composite = context.element;
-    this.itemsColl(this.createCollection());
-
-    // 5. Generación de un ID único para el diálogo (esencial si hay múltiples instancias del componente).
+    // 2. Generación de un ID único para el diálogo.
+    // Usamos context.unique para evitar conflictos si hay múltiples instancias.
     this.dialogId = context.unique + "_actionDialog";
 
-    // 6. Título dinámico del diálogo basado en el 'mode' (Crear, Editar, Borrar, Ver)
+    // 3. Título dinámico del diálogo.
+    // Calcula el título de la ventana basándose en el modo de operación actual.
     this.dialogTitle = ko.computed<string>(() => {
       switch (this.properties.mode) {
         case "create":
@@ -173,47 +98,22 @@ export default class ViewModel
     });
   }
 
-  // --- Ciclo de Vida (Hooks) ---
-  connected(context: Composite.ViewModelContext<ItemDialogProperties>): void {}
-  disconnected(element: Element): void {}
-  propertyChanged(
-    context: Composite.PropertyChangedContext<ItemDialogProperties>
-  ): void {}
-
   // --- Métodos Auxiliares ---
 
-  // Crea y configura una nueva instancia de Collection apuntando a la URL correcta.
-  public createCollection = () => {
-    let itemURL =
-      "https://apex.oracle.com/pls/apex/oraclejet/lp/activities/" +
-      this.properties.activityKey +
-      "/items";
-    let myItemCollection = Collection.extend({
-      url: itemURL,
-      model: Model.extend({
-        urlRoot: itemURL,
-        parse: this.parseItem,
-        parseSave: this.parseSaveItem,
-        idAttribute: "id",
-      }),
-      comparator: "id",
-    });
-    return new myItemCollection();
-  };
-
-  // Método para abrir el diálogo buscando el elemento por su ID único.
+  // Método para abrir el diálogo buscando el elemento en el DOM por su ID único.
   public open = () => {
     const dialog = document.getElementById(this.dialogId) as ojDialog;
     if (dialog) dialog.open();
   };
 
-  // Método para cerrar el diálogo.
+  // Método para cerrar el diálogo programáticamente.
   public close = () => {
     const dialog = document.getElementById(this.dialogId) as ojDialog;
     if (dialog) dialog.close();
   };
 
-  // Helper privado para obtener una colección base configurada con la URL REST.
+  // Helper privado para obtener una nueva instancia de la Colección.
+  // Construye la URL dinámicamente usando la Actividad seleccionada.
   private getCollection() {
     const collection = new ItemCollection();
     collection.url = `${this.properties.restUrl}${this.properties.activityKey}/items/`;
@@ -225,14 +125,15 @@ export default class ViewModel
   // 1. CREAR ITEM (POST)
   public createItem = async () => {
     const currentData = this.properties.item;
-    // Validación básica: campos requeridos y longitud mínima.
+
+    // Validación básica: asegura campos requeridos y longitud mínima de descripción.
     if (
       !currentData.itemDesc ||
       currentData.itemDesc.length < 5 ||
       !currentData.itemName ||
       currentData.itemPrice === null
     ) {
-      return;
+      return; // Detiene la ejecución si la validación falla.
     }
 
     // Calcula la cantidad total (stock + enviados).
@@ -240,7 +141,7 @@ export default class ViewModel
       Number(currentData.quantity_instock || 0) +
       Number(currentData.quantity_shipped || 0);
 
-    // Prepara el objeto de datos para enviar al servidor.
+    // Prepara el objeto de datos (payload) para enviar al servidor.
     const row = {
       name: currentData.itemName,
       short_desc: currentData.itemDesc,
@@ -254,26 +155,27 @@ export default class ViewModel
 
     const collection = this.getCollection();
 
-    // Llama a .create() del Common Model (hace un POST).
+    // Llama a .create() del Common Model (realiza petición POST).
     collection.create(row, {
-      wait: true,
+      wait: true, // Espera respuesta del servidor antes de confirmar localmente.
       contentType: "application/json; charset=UTF-8",
       success: (model: any, response: any) => {
+        // Éxito: Notifica al padre y cierra el diálogo.
         this.notifySuccess();
-        this.close();
       },
       error: (model: any, xhr: any) => {
+        // Error: Loguea el fallo y cierra el diálogo.
         console.error("Error creating item: ", xhr);
-        this.close();
       },
     });
+    this.close();
   };
 
   // 2. ACTUALIZAR ITEM (PUT)
   public updateItem = async () => {
     const currentRow = this.properties.item;
     if (currentRow != null) {
-      // Prepara datos actualizados.
+      // Prepara datos actualizados para el payload.
       const row = {
         itemId: currentRow.id,
         name: currentRow.itemName,
@@ -281,24 +183,27 @@ export default class ViewModel
         price: currentRow.itemPrice,
         activity_id: this.properties.activityKey,
       };
+      
       const collection = this.getCollection();
-      // Crea un modelo temporal con el ID existente.
+      
+      // Crea un modelo temporal con el ID existente para apuntar al recurso correcto.
       const model = new ItemModel({ id: currentRow.id });
       model.urlRoot = collection.url;
-      // Llama a .save() (hace un PUT porque el modelo tiene ID).
+      
+      // Llama a .save() (realiza petición PUT al tener ID).
       model.save(row, {
         wait: true,
         method: "PUT",
         success: (model: any, response: any) => {
           collection.refresh();
+          // Importante: Pasa la respuesta (datos nuevos) al notificar éxito.
           this.notifySuccess(response);
-          this.close();
         },
         error: (model: any, xhr: any) => {
           console.log("Error updating item: ", xhr);
-          this.close();
         },
       });
+      this.close();
     }
   };
 
@@ -306,33 +211,46 @@ export default class ViewModel
   public deleteItem = async () => {
     const currentData = this.properties.item;
     if (currentData.id === null) return;
+    
     const collection = this.getCollection();
     const model = new ItemModel({ id: currentData.id });
     model.urlRoot = collection.url;
 
-    // Llama a .destroy() (hace un DELETE).
+    // Llama a .destroy() (realiza petición DELETE).
     model.destroy({
       wait: true,
       data: null,
       success: (model: any, response: any) => {
         this.notifySuccess();
-        this.close();
       },
       error: (model: any, xhr: any) => {
         console.log("Error deleting item: ", xhr);
-        this.close();
       },
     });
+    this.close();
   };
 
+  // --- Notificación de Eventos ---
+
   // Notifica al componente padre que la acción ha terminado exitosamente.
+  // Recibe opcionalmente 'data' con la respuesta del servidor (útil en updates).
   private notifySuccess(data?: any) {
     this.composite.dispatchEvent(
-      // Dispara un evento personalizado 'actionComplete' que sube (bubbles) por el DOM.
+      // Dispara un evento personalizado 'actionComplete'.
+      // 'bubbles: true' permite que el evento suba por el DOM hasta el Dashboard.
       new CustomEvent("actionComplete", {
         bubbles: true,
         detail: { action: this.properties.mode, data: data },
       })
     );
   }
+    
+  // --- Ciclo de Vida (Hooks) ---
+
+  // Métodos estándar del ciclo de vida de componentes JET.
+  connected(context: Composite.ViewModelContext<ItemDialogProperties>): void {}
+  disconnected(element: Element): void {}
+  propertyChanged(
+    context: Composite.PropertyChangedContext<ItemDialogProperties>
+  ): void {}
 }
