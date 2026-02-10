@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dgm:gDiagram xmlns:dgm="http://xmlns.oracle.com/sca/soadgm">
+    <dgm:gService name="orderprocessing_client_ep">
+        <dgm:body borderWidth="2" arcRad="20" X="21" Y="74" width="137" height="96">
+            <dgm:borderColor r="153" g="153" b="153"/>
+            <dgm:bgColor r="255" g="255" b="255"/>
+        </dgm:body>
+        <dgm:shadow arcRad="20" X="11" Y="67" width="156" height="110">
+            <dgm:bgColor r="196" g="228" b="240"/>
+        </dgm:shadow>
+        <dgm:outputPort name="orderprocessing_client_ep" X="127" Y="0" diameter="20" imageURI="oracle/tip/tools/ide/fabric/resource/image/visuals_rd1/servicereference.png" interface="http://xmlns.oracle.com/BPELProjects/OrderProcessing/OrderProcessing#wsdl.interface(OrderProcessing)" callbackInterface="http://xmlns.oracle.com/BPELProjects/OrderProcessing/OrderProcessing#wsdl.interface(OrderProcessingCallback)"/>
+        <dgm:nodeIcon URI="/oracle/tip/tools/ide/adapters/designtime/adapter/images/soap_service_20x20.png" X="20" Y="4" width="20" height="20"/>
+        <dgm:operations>
+            <dgm:item>process</dgm:item>
+            <dgm:item>processResponse</dgm:item>
+        </dgm:operations>
+    </dgm:gService>
+    <dgm:gReference name="ApprovalService">
+        <dgm:body borderWidth="2" arcRad="20" X="706" Y="103" width="136" height="96">
+            <dgm:borderColor r="153" g="153" b="153"/>
+            <dgm:bgColor r="255" g="255" b="255"/>
+        </dgm:body>
+        <dgm:shadow arcRad="20" X="696" Y="96" width="156" height="110">
+            <dgm:bgColor r="196" g="228" b="240"/>
+        </dgm:shadow>
+        <dgm:inputPort name="ApprovalService" X="-10" Y="0" diameter="20" imageURI="oracle/tip/tools/ide/fabric/resource/image/visuals_rd1/servicereference.png" interface="http://xmlns.oracle.com/BPELProjects/Approval/Approval#wsdl.interface(Approval)" callbackInterface="http://xmlns.oracle.com/BPELProjects/Approval/Approval#wsdl.interface(ApprovalCallback)"/>
+        <dgm:nodeIcon URI="/oracle/tip/tools/ide/adapters/designtime/adapter/images/soap_service_20x20.png" X="27" Y="4" width="20" height="20"/>
+        <dgm:operations>
+            <dgm:item>process</dgm:item>
+            <dgm:item>processResponse</dgm:item>
+        </dgm:operations>
+    </dgm:gReference>
+    <dgm:gComponent name="ApprovalRules">
+        <dgm:body borderWidth="2" arcRad="20" X="442" Y="26" width="130" height="61">
+            <dgm:borderColor r="178" g="138" b="53"/>
+            <dgm:lightBgColor r="255" g="226" b="142"/>
+            <dgm:darkBgColor r="255" g="198" b="77"/>
+        </dgm:body>
+        <dgm:shadow arcRad="20" X="432" Y="19" width="150" height="77">
+            <dgm:bgColor r="196" g="228" b="240"/>
+        </dgm:shadow>
+        <dgm:inputPort name="ApprovalRulesService" X="-10" Y="15" diameter="20" imageURI="oracle/tip/tools/ide/fabric/resource/image/visuals_rd1/servicereference.png" interface="http://xmlns.oracle.com/ApprovalRules/ApprovalRulesService#wsdl.interface(IDecisionService)"/>
+        <dgm:nodeIcon URI="/oracle/tip/tools/ide/rules/plugins/resources/images/soa/decision_20x20.png" X="10" Y="4" width="20" height="20"/>
+    </dgm:gComponent>
+    <dgm:gComponent name="OrderProcessing">
+        <dgm:body borderWidth="2" arcRad="20" X="235" Y="59" width="130" height="111">
+            <dgm:borderColor r="69" g="113" b="140"/>
+            <dgm:lightBgColor r="166" g="208" b="230"/>
+            <dgm:darkBgColor r="99" g="162" b="201"/>
+        </dgm:body>
+        <dgm:shadow arcRad="20" X="225" Y="52" width="150" height="127">
+            <dgm:bgColor r="196" g="228" b="240"/>
+        </dgm:shadow>
+        <dgm:inputPort name="orderprocessing_client" X="-10" Y="15" diameter="20" imageURI="oracle/tip/tools/ide/fabric/resource/image/visuals_rd1/servicereference.png" interface="http://xmlns.oracle.com/BPELProjects/OrderProcessing/OrderProcessing#wsdl.interface(OrderProcessing)" callbackInterface="http://xmlns.oracle.com/BPELProjects/OrderProcessing/OrderProcessing#wsdl.interface(OrderProcessingCallback)"/>
+        <dgm:outputPort name="ApprovalRules.ApprovalRulesService" X="120" Y="15" diameter="20" imageURI="oracle/tip/tools/ide/fabric/resource/image/visuals_rd1/servicereference.png" interface="http://xmlns.oracle.com/ApprovalRules/ApprovalRulesService#wsdl.interface(IDecisionService)"/>
+        <dgm:outputPort name="ApprovalService" X="120" Y="40" diameter="20" imageURI="oracle/tip/tools/ide/fabric/resource/image/visuals_rd1/servicereference.png" interface="http://xmlns.oracle.com/BPELProjects/Approval/Approval#wsdl.interface(Approval)" callbackInterface="http://xmlns.oracle.com/BPELProjects/Approval/Approval#wsdl.interface(ApprovalCallback)"/>
+        <dgm:outputPort name="ShippingRules.ShippingRulesService" X="120" Y="65" diameter="20" imageURI="oracle/tip/tools/ide/fabric/resource/image/visuals_rd1/servicereference.png" interface="http://xmlns.oracle.com/ShippingRules/ShippingRulesService#wsdl.interface(IDecisionService)"/>
+        <dgm:nodeIcon URI="/oracle/tip/tools/ide/bpel/shared/plugins/resources/images/soa/process_20x20.png" X="10" Y="4" width="20" height="20"/>
+    </dgm:gComponent>
+    <dgm:gComponent name="ShippingRules">
+        <dgm:body borderWidth="2" arcRad="20" X="442" Y="143" width="130" height="61">
+            <dgm:borderColor r="178" g="138" b="53"/>
+            <dgm:lightBgColor r="255" g="226" b="142"/>
+            <dgm:darkBgColor r="255" g="198" b="77"/>
+        </dgm:body>
+        <dgm:shadow arcRad="20" X="432" Y="136" width="150" height="77">
+            <dgm:bgColor r="196" g="228" b="240"/>
+        </dgm:shadow>
+        <dgm:inputPort name="ShippingRulesService" X="-10" Y="15" diameter="20" imageURI="oracle/tip/tools/ide/fabric/resource/image/visuals_rd1/servicereference.png" interface="http://xmlns.oracle.com/ShippingRules/ShippingRulesService#wsdl.interface(IDecisionService)"/>
+        <dgm:nodeIcon URI="/oracle/tip/tools/ide/rules/plugins/resources/images/soa/decision_20x20.png" X="10" Y="4" width="20" height="20"/>
+    </dgm:gComponent>
+    <dgm:gWireLink source="orderprocessing_client_ep" target="OrderProcessing/orderprocessing_client" width="2">
+        <dgm:gSegment X1="168" Y1="84" X2="225" Y2="84"/>
+        <dgm:baseColor r="153" g="153" b="153"/>
+        <dgm:selectedColor r="49" g="106" b="196"/>
+    </dgm:gWireLink>
+    <dgm:gWireLink source="OrderProcessing/ApprovalRules.ApprovalRulesService" target="ApprovalRules/ApprovalRulesService" width="2">
+        <dgm:gSegment X1="375" Y1="84" X2="399" Y2="84"/>
+        <dgm:gSegment X1="399" Y1="84" X2="399" Y2="51"/>
+        <dgm:gSegment X1="399" Y1="51" X2="432" Y2="51"/>
+        <dgm:baseColor r="153" g="153" b="153"/>
+        <dgm:selectedColor r="49" g="106" b="196"/>
+    </dgm:gWireLink>
+    <dgm:gWireLink source="OrderProcessing/ApprovalService" target="ApprovalService" width="2">
+        <dgm:gSegment X1="375" Y1="109" X2="399" Y2="109"/>
+        <dgm:gSegment X1="399" Y1="109" X2="399" Y2="113"/>
+        <dgm:gSegment X1="399" Y1="113" X2="696" Y2="113"/>
+        <dgm:baseColor r="153" g="153" b="153"/>
+        <dgm:selectedColor r="49" g="106" b="196"/>
+    </dgm:gWireLink>
+    <dgm:gWireLink source="OrderProcessing/ShippingRules.ShippingRulesService" target="ShippingRules/ShippingRulesService" width="2">
+        <dgm:gSegment X1="375" Y1="134" X2="399" Y2="134"/>
+        <dgm:gSegment X1="399" Y1="134" X2="399" Y2="168"/>
+        <dgm:gSegment X1="399" Y1="168" X2="432" Y2="168"/>
+        <dgm:baseColor r="153" g="153" b="153"/>
+        <dgm:selectedColor r="49" g="106" b="196"/>
+    </dgm:gWireLink>
+</dgm:gDiagram>

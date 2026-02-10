@@ -1,0 +1,7 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<definitions xmlns="http://schemas.oracle.com/events/edl" targetNamespace="http://xmlns.oracle.com/BPELProjects/UpdateStock/manageStock">
+   <schema-import location="../Schemas/updateStock.xsd" namespace="http://www.example.org/ns/updtstock"/>
+   <event-definition name="stockUpdate">
+      <content xmlns:ns1="http://www.example.org/ns/updtstock" element="ns1:UpdateStock"/>
+   </event-definition>
+</definitions>

@@ -1,0 +1,14 @@
+<adapter-config name="GetWaitingOrders" adapter="db" wsdlLocation="../WSDLs/GetWaitingOrders.wsdl" xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata">
+  
+  <connection-factory UIConnectionName="SOA" location="eis/DB/SOA"/>
+  <endpoint-interaction portType="GetWaitingOrders_ptt" operation="GetWaitingOrdersSelect">
+    <interaction-spec className="oracle.tip.adapter.db.DBReadInteractionSpec">
+      <property name="DescriptorName" value="GetWaitingOrders.BcaOrders"/>
+      <property name="QueryName" value="GetWaitingOrdersSelect"/>
+      <property name="MappingsMetaDataURL" value="GetWaitingOrders-or-mappings.xml"/>
+      <property name="ReturnSingleResultSet" value="true"/>
+      <property name="GetActiveUnitOfWork" value="false"/>
+    </interaction-spec>
+  </endpoint-interaction>
+
+</adapter-config>

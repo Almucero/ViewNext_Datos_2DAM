@@ -1,0 +1,28 @@
+<wsdl:definitions
+     name="UpdateStatus"
+     targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/BPELProjects/OrderFlow/UpdateStatus"
+     xmlns:tns="http://xmlns.oracle.com/pcbpel/adapter/db/BPELProjects/OrderFlow/UpdateStatus"
+     xmlns:jca="http://xmlns.oracle.com/pcbpel/wsdl/jca/"
+     xmlns:plt="http://schemas.xmlsoap.org/ws/2003/05/partner-link/"
+     xmlns:top="http://xmlns.oracle.com/pcbpel/adapter/db/top/UpdateStatus"
+     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    >
+  <plt:partnerLinkType name="UpdateStatus_plt" >
+    <plt:role name="UpdateStatus_role" >
+      <plt:portType name="tns:UpdateStatus_ptt" />
+    </plt:role>
+  </plt:partnerLinkType>
+    <wsdl:types>
+      <schema xmlns="http://www.w3.org/2001/XMLSchema" >
+        <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/UpdateStatus" schemaLocation="../Schemas/UpdateStatus_table.xsd" />
+      </schema>
+    </wsdl:types>
+    <wsdl:message name="BcaOrdersCollection_msg">
+        <wsdl:part name="BcaOrdersCollection" element="top:BcaOrdersCollection"/>
+    </wsdl:message>
+    <wsdl:portType name="UpdateStatus_ptt">
+        <wsdl:operation name="update">
+            <wsdl:input message="tns:BcaOrdersCollection_msg"/>
+        </wsdl:operation>
+    </wsdl:portType>
+</wsdl:definitions>

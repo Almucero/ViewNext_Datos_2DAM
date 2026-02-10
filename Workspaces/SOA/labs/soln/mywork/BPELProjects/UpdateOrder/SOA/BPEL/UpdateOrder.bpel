@@ -1,0 +1,142 @@
+<?xml version = "1.0" encoding = "UTF-8" ?>
+<!--
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  Oracle JDeveloper BPEL Designer 
+  
+  Created: Mon Jul 14 13:10:10 UTC 2014
+  Author:  oracle
+  Type: BPEL 2.0 Process
+  Purpose: One Way BPEL Process
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+-->
+<process name="UpdateOrder"
+               targetNamespace="http://xmlns.oracle.com/BPELProjects/UpdateOrder/UpdateOrder"
+               xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+               xmlns:client="http://xmlns.oracle.com/BPELProjects/UpdateOrder/UpdateOrder"
+               xmlns:ora="http://schemas.oracle.com/xpath/extension"
+               xmlns:ui="http://xmlns.oracle.com/soa/designer"
+               xmlns:bpel="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+         xmlns:ns1="http://xmlns.oracle.com/pcbpel/adapter/db/BPELProjects/UpdateOrder/GetWaitingOrders"
+         xmlns:ns2="http://xmlns.oracle.com/pcbpel/adapter/db/BPELProjects/UpdateOrder/UpdateOrderStatus"
+         xmlns:bpelx="http://schemas.oracle.com/bpel/extension"
+         xmlns:ns4="http://xmlns.oracle.com/pcbpel/adapter/db/top/GetWaitingOrders"
+         xmlns:ns3="http://www.example.org/ns/updtstock" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+         xmlns:xp20="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.Xpath20"
+         xmlns:bpws="http://schemas.xmlsoap.org/ws/2003/03/business-process/"
+         xmlns:oraext="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.ExtFunc"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:dvm="http://www.oracle.com/XSL/Transform/java/oracle.tip.dvm.LookupValue"
+         xmlns:hwf="http://xmlns.oracle.com/bpel/workflow/xpath"
+         xmlns:ids="http://xmlns.oracle.com/bpel/services/IdentityService/xpath"
+         xmlns:bpm="http://xmlns.oracle.com/bpmn20/extensions" xmlns:ess="http://xmlns.oracle.com/scheduler"
+         xmlns:xdk="http://schemas.oracle.com/bpel/extension/xpath/function/xdk"
+         xmlns:xref="http://www.oracle.com/XSL/Transform/java/oracle.tip.xref.xpath.XRefXPathFunctions"
+         xmlns:ldap="http://schemas.oracle.com/xpath/extension/ldap"
+         xmlns:ns5="http://xmlns.oracle.com/pcbpel/adapter/db/top/UpdateOrderStatus">
+
+  <import ui:processWSDL="true" namespace="http://xmlns.oracle.com/BPELProjects/UpdateOrder/UpdateOrder" location="../WSDLs/UpdateOrder.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      PARTNERLINKS                                                      
+      List of services participating in this BPEL process               
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  --> 
+  <partnerLinks>
+    <!-- 
+      The 'client' role represents the requester of this service. It is 
+      used for callback. The location and correlation information associated
+      with the client role are automatically set using WS-Addressing.
+    -->
+    <partnerLink name="updateorder_client" partnerLinkType="client:UpdateOrder" myRole="UpdateOrderProvider"/>
+    <partnerLink name="GetWaitingOrders" partnerLinkType="ns1:GetWaitingOrders_plt"
+                 partnerRole="GetWaitingOrders_role"/>
+    <partnerLink name="UpdateOrderStatus" partnerLinkType="ns2:UpdateOrderStatus_plt"
+                 partnerRole="UpdateOrderStatus_role"/>
+  </partnerLinks>
+
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      VARIABLES                                                        
+      List of messages and XML documents used within this BPEL process 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+  <variables>
+    <!-- Reference to the message passed as input during initiation -->
+    <variable name="inputVariable" messageType="client:UpdateOrderRequestMessage"/>
+    <variable name="Invoke_GetWaitingOrders_GetWaitingOrdersSelect_InputVariable"
+              messageType="ns1:GetWaitingOrdersSelect_inputParameters"/>
+    <variable name="Invoke_GetWaitingOrders_GetWaitingOrdersSelect_OutputVariable"
+              messageType="ns1:BcaOrdersCollection_msg"/>
+    <variable name="numOrders" type="xsd:int"/>
+    <variable name="Available" type="xsd:int"/>
+  </variables>
+
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+     ORCHESTRATION LOGIC                                               
+     Set of activities coordinating the flow of messages across the    
+     services integrated within this business process                  
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+  <sequence name="main">
+
+    <!-- Receive input from requestor. (Note: This maps to operation defined in UpdateOrder.wsdl) -->
+    <receive name="receiveInput" partnerLink="updateorder_client" portType="client:UpdateOrder" operation="process" variable="inputVariable" createInstance="yes"/>
+    <assign name="Assign_GetWaitingOrders">
+      <copy>
+        <from>$inputVariable.payload/ns3:productId</from>
+        <to>$Invoke_GetWaitingOrders_GetWaitingOrdersSelect_InputVariable.GetWaitingOrdersSelect_inputParameters/ns4:itemNum</to>
+      </copy>
+    </assign>
+    <invoke name="Invoke_GetWaitingOrders" bpelx:invokeAsDetail="no" partnerLink="GetWaitingOrders"
+            portType="ns1:GetWaitingOrders_ptt" operation="GetWaitingOrdersSelect"
+            inputVariable="Invoke_GetWaitingOrders_GetWaitingOrdersSelect_InputVariable"
+            outputVariable="Invoke_GetWaitingOrders_GetWaitingOrdersSelect_OutputVariable"/>
+    <assign name="Assign_Variables">
+      <copy>
+        <from>$inputVariable.payload/ns3:quantity</from>
+        <to>$Available</to>
+      </copy>
+      <copy>
+        <from>count($Invoke_GetWaitingOrders_GetWaitingOrdersSelect_OutputVariable.BcaOrdersCollection/ns4:BcaOrders)</from>
+        <to>$numOrders</to>
+      </copy>
+    </assign>
+    <forEach parallel="no" counterName="Order_Counter" name="ForEach_Order">
+      <startCounterValue>1</startCounterValue>
+      <finalCounterValue>$numOrders</finalCounterValue>
+      <scope name="Scope1">
+        <variables>
+          <variable name="Invoke_UpdateOrderStatus_update_InputVariable" messageType="ns2:BcaOrdersCollection_msg"/>
+        </variables>
+        <if name="If1">
+          <condition>$Available &gt;= $Invoke_GetWaitingOrders_GetWaitingOrdersSelect_OutputVariable.BcaOrdersCollection/ns4:BcaOrders[position()]/ns4:bcaItemsCollection/ns4:BcaItems/ns4:quantity</condition>
+          <sequence name="Sequence1">
+            <assign name="Assign_UpdateOrders">
+              <copy>
+                <from>'active'</from>
+                <to>$Invoke_UpdateOrderStatus_update_InputVariable.BcaOrdersCollection/ns5:BcaOrders[position()]/ns5:status</to>
+              </copy>
+              <copy>
+                <from>$Invoke_GetWaitingOrders_GetWaitingOrdersSelect_OutputVariable.BcaOrdersCollection/ns4:BcaOrders[position()=$Order_Counter]/ns4:ordId</from>
+                <to>$Invoke_UpdateOrderStatus_update_InputVariable.BcaOrdersCollection/ns5:BcaOrders/ns5:ordId</to>
+              </copy>
+            </assign>
+            <invoke name="Invoke_UpdateOrderStatus" bpelx:invokeAsDetail="no" partnerLink="UpdateOrderStatus"
+                    portType="ns2:UpdateOrderStatus_ptt" operation="update"
+                    inputVariable="Invoke_UpdateOrderStatus_update_InputVariable"/>
+            <assign name="Assign_Available">
+              <copy>
+                <from>$Available - $Invoke_GetWaitingOrders_GetWaitingOrdersSelect_OutputVariable.BcaOrdersCollection/ns4:BcaOrders[position()]/ns4:bcaItemsCollection/ns4:BcaItems/ns4:quantity</from>
+                <to>$Available</to>
+              </copy>
+            </assign>
+          </sequence>
+          <else>
+            <empty name="Do_Nothing"/>
+          </else>
+        </if>
+      </scope>
+    </forEach>
+  </sequence>
+</process>

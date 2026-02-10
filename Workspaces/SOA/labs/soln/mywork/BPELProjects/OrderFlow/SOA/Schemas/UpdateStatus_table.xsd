@@ -1,0 +1,20 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<xs:schema targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/UpdateStatus" xmlns="http://xmlns.oracle.com/pcbpel/adapter/db/top/UpdateStatus" elementFormDefault="qualified" attributeFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+   <xs:element name="BcaOrdersCollection" type="BcaOrdersCollection"/>
+   <xs:complexType name="BcaOrdersCollection">
+      <xs:sequence>
+         <xs:element name="BcaOrders" type="BcaOrders" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="BcaOrders">
+      <xs:sequence>
+         <xs:element name="ordId" type="xs:int"/>
+         <xs:element name="status" type="string20" minOccurs="0" nillable="true"/>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:simpleType name="string20">
+      <xs:restriction base="xs:string">
+         <xs:maxLength value="20"/>
+      </xs:restriction>
+   </xs:simpleType>
+</xs:schema>

@@ -1,0 +1,26 @@
+Modified Composite [ HelloWorld ]
+  Composite properties
+	Property [ productVersion ]
+		No change in old and new value 12.1.3.0.0 
+	Property [ compositeID ]
+		No change in old and new value be62260b-2f5c-479d-b4c5-23f7903df7a5 
+	Service
+	  Service  [ ReceiveData ]
+	    Service Bindings
+	  	Binding  [ ws ]
+	    Property [ weblogic.wsee.wsat.transaction.flowOption ]
+		No change in old and new value NEVER 
+	Attribute name=port
+		No change in old and new value http://oracle.com/sca/soapservice/Basics/HelloWorld/ReceiveData#wsdl.endpoint(ReceiveData/execute_pt) 
+	  Service  [ RouteData ]
+	Reference
+	  Reference  [ WriteData ]
+	    Reference Bindings
+	  Reference  [ WriteData ]
+	    Property [ orderfiles ]
+		Old [ /home/oracle/labs/output/newfiles ] 
+		New [ /home/oracle/labs/output/podata ] 
+	    Reference Bindings
+	  	Binding  [ jca ]
+---End Match for composite [ HelloWorld ] in config plan---
+Checking for replacement in wsdl and schema files

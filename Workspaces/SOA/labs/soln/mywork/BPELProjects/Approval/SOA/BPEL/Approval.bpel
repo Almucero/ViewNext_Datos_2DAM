@@ -1,0 +1,248 @@
+<?xml version = "1.0" encoding = "UTF-8" ?>
+<!--
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  Oracle JDeveloper BPEL Designer 
+  
+  Created: Mon Sep 29 09:43:52 UTC 2014
+  Author:  oracle
+  Type: BPEL 2.0 Process
+  Purpose: Asynchronous BPEL Process
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+-->
+<process name="Approval"
+         targetNamespace="http://xmlns.oracle.com/BPELProjects/Approval/Approval"
+         xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+         xmlns:client="http://xmlns.oracle.com/BPELProjects/Approval/Approval"
+         xmlns:ora="http://schemas.oracle.com/xpath/extension"
+         xmlns:ui="http://xmlns.oracle.com/soa/designer"
+         xmlns:bpelx="http://schemas.oracle.com/bpel/extension"
+         xmlns:bpel="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+         xmlns:ns1="http://www.example.org/ns/intorder" xmlns:task="http://xmlns.oracle.com/bpel/workflow/task"
+         xmlns:taskservice="http://xmlns.oracle.com/bpel/workflow/taskService"
+         xmlns:wfcommon="http://xmlns.oracle.com/bpel/workflow/common"
+         xmlns:ns2="http://xmlns.oracle.com/bpel/workflow/TaskEvidenceService"
+         xmlns:wf="http://schemas.oracle.com/bpel/extensions/workflow"
+         xmlns:xp20="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.Xpath20"
+         xmlns:bpws="http://schemas.xmlsoap.org/ws/2003/03/business-process/"
+         xmlns:oraext="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.ExtFunc"
+         xmlns:dvm="http://www.oracle.com/XSL/Transform/java/oracle.tip.dvm.LookupValue"
+         xmlns:hwf="http://xmlns.oracle.com/bpel/workflow/xpath"
+         xmlns:ids="http://xmlns.oracle.com/bpel/services/IdentityService/xpath"
+         xmlns:bpm="http://xmlns.oracle.com/bpmn20/extensions" xmlns:ess="http://xmlns.oracle.com/scheduler"
+         xmlns:xdk="http://schemas.oracle.com/bpel/extension/xpath/function/xdk"
+         xmlns:xref="http://www.oracle.com/XSL/Transform/java/oracle.tip.xref.xpath.XRefXPathFunctions"
+         xmlns:ldap="http://schemas.oracle.com/xpath/extension/ldap"
+         xmlns:ns3="http://xmlns.oracle.com/pcbpel/adapter/db/BPELProjects/Approval/CustomerLookup"
+         xmlns:ns4="http://xmlns.oracle.com/pcbpel/adapter/db/top/CustomerLookup"
+         xmlns:ns5="http://xmlns.oracle.com/ias/pcbpel/NotificationService">
+
+    <import ui:processWSDL="true" namespace="http://xmlns.oracle.com/BPELProjects/Approval/Approval" location="../WSDLs/Approval.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <!-- 
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        PARTNERLINKS                                                      
+        List of services participating in this BPEL process               
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    --> 
+    <partnerLinks>
+        <!-- 
+      The 'client' role represents the requester of this service. It is 
+      used for callback. The location and correlation information associated
+      with the client role are automatically set using WS-Addressing.
+    -->
+        <partnerLink name="approval_client" partnerLinkType="client:Approval" myRole="ApprovalProvider" partnerRole="ApprovalRequester"/>
+        <partnerLink name="ManualApproval.TaskService_1" partnerLinkType="taskservice:TaskService"
+                     partnerRole="TaskService" myRole="TaskServiceCallbackListener"/>
+        <partnerLink name="CustomerLookup" partnerLinkType="ns3:CustomerLookup_plt" partnerRole="CustomerLookup_role"/>
+        <partnerLink name="NotificationService1" partnerLinkType="ns5:NotificationServiceLink"
+                     partnerRole="NotificationServiceProvider"/>
+    </partnerLinks>
+
+    <!-- 
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        VARIABLES                                                        
+        List of messages and XML documents used within this BPEL process 
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    -->
+    <variables>
+        <!-- Reference to the message passed as input during initiation -->
+        <variable name="inputVariable" messageType="client:ApprovalRequestMessage"/>
+
+        <!-- Reference to the message that will be sent back to the requester during callback -->
+        <variable name="outputVariable" messageType="client:ApprovalResponseMessage"/>
+        <variable name="ManualApproval1_globalVariable" messageType="taskservice:taskMessage"/>
+        <variable name="Invoke_Lookup_CustomerLookupSelect_InputVariable"
+                  messageType="ns3:CustomerLookupSelect_inputParameters"/>
+        <variable name="Invoke_Lookup_CustomerLookupSelect_OutputVariable"
+                  messageType="ns3:BcaCustomersCollection_msg"/>
+    </variables>
+
+    <!-- 
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+       ORCHESTRATION LOGIC                                               
+       Set of activities coordinating the flow of messages across the    
+       services integrated within this business process                  
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    -->
+    <sequence name="main">
+        <!-- Receive input from requestor. (Note: This maps to operation defined in Approval.wsdl) -->
+        <receive name="receiveInput" partnerLink="approval_client" portType="client:Approval" operation="process" variable="inputVariable" createInstance="yes"/>
+        <assign name="Assign_Output">
+            <copy>
+                <from>$inputVariable.payload</from>
+                <to>$outputVariable.payload</to>
+            </copy>
+        </assign>
+        <scope name="ManualApproval1" xmlns:wf="http://schemas.oracle.com/bpel/extensions/workflow"
+               wf:key="ManualApproval1_globalVariable">
+            <bpelx:annotation>
+                <bpelx:pattern patternName="bpelx:workflow"></bpelx:pattern>
+            </bpelx:annotation>
+            <variables>
+                <variable name="initiateTaskInput" messageType="taskservice:initiateTaskMessage"/>
+                <variable name="initiateTaskResponseMessage" messageType="taskservice:initiateTaskResponseMessage"/>
+            </variables>
+            <sequence>
+                <assign name="ManualApproval1_AssignTaskAttributes">
+                    <copy>
+                        <from>number(3)</from>
+                        <to variable="initiateTaskInput" part="payload"><query>task:task/task:priority</query></to>
+                    </copy>
+                    <copy>
+                        <from><literal><payload xmlns="http://xmlns.oracle.com/bpel/workflow/task">
+	<order xmlns="http://www.example.org/ns/intorder"/> 
+</payload></literal></from>
+                        <to variable="initiateTaskInput" part="payload"><query>task:task/task:payload</query></to>
+                    </copy>
+                    <copy>
+                        <from variable="outputVariable" part="payload"/>
+                        <to variable="initiateTaskInput" part="payload"><query>task:task/task:payload/ns1:order</query></to>
+                    </copy>
+                </assign>
+                <invoke name="initiateTask_ManualApproval1" partnerLink="ManualApproval.TaskService_1"
+                        operation="initiateTask" portType="taskservice:TaskService" inputVariable="initiateTaskInput"
+                        outputVariable="initiateTaskResponseMessage"/>
+                <receive name="receiveCompletedTask_ManualApproval1" partnerLink="ManualApproval.TaskService_1"
+                         portType="taskservice:TaskServiceCallback" operation="onTaskCompleted"
+                         variable="ManualApproval1_globalVariable" createInstance="no"/>
+            </sequence>
+        </scope>
+        <if name="taskIf">
+            <documentation>
+                <![CDATA[Task outcome is APPROVE]]>
+            </documentation>
+            <condition>$ManualApproval1_globalVariable.payload/task:systemAttributes/task:outcome = 'APPROVE'</condition>
+            <sequence>
+                <assign name="CopyPayloadFromTask">
+                    <copy>
+                        <from>$ManualApproval1_globalVariable.payload/task:payload/ns1:order</from>
+                        <to>$outputVariable.payload</to>
+                    </copy>
+                    <copy>
+                        <from>'APPROVED'</from>
+                        <to>$outputVariable.payload/ns1:status</to>
+                    </copy>
+                </assign>
+            </sequence>
+            <elseif>
+                <documentation>
+                    <![CDATA[Task outcome is REJECT]]>
+                </documentation>
+                <condition>$ManualApproval1_globalVariable.payload/task:systemAttributes/task:outcome = 'REJECT'</condition>
+                <sequence>
+                    <assign name="CopyPayloadFromTask">
+                        <copy>
+                            <from>$ManualApproval1_globalVariable.payload/task:payload/ns1:order</from>
+                            <to>$outputVariable.payload</to>
+                        </copy>
+                        <copy>
+                            <from>'REJECTED'</from>
+                            <to>$outputVariable.payload/ns1:status</to>
+                        </copy>
+                    </assign>
+                </sequence>
+            </elseif>
+            <else>
+                <sequence>
+                    <assign name="CopyPayloadFromTask">
+                        <copy>
+                            <from>$ManualApproval1_globalVariable.payload/task:payload/ns1:order</from>
+                            <to>$outputVariable.payload</to>
+                        </copy>
+                        <copy>
+                            <from>'FAILED'</from>
+                            <to>$outputVariable.payload/ns1:status</to>
+                        </copy>
+                    </assign>
+                </sequence>
+            </else>
+        </if>
+        <scope name="Scope_Email">
+            <sequence name="Sequence1">
+                <assign name="Assign_Lookup">
+                    <copy>
+                        <from>$inputVariable.payload/ns1:customerId</from>
+                        <to>$Invoke_Lookup_CustomerLookupSelect_InputVariable.CustomerLookupSelect_inputParameters/ns4:custNum</to>
+                    </copy>
+                </assign>
+                <invoke name="Invoke_Lookup" bpelx:invokeAsDetail="no" partnerLink="CustomerLookup"
+                        portType="ns3:CustomerLookup_ptt" operation="CustomerLookupSelect"
+                        inputVariable="Invoke_Lookup_CustomerLookupSelect_InputVariable"
+                        outputVariable="Invoke_Lookup_CustomerLookupSelect_OutputVariable"/>
+                <scope name="Email1">
+                    <bpelx:annotation>
+                        <bpelx:pattern patternName="bpelx:email"></bpelx:pattern>
+                    </bpelx:annotation>
+                    <variables>
+                        <variable name="varNotificationReq" messageType="ns5:EmailNotificationRequest"/>
+                        <variable name="varNotificationResponse" messageType="ns5:ArrayOfResponse"/>
+                        <variable name="NotificationServiceFaultVariable"
+                                  messageType="ns5:NotificationServiceErrorMessage"/>
+                    </variables>
+                    <sequence name="Sequence2">
+                        <assign name="EmailParamsAssign">
+                            <copy>
+                                <from>string('Default')</from>
+                                <to variable="varNotificationReq" part="EmailPayload"><query>ns5:FromAccountName</query></to>
+                            </copy>
+                            <copy>
+                                <from>string('')</from>
+                                <to variable="varNotificationReq" part="EmailPayload"><query>ns5:Bcc</query></to>
+                            </copy>
+                            <copy>
+                                <from>string('')</from>
+                                <to variable="varNotificationReq" part="EmailPayload"><query>ns5:Cc</query></to>
+                            </copy>
+                            <copy>
+                                <from>string('')</from>
+                                <to variable="varNotificationReq" part="EmailPayload"><query>ns5:ReplyToAddress</query></to>
+                            </copy>
+                            <copy>
+                                <from>concat('Your order status: ', $outputVariable.payload/ns1:status)</from>
+                                <to variable="varNotificationReq" part="EmailPayload"><query>ns5:Subject</query></to>
+                            </copy>
+                            <copy>
+                                <from>$Invoke_Lookup_CustomerLookupSelect_OutputVariable.BcaCustomersCollection/ns4:BcaCustomers/ns4:email</from>
+                                <to variable="varNotificationReq" part="EmailPayload"><query>ns5:To</query></to>
+                            </copy>
+                            <copy>
+                                <from>concat('Your order status is ',$outputVariable.payload/ns1:status, '. Thank you for shopping with us.  For more information, contact customer support at 1-800-MUSICFANS.')</from>
+                                <to variable="varNotificationReq" part="EmailPayload"><query>ns5:Content/ns5:ContentBody</query></to>
+                            </copy>
+                            <copy>
+                                <from>string('text/html; charset=UTF-8')</from>
+                                <to variable="varNotificationReq" part="EmailPayload"><query>ns5:Content/ns5:MimeType</query></to>
+                            </copy>
+                        </assign>
+                        <invoke name="InvokeNotificationService" portType="ns5:NotificationService"
+                                partnerLink="NotificationService1" inputVariable="varNotificationReq"
+                                outputVariable="varNotificationResponse" operation="sendEmailNotification"/>
+                    </sequence>
+                </scope>
+            </sequence>
+        </scope>
+        <!-- 
+          Asynchronous callback to the requester. (Note: the callback location and correlation id is transparently handled using WS-addressing.)
+        -->
+        <invoke name="callbackClient" partnerLink="approval_client" portType="client:ApprovalCallback" operation="processResponse" inputVariable="outputVariable"/>
+    </sequence>
+</process>

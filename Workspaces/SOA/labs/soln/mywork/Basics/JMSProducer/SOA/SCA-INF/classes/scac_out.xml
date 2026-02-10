@@ -1,0 +1,13 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Faults>
+   <Fault>
+      <severity>warning</severity>
+      <loc/>
+      <line/>
+      <col/>
+      <file>Mediators/RouteShipping.mplan</file>
+      <name>Mediators/RouteShipping.mplan</name>
+      <fix/>
+      <msg>Assigning element "$in.request/inp1:ShippingRequest/inp1:custName" to property "$out.property.jca.jms.JMSProperty.Artist". Make sure source is leaf node otherwise all the child nodes of source gets concatenated and assigned to the target.</msg>
+   </Fault>
+</Faults>

@@ -1,0 +1,99 @@
+<?xml version = "1.0" encoding = "UTF-8" ?>
+<!--
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  Oracle JDeveloper BPEL Designer 
+  
+  Created: Mon Sep 29 15:08:20 UTC 2014
+  Author:  oracle
+  Type: BPEL 2.0 Process
+  Purpose: Synchronous BPEL Process
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+-->
+<process name="CallREST"
+               targetNamespace="http://xmlns.oracle.com/BPELProjects/CallREST/CallREST"
+               xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+               xmlns:client="http://xmlns.oracle.com/BPELProjects/CallREST/CallREST"
+               xmlns:ora="http://schemas.oracle.com/xpath/extension"
+               xmlns:ui="http://xmlns.oracle.com/soa/designer"
+               xmlns:bpelx="http://schemas.oracle.com/bpel/extension"
+         xmlns:bpel="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+         xmlns:ns1="http://xmlns.oracle.com/BPELProjects/CallREST/helloBPEL"
+         xmlns:ns2="http://www.example.org/ns/ccauthorize"
+         xmlns:xp20="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.Xpath20"
+         xmlns:bpws="http://schemas.xmlsoap.org/ws/2003/03/business-process/"
+         xmlns:oraext="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.ExtFunc"
+         xmlns:dvm="http://www.oracle.com/XSL/Transform/java/oracle.tip.dvm.LookupValue"
+         xmlns:hwf="http://xmlns.oracle.com/bpel/workflow/xpath"
+         xmlns:ids="http://xmlns.oracle.com/bpel/services/IdentityService/xpath"
+         xmlns:bpm="http://xmlns.oracle.com/bpmn20/extensions" xmlns:ess="http://xmlns.oracle.com/scheduler"
+         xmlns:xdk="http://schemas.oracle.com/bpel/extension/xpath/function/xdk"
+         xmlns:xref="http://www.oracle.com/XSL/Transform/java/oracle.tip.xref.xpath.XRefXPathFunctions"
+         xmlns:ldap="http://schemas.oracle.com/xpath/extension/ldap">
+
+    <import ui:processWSDL="true" namespace="http://xmlns.oracle.com/BPELProjects/CallREST/CallREST" location="../WSDLs/CallREST.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <!-- 
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        PARTNERLINKS                                                      
+        List of services participating in this BPEL process               
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    --> 
+  <partnerLinks>
+    <!-- 
+      The 'client' role represents the requester of this service. It is 
+      used for callback. The location and correlation information associated
+      with the client role are automatically set using WS-Addressing.
+    -->
+    <partnerLink name="callrest_client" partnerLinkType="client:CallREST" myRole="CallRESTProvider"/>
+    <partnerLink name="helloBPEL" partnerLinkType="ns1:helloBPEL" partnerRole="helloBPELProvider"/>
+  </partnerLinks>
+
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      VARIABLES                                                        
+      List of messages and XML documents used within this BPEL process 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+  <variables>
+    <!-- Reference to the message passed as input during initiation -->
+    <variable name="inputVariable" messageType="client:CallRESTRequestMessage"/>
+
+    <!-- Reference to the message that will be returned to the requester-->
+    <variable name="outputVariable" messageType="client:CallRESTResponseMessage"/>
+    <variable name="Invoke_helloBPEL_validateCard_InputVariable" messageType="ns1:validateCard_inputMessage"/>
+    <variable name="Invoke_helloBPEL_validateCard_OutputVariable" messageType="ns1:validateCard_outputMessage"/>
+  </variables>
+
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+     ORCHESTRATION LOGIC                                               
+     Set of activities coordinating the flow of messages across the    
+     services integrated within this business process                  
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+  <sequence name="main">
+
+    <!-- Receive input from requestor. (Note: This maps to operation defined in CallREST.wsdl) -->
+    <receive name="receiveInput" partnerLink="callrest_client" portType="client:CallREST" operation="process" variable="inputVariable" createInstance="yes"/>
+    <assign name="Assign_CreditCard">
+      <copy>
+        <from>$inputVariable.payload/ns2:CCNumber</from>
+        <to>$Invoke_helloBPEL_validateCard_InputVariable.request/ns2:CCNumber</to>
+      </copy>
+      <copy>
+        <from>$inputVariable.payload/ns2:amount</from>
+        <to>$Invoke_helloBPEL_validateCard_InputVariable.request/ns2:amount</to>
+      </copy>
+    </assign>
+    <invoke name="Invoke_helloBPEL" bpelx:invokeAsDetail="no" partnerLink="helloBPEL" portType="ns1:helloBPEL_ptt"
+            operation="validateCard" inputVariable="Invoke_helloBPEL_validateCard_InputVariable"
+            outputVariable="Invoke_helloBPEL_validateCard_OutputVariable"/>
+    <assign name="Assign_Reply">
+      <copy>
+        <from>$Invoke_helloBPEL_validateCard_OutputVariable.reply/ns2:status</from>
+        <to>$outputVariable.payload/ns2:status</to>
+      </copy>
+    </assign>
+    <!-- Generate reply to synchronous request -->
+    <reply name="replyOutput" partnerLink="callrest_client" portType="client:CallREST" operation="process" variable="outputVariable"/>
+  </sequence>
+</process>

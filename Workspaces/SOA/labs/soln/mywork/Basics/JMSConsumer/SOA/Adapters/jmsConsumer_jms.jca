@@ -1,0 +1,13 @@
+<adapter-config name="jmsConsumer" adapter="jms" wsdlLocation="../WSDLs/jmsConsumer.wsdl" xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata">
+  
+  <connection-factory location="eis/soaDemo/Queue" UIJmsProvider="WLSJMS" UIConnectionName="IntegratedWebLogicServer"/>
+  <endpoint-activation portType="Consume_Message_ptt" operation="Consume_Message">
+    <activation-spec className="oracle.tip.adapter.jms.inbound.JmsConsumeActivationSpec">
+      <property name="PayloadType" value="TextMessage"/>
+      <property name="MessageSelector" value="Artist LIKE '%Berry'"/>
+      <property name="UseMessageListener" value="false"/>
+      <property name="DestinationName" value="jms/soaDemoQueue"/>
+    </activation-spec>
+  </endpoint-activation>
+
+</adapter-config>

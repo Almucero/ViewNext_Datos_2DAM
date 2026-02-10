@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions
+     name="Approval"
+     targetNamespace="http://xmlns.oracle.com/BPELProjects/Approval/Approval"
+     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+     xmlns:client="http://xmlns.oracle.com/BPELProjects/Approval/Approval"
+     xmlns:ns1="http://www.example.org/ns/intorder"
+     xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype"
+     xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+    >
+    <wsdl:documentation>
+        <abstractWSDL>http://soa12c.example.com:7101/soa-infra/services/default/Approval!1.0/WSDLs/Approval.wsdl</abstractWSDL>
+    </wsdl:documentation>
+    <plnk:partnerLinkType name="Approval">
+        <plnk:role name="ApprovalRequester" portType="client:ApprovalCallback"/>
+        <plnk:role name="ApprovalProvider" portType="client:Approval"/>
+    </plnk:partnerLinkType>
+    <wsdl:types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema">
+            <import namespace="http://www.example.org/ns/intorder" schemaLocation="../Schemas/internalorder.xsd"/>
+        </schema>
+    </wsdl:types>
+    <wsdl:message name="ApprovalRequestMessage">
+        <wsdl:part name="payload" element="ns1:order"/>
+    </wsdl:message>
+    <wsdl:message name="ApprovalResponseMessage">
+        <wsdl:part name="payload" element="ns1:order"/>
+    </wsdl:message>
+    <wsdl:portType name="Approval">
+        <wsdl:operation name="process">
+            <wsdl:input message="client:ApprovalRequestMessage"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:portType name="ApprovalCallback">
+        <wsdl:operation name="processResponse">
+            <wsdl:input message="client:ApprovalResponseMessage"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="ApprovalBinding" type="client:Approval">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="process">
+            <soap:operation style="document" soapAction="process"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="approval_client_ep">
+        <wsdl:port name="Approval_pt" binding="client:ApprovalBinding">
+            <soap:address location="http://soa12c.example.com:7101/soa-infra/services/default/Approval/approval_client_ep"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

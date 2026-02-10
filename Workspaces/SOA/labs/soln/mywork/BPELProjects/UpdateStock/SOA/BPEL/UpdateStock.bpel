@@ -1,0 +1,94 @@
+<?xml version = "1.0" encoding = "UTF-8" ?>
+<!--
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  Oracle JDeveloper BPEL Designer 
+  
+  Created: Mon Jul 14 12:38:36 UTC 2014
+  Author:  oracle
+  Type: BPEL 2.0 Process
+  Purpose: One Way BPEL Process
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+-->
+<process name="UpdateStock"
+               targetNamespace="http://xmlns.oracle.com/BPELProjects/UpdateStock/UpdateStock"
+               xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+               xmlns:client="http://xmlns.oracle.com/BPELProjects/UpdateStock/UpdateStock"
+               xmlns:ora="http://schemas.oracle.com/xpath/extension"
+               xmlns:ui="http://xmlns.oracle.com/soa/designer"
+               xmlns:bpel="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+         xmlns:ns1="http://xmlns.oracle.com/pcbpel/adapter/db/BPELProjects/UpdateStock/UpdateInventory"
+         xmlns:bpelx="http://schemas.oracle.com/bpel/extension" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:ns2="http://www.example.org/ns/updtstock"
+         xmlns:ns3="http://xmlns.oracle.com/pcbpel/adapter/db/top/UpdateInventory"
+         xmlns:ns4="http://xmlns.oracle.com/BPELProjects/UpdateStock/manageStock">
+  <import namespace="http://www.example.org/ns/updtstock" location="../Schemas/updateStock.xsd"
+          importType="http://www.w3.org/2001/XMLSchema"/>
+  <import ui:processWSDL="true" namespace="http://xmlns.oracle.com/BPELProjects/UpdateStock/UpdateStock" location="../WSDLs/UpdateStock.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      PARTNERLINKS                                                      
+      List of services participating in this BPEL process               
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  --> 
+  <partnerLinks>
+    <!-- 
+      The 'client' role represents the requester of this service. It is 
+      used for callback. The location and correlation information associated
+      with the client role are automatically set using WS-Addressing.
+    -->
+    <partnerLink name="updatestock_client" partnerLinkType="client:UpdateStock" myRole="UpdateStockProvider"/>
+    <partnerLink name="UpdateInventory" partnerLinkType="ns1:UpdateInventory_plt" partnerRole="UpdateInventory_role"/>
+  </partnerLinks>
+
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      VARIABLES                                                        
+      List of messages and XML documents used within this BPEL process 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+  <variables>
+    <!-- Reference to the message passed as input during initiation -->
+    <variable name="inputVariable" messageType="client:UpdateStockRequestMessage"/>
+    <variable name="Invoke_UpdateInventory_update_InputVariable" messageType="ns1:BcaInventoryCollection_msg"/>
+    <variable name="Invoke1_InputVariable" element="ns2:UpdateStock"/>
+    <variable name="PublishEvent_InputVariable" element="ns2:UpdateStock"/>
+  </variables>
+
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+     ORCHESTRATION LOGIC                                               
+     Set of activities coordinating the flow of messages across the    
+     services integrated within this business process                  
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+  <sequence name="main">
+
+    <!-- Receive input from requestor. (Note: This maps to operation defined in UpdateStock.wsdl) -->
+    <receive name="receiveInput" partnerLink="updatestock_client" portType="client:UpdateStock" operation="process" variable="inputVariable" createInstance="yes"/>
+    <assign name="Assign_Update">
+      <copy>
+        <from>$inputVariable.payload/ns2:productId</from>
+        <to>$Invoke_UpdateInventory_update_InputVariable.BcaInventoryCollection/ns3:BcaInventory/ns3:prodId</to>
+      </copy>
+      <copy>
+        <from>$inputVariable.payload/ns2:quantity</from>
+        <to>$Invoke_UpdateInventory_update_InputVariable.BcaInventoryCollection/ns3:BcaInventory/ns3:quantity</to>
+      </copy>
+    </assign>
+    <invoke name="Invoke_UpdateInventory" bpelx:invokeAsDetail="no" partnerLink="UpdateInventory"
+            portType="ns1:UpdateInventory_ptt" operation="update"
+            inputVariable="Invoke_UpdateInventory_update_InputVariable"/>
+    <assign name="Assign_Event">
+      <copy>
+        <from>$inputVariable.payload/ns2:productId</from>
+        <to>$PublishEvent_InputVariable/ns2:productId</to>
+      </copy>
+      <copy>
+        <from>$inputVariable.payload/ns2:quantity</from>
+        <to>$PublishEvent_InputVariable/ns2:quantity</to>
+      </copy>
+    </assign>
+    <invoke name="PublishEvent" bpelx:eventName="ns4:stockUpdate" bpelx:invokeAsDetail="no"
+            inputVariable="PublishEvent_InputVariable"/>
+  </sequence>
+</process>

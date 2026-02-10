@@ -1,0 +1,23 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:nxsd="http://xmlns.oracle.com/pcbpel/nxsd" xmlns:tns="http://TargetNamespace.com/WriteFixed" targetNamespace="http://TargetNamespace.com/WriteFixed" elementFormDefault="qualified" attributeFormDefault="unqualified" nxsd:version="NXSD" nxsd:stream="chars" nxsd:encoding="US-ASCII">
+
+
+  <xsd:element name="record" nxsd:style="array" nxsd:cellSeparatedBy="${eol}">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="ordID" type="xsd:string" nxsd:style="fixedLength" nxsd:length="3"/>
+        <xsd:element name="custID" type="xsd:string" nxsd:style="fixedLength" nxsd:length="4"/>
+        <xsd:element name="payMethod" type="xsd:string" nxsd:style="fixedLength" nxsd:length="7"/>
+        <xsd:element name="shipMethod" type="xsd:string" nxsd:style="fixedLength" nxsd:length="14"/>
+        <xsd:element name="status" type="xsd:string" nxsd:style="fixedLength" nxsd:length="8"/>
+        <xsd:element name="ccName" type="xsd:string" nxsd:style="fixedLength" nxsd:length="6"/>
+        <xsd:element name="ccNum" type="xsd:string" nxsd:style="fixedLength" nxsd:length="21"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+<xsd:annotation>
+      <xsd:appinfo>NXSDSAMPLE=/home/oracle/labs/files/xml/po_header.txt</xsd:appinfo>
+      <xsd:appinfo>USEHEADER=false</xsd:appinfo>
+   </xsd:annotation>
+</xsd:schema>

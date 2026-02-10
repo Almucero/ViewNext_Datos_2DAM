@@ -1,0 +1,23 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Faults>
+   <Fault>
+      <severity>warning</severity>
+      <loc/>
+      <line>153</line>
+      <col/>
+      <file>BPEL/OrderProcessing.bpel</file>
+      <name>BPEL/OrderProcessing.bpel</name>
+      <fix>Types must be compatible.</fix>
+      <msg>The from-spec of "ns2:ccInfoType" is not compatible with to-spec of "ns6:ccInfoType"</msg>
+   </Fault>
+   <Fault>
+      <severity>warning</severity>
+      <loc/>
+      <line>157</line>
+      <col/>
+      <file>BPEL/OrderProcessing.bpel</file>
+      <name>BPEL/OrderProcessing.bpel</name>
+      <fix>Types must be compatible.</fix>
+      <msg>The from-spec of "ns2:items" is not compatible with to-spec of "ns6:items"</msg>
+   </Fault>
+</Faults>

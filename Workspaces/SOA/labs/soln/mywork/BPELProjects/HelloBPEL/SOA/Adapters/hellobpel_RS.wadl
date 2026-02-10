@@ -1,0 +1,21 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<application xmlns:soa="http://www.oracle.com/soa/rest" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tns="http://xmlns.oracle.com/BPELProjects/HelloBPEL/hellobpel_RS" xmlns:ns0="http://www.example.org/ns/ccauthorize" xmlns="http://wadl.dev.java.net/2009/02">
+   <doc title="hellobpel_RS">REST interface</doc>
+   <grammars>
+      <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+            <xsd:import namespace="http://www.example.org/ns/ccauthorize" schemaLocation="../Schemas/creditcheck.xsd"/>
+        </xsd:schema>
+   </grammars>
+   <resources>
+      <resource path="/CreditCheckRequest">
+         <method name="POST" soa:wsdlOperation="validateCard">
+            <request>
+               <representation mediaType="application/json" element="cns:CreditCheckRequest" xmlns:cns="http://www.example.org/ns/ccauthorize"/>
+            </request>
+            <response status="200">
+               <representation mediaType="application/json" element="cns:CreditCheckResponse" xmlns:cns="http://www.example.org/ns/ccauthorize"/>
+            </response>
+         </method>
+      </resource>
+   </resources>
+</application>

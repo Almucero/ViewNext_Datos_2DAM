@@ -1,0 +1,13 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Faults>
+   <Fault>
+      <severity>warning</severity>
+      <loc>/ns:composite/ns:wire/ns:target.uri[.='CallingProcess/callingprocess_client']</loc>
+      <line>57</line>
+      <col>17</col>
+      <file>/u01/app/fmw12c/domains/mywork/BPELProjects/CallGreeting/SOA/composite.xml</file>
+      <name>/u01/app/fmw12c/domains/mywork/BPELProjects/CallGreeting/SOA/composite.xml</name>
+      <fix/>
+      <msg>Schema validation failed with exception "Invalid element 'element' in 'all'"</msg>
+   </Fault>
+</Faults>

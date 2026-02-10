@@ -1,0 +1,33 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Faults>
+   <Fault>
+      <severity>warning</severity>
+      <loc/>
+      <line>36</line>
+      <col/>
+      <file>BPEL/ProcessOrder.bpel</file>
+      <name>BPEL/ProcessOrder.bpel</name>
+      <fix>Fix the process to be *either* durable or synchronous.</fix>
+      <msg>Process "ProcessOrder" is both durable (onMessage,Receive,Wait) and synchronous.</msg>
+   </Fault>
+   <Fault>
+      <severity>warning</severity>
+      <loc/>
+      <line>163</line>
+      <col/>
+      <file>BPEL/ProcessOrder.bpel</file>
+      <name>BPEL/ProcessOrder.bpel</name>
+      <fix>Types must be compatible.</fix>
+      <msg>The from-spec of "ns4:ccInfoType" is not compatible with to-spec of "ns5:ccInfoType"</msg>
+   </Fault>
+   <Fault>
+      <severity>warning</severity>
+      <loc/>
+      <line>167</line>
+      <col/>
+      <file>BPEL/ProcessOrder.bpel</file>
+      <name>BPEL/ProcessOrder.bpel</name>
+      <fix>Types must be compatible.</fix>
+      <msg>The from-spec of "ns4:items" is not compatible with to-spec of "ns5:items"</msg>
+   </Fault>
+</Faults>

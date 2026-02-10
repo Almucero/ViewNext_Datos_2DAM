@@ -1,0 +1,196 @@
+<?xml version = "1.0" encoding = "UTF-8" ?>
+<!--
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  Oracle JDeveloper BPEL Designer 
+  
+  Created: Thu Jul 24 09:14:51 UTC 2014
+  Author:  oracle
+  Type: BPEL 2.0 Process
+  Purpose: Synchronous BPEL Process
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+-->
+<process name="ProcessOrder"
+               targetNamespace="http://xmlns.oracle.com/Templates/OrderFlowTemplate/ProcessOrder"
+               xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+               xmlns:client="http://xmlns.oracle.com/Templates/OrderFlowTemplate/ProcessOrder"
+               xmlns:ora="http://schemas.oracle.com/xpath/extension"
+               xmlns:ui="http://xmlns.oracle.com/soa/designer"
+               xmlns:bpelx="http://schemas.oracle.com/bpel/extension"
+         xmlns:bpel="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+         xmlns:ns1="http://xmlns.oracle.com/Basics/CCValidate/ValidateCreditCard"
+         xmlns:ns2="http://xmlns.oracle.com/BPELProjects/Approval/Approval"
+         xmlns:ns4="http://www.example.org/ns/orderproc" xmlns:ns3="http://www.example.org/ns/ccauthorize"
+         xmlns:ns5="http://www.example.org/ns/intorder"
+         xmlns:xp20="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.Xpath20"
+         xmlns:bpws="http://schemas.xmlsoap.org/ws/2003/03/business-process/"
+         xmlns:oraext="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.ExtFunc"
+         xmlns:dvm="http://www.oracle.com/XSL/Transform/java/oracle.tip.dvm.LookupValue"
+         xmlns:hwf="http://xmlns.oracle.com/bpel/workflow/xpath"
+         xmlns:ids="http://xmlns.oracle.com/bpel/services/IdentityService/xpath"
+         xmlns:bpm="http://xmlns.oracle.com/bpmn20/extensions" xmlns:ess="http://xmlns.oracle.com/scheduler"
+         xmlns:xdk="http://schemas.oracle.com/bpel/extension/xpath/function/xdk"
+         xmlns:xref="http://www.oracle.com/XSL/Transform/java/oracle.tip.xref.xpath.XRefXPathFunctions"
+         xmlns:ldap="http://schemas.oracle.com/xpath/extension/ldap"
+         xmlns:ns6="http://xmlns.oracle.com/pcbpel/adapter/db/BPELProjects/OrderFlow/UpdateStatus"
+         xmlns:ns7="http://xmlns.oracle.com/pcbpel/adapter/db/top/UpdateStatus"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <bpelx:inlineSubProcess name="updateOrderStatusSP">
+    <sequence name="Sequence1">
+      <assign name="setUpdate">
+        <copy>
+          <from>$outputVariable.payload/ns4:orderId</from>
+          <to>$Invoke_Update_update_InputVariable.BcaOrdersCollection/ns7:BcaOrders/ns7:ordId</to>
+        </copy>
+        <copy>
+          <from>$outputVariable.payload/ns4:status</from>
+          <to>$Invoke_Update_update_InputVariable.BcaOrdersCollection/ns7:BcaOrders/ns7:status</to>
+        </copy>
+      </assign>
+      <invoke name="Invoke_Update" bpelx:invokeAsDetail="no" partnerLink="UpdateStatus" portType="ns6:UpdateStatus_ptt"
+              operation="update" inputVariable="Invoke_Update_update_InputVariable"/>
+    </sequence>
+  </bpelx:inlineSubProcess>
+  <import ui:processWSDL="true" namespace="http://xmlns.oracle.com/Templates/OrderFlowTemplate/ProcessOrder" location="../WSDLs/ProcessOrder.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <!-- 
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        PARTNERLINKS                                                      
+        List of services participating in this BPEL process               
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    --> 
+  <partnerLinks>
+    <!-- 
+      The 'client' role represents the requester of this service. It is 
+      used for callback. The location and correlation information associated
+      with the client role are automatically set using WS-Addressing.
+    -->
+    <partnerLink name="processorder_client" partnerLinkType="client:ProcessOrder" myRole="ProcessOrderProvider"/>
+    <partnerLink name="ValidationService" partnerLinkType="ns1:ValidationService" partnerRole="validateCC_ptt"/>
+    <partnerLink name="ApprovalService" partnerLinkType="ns2:Approval" partnerRole="ApprovalProvider"
+                 myRole="ApprovalRequester"/>
+    <partnerLink name="UpdateStatus" partnerLinkType="ns6:UpdateStatus_plt" partnerRole="UpdateStatus_role"/>
+  </partnerLinks>
+
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      VARIABLES                                                        
+      List of messages and XML documents used within this BPEL process 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+  <variables>
+    <!-- Reference to the message passed as input during initiation -->
+    <variable name="inputVariable" messageType="client:ProcessOrderRequestMessage"/>
+
+    <!-- Reference to the message that will be returned to the requester-->
+    <variable name="outputVariable" messageType="client:ProcessOrderResponseMessage"/>
+    <variable name="Invoke_Validation_validateCC_InputVariable" messageType="ns1:requestMessage"/>
+    <variable name="Invoke_Validation_validateCC_OutputVariable" messageType="ns1:replyMessage"/>
+    <variable name="Invoke_Approval_process_InputVariable" messageType="ns2:ApprovalRequestMessage"/>
+    <variable name="Receive_Approval_processResponse_InputVariable" messageType="ns2:ApprovalResponseMessage"/>
+    <variable name="Invoke_Update_update_InputVariable" messageType="ns6:BcaOrdersCollection_msg"/>
+  </variables>
+
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+     ORCHESTRATION LOGIC                                               
+     Set of activities coordinating the flow of messages across the    
+     services integrated within this business process                  
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+  <sequence name="main">
+
+    <!-- Receive input from requestor. (Note: This maps to operation defined in ProcessOrder.wsdl) -->
+    <receive name="receiveInput" partnerLink="processorder_client" portType="client:ProcessOrder" operation="process" variable="inputVariable" createInstance="yes"/>
+    <assign name="SetOutput">
+      <copy>
+        <from>$inputVariable.payload</from>
+        <to>$outputVariable.payload</to>
+      </copy>
+    </assign>
+    <assign name="SetValidation">
+      <copy>
+        <from>$inputVariable.payload/ns4:creditCard/ns4:cardNumber</from>
+        <to>$Invoke_Validation_validateCC_InputVariable.part1/ns3:CCNumber</to>
+      </copy>
+      <copy>
+        <from>$inputVariable.payload/ns4:orderTotal</from>
+        <to>$Invoke_Validation_validateCC_InputVariable.part1/ns3:amount</to>
+      </copy>
+    </assign>
+    <invoke name="Invoke_Validation" bpelx:invokeAsDetail="no" partnerLink="ValidationService"
+            portType="ns1:validateCC_ptt" operation="validateCC"
+            inputVariable="Invoke_Validation_validateCC_InputVariable"
+            outputVariable="Invoke_Validation_validateCC_OutputVariable"/>
+    <assign name="GetValidation">
+      <copy>
+        <from>$Invoke_Validation_validateCC_OutputVariable.part1/ns3:status</from>
+        <to>$outputVariable.payload/ns4:status</to>
+      </copy>
+    </assign>
+    <extensionActivity>
+      <bpelx:call name="Call1" target="updateOrderStatusSP"/>
+    </extensionActivity>
+    <if name="If">
+      <documentation>
+        <![CDATA[valid]]>
+      </documentation>
+      <condition>$outputVariable.payload/ns4:status = 'VALID'</condition>
+      <sequence>
+        <assign name="SetApproval">
+          <copy>
+            <from>$inputVariable.payload/ns4:customerId</from>
+            <to>$Invoke_Approval_process_InputVariable.payload/ns5:customerId</to>
+          </copy>
+          <copy>
+            <from>$inputVariable.payload/ns4:orderId</from>
+            <to>$Invoke_Approval_process_InputVariable.payload/ns5:orderId</to>
+          </copy>
+          <copy>
+            <from>$inputVariable.payload/ns4:payMethod</from>
+            <to>$Invoke_Approval_process_InputVariable.payload/ns5:payMethod</to>
+          </copy>
+          <copy>
+            <from>$inputVariable.payload/ns4:shipMethod</from>
+            <to>$Invoke_Approval_process_InputVariable.payload/ns5:shipMethod</to>
+          </copy>
+          <copy>
+            <from>$inputVariable.payload/ns4:orderTotal</from>
+            <to>$Invoke_Approval_process_InputVariable.payload/ns5:orderTotal</to>
+          </copy>
+          <copy>
+            <from>$inputVariable.payload/ns4:status</from>
+            <to>$Invoke_Approval_process_InputVariable.payload/ns5:status</to>
+          </copy>
+          <copy>
+            <from>$inputVariable.payload/ns4:creditCard</from>
+            <to>$Invoke_Approval_process_InputVariable.payload/ns5:creditCard</to>
+          </copy>
+          <copy>
+            <from>$inputVariable.payload/ns4:items</from>
+            <to>$Invoke_Approval_process_InputVariable.payload/ns5:items</to>
+          </copy>
+        </assign>
+        <invoke name="Invoke_Approval" bpelx:invokeAsDetail="no" partnerLink="ApprovalService" portType="ns2:Approval"
+                operation="process" inputVariable="Invoke_Approval_process_InputVariable"/>
+        <receive name="Receive_Approval" partnerLink="ApprovalService" portType="ns2:ApprovalCallback"
+                 operation="processResponse" variable="Receive_Approval_processResponse_InputVariable"/>
+        <assign name="GetApproval">
+          <copy>
+            <from>$Receive_Approval_processResponse_InputVariable.payload/ns5:status</from>
+            <to>$outputVariable.payload/ns4:status</to>
+          </copy>
+        </assign>
+        <extensionActivity>
+          <bpelx:call name="Call2" target="updateOrderStatusSP"/>
+        </extensionActivity>
+      </sequence>
+      <else>
+        <documentation>
+          <![CDATA[invalid]]>
+        </documentation>
+        <empty name="DoNothing"/>
+      </else>
+    </if>
+    <!-- Generate reply to synchronous request -->
+    <reply name="replyOutput" partnerLink="processorder_client" portType="client:ProcessOrder" operation="process" variable="outputVariable"/>
+  </sequence>
+</process>
