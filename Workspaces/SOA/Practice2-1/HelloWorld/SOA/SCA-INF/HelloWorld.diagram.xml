@@ -15,11 +15,11 @@
         </dgm:operations>
     </dgm:gService>
     <dgm:gReference name="WriteData">
-        <dgm:body borderWidth="2" arcRad="20" X="826" Y="41" width="136" height="84">
+        <dgm:body borderWidth="2" arcRad="20" X="1002" Y="41" width="136" height="84">
             <dgm:borderColor r="153" g="153" b="153"/>
             <dgm:bgColor r="255" g="255" b="255"/>
         </dgm:body>
-        <dgm:shadow arcRad="20" X="816" Y="34" width="156" height="98">
+        <dgm:shadow arcRad="20" X="992" Y="34" width="156" height="98">
             <dgm:bgColor r="196" g="228" b="240"/>
         </dgm:shadow>
         <dgm:inputPort name="WriteData" X="-10" Y="0" diameter="20" imageURI="oracle/tip/tools/ide/fabric/resource/image/visuals_rd1/servicereference.png" interface="http://xmlns.oracle.com/pcbpel/adapter/file/Basics/HelloWorld/WriteData#wsdl.interface(Write_ptt)"/>
@@ -29,12 +29,12 @@
         </dgm:operations>
     </dgm:gReference>
     <dgm:gComponent name="RouteData">
-        <dgm:body borderWidth="2" arcRad="20" X="427" Y="26" width="130" height="61">
+        <dgm:body borderWidth="2" arcRad="20" X="515" Y="26" width="130" height="61">
             <dgm:borderColor r="128" g="92" b="148"/>
             <dgm:lightBgColor r="208" g="169" b="227"/>
             <dgm:darkBgColor r="183" g="132" b="212"/>
         </dgm:body>
-        <dgm:shadow arcRad="20" X="417" Y="19" width="150" height="77">
+        <dgm:shadow arcRad="20" X="505" Y="19" width="150" height="77">
             <dgm:bgColor r="196" g="228" b="240"/>
         </dgm:shadow>
         <dgm:inputPort name="RouteData" X="-10" Y="15" diameter="20" imageURI="oracle/tip/tools/ide/fabric/resource/image/visuals_rd1/servicereference.png" interface="http://oracle.com/sca/soapservice/Basics/HelloWorld/ReceiveData#wsdl.interface(execute_ptt)"/>
@@ -42,12 +42,12 @@
         <dgm:nodeIcon URI="/oracle/tip/tools/ide/mediator/resource/image/mediator_20x20.png" X="10" Y="4" width="20" height="20"/>
     </dgm:gComponent>
     <dgm:gWireLink source="ReceiveData" target="RouteData/RouteData" width="2">
-        <dgm:gSegment X1="168" Y1="51" X2="417" Y2="51"/>
+        <dgm:gSegment X1="168" Y1="51" X2="505" Y2="51"/>
         <dgm:baseColor r="153" g="153" b="153"/>
         <dgm:selectedColor r="49" g="106" b="196"/>
     </dgm:gWireLink>
     <dgm:gWireLink source="RouteData/WriteData" target="WriteData" width="2">
-        <dgm:gSegment X1="567" Y1="51" X2="816" Y2="51"/>
+        <dgm:gSegment X1="655" Y1="51" X2="992" Y2="51"/>
         <dgm:baseColor r="153" g="153" b="153"/>
         <dgm:selectedColor r="49" g="106" b="196"/>
     </dgm:gWireLink>

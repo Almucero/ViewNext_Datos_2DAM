@@ -1,0 +1,32 @@
+<wsdl:definitions
+     name="CreditCardService"
+     targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/CCValidate/CCValidate/CreditCardService"
+     xmlns:tns="http://xmlns.oracle.com/pcbpel/adapter/db/CCValidate/CCValidate/CreditCardService"
+     xmlns:jca="http://xmlns.oracle.com/pcbpel/wsdl/jca/"
+     xmlns:plt="http://schemas.xmlsoap.org/ws/2003/05/partner-link/"
+     xmlns:top="http://xmlns.oracle.com/pcbpel/adapter/db/top/CreditCardService"
+     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    >
+  <plt:partnerLinkType name="CreditCardService_plt" >
+    <plt:role name="CreditCardService_role" >
+      <plt:portType name="tns:CreditCardService_ptt" />
+    </plt:role>
+  </plt:partnerLinkType>
+    <wsdl:types>
+      <schema xmlns="http://www.w3.org/2001/XMLSchema" >
+        <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/CreditCardService" schemaLocation="../Schemas/CreditCardService_table.xsd" />
+      </schema>
+    </wsdl:types>
+    <wsdl:message name="CreditCardServiceSelect_inputParameters">
+        <wsdl:part name="CreditCardServiceSelect_inputParameters" element="top:CreditCardServiceSelect_ccNumInputParameters"/>
+    </wsdl:message>
+    <wsdl:message name="BcaCreditcardsCollection_msg">
+        <wsdl:part name="BcaCreditcardsCollection" element="top:BcaCreditcardsCollection"/>
+    </wsdl:message>
+    <wsdl:portType name="CreditCardService_ptt">
+        <wsdl:operation name="CreditCardServiceSelect">
+            <wsdl:input message="tns:CreditCardServiceSelect_inputParameters"/>
+            <wsdl:output message="tns:BcaCreditcardsCollection_msg"/>
+        </wsdl:operation>
+    </wsdl:portType>
+</wsdl:definitions>

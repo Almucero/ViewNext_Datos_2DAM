@@ -37,6 +37,7 @@
   <reference name="WriteData" ui:wsdlLocation="WSDLs/WriteData.wsdl">
     <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/file/Basics/HelloWorld/WriteData#wsdl.interface(Write_ptt)"/>
     <binding.jca config="Adapters/WriteData_file.jca"/>
+    <property name="orderfiles" type="xs:string" many="false" override="may">C:\Users\6003547\Desktop\ViewNext_Datos_2DAM\Workspaces\SOA\labs\output\newfiles</property>
   </reference>
   <wire>
     <source.uri>ReceiveData</source.uri>

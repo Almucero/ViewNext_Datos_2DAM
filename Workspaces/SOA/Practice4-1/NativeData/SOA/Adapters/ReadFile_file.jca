@@ -1,0 +1,17 @@
+<adapter-config name="ReadFile" adapter="file" wsdlLocation="../WSDLs/ReadFile.wsdl" xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata">
+  
+  <connection-factory UIincludeWildcard="po*.dat" location="eis/FileAdapter"/>
+  <endpoint-activation portType="Read_ptt" operation="Read">
+    <activation-spec className="oracle.tip.adapter.file.inbound.FileActivationSpec">
+      <property name="PhysicalDirectory" value="C:\Users\6003547\Desktop\ViewNext_Datos_2DAM\Workspaces\SOA\labs\input"/>
+      <property name="PhysicalArchiveDirectory" value="C:\Users\6003547\Desktop\ViewNext_Datos_2DAM\Workspaces\SOA\labs\archive"/>
+      <property name="UseHeaders" value="false"/>
+      <property name="MinimumAge" value="0"/>
+      <property name="Recursive" value="false"/>
+      <property name="PollingFrequency" value="10"/>
+      <property name="DeleteFile" value="true"/>
+      <property name="IncludeFiles" value="po.*\.dat"/>
+    </activation-spec>
+  </endpoint-activation>
+
+</adapter-config>

@@ -1,0 +1,521 @@
+SQL> DEFINE hostname=emailExample.com;
+
+Error starting at line : 6 in command -
+DEFINE hostname=emailExample.com
+Error report -
+SQL Error: Syntax error: Encountered "DEFINE" at line 1, column 1.
+SQL> -- INSERT INTO BCA_CUSTOMERS VALUES (CUST_ID, FIRST_NAME, LAST_NAME, EMAIL, USERNAME, PASSWRD, STATUS);
+SQL> -- INSERT INTO BCA_CREDITCARDS VALUES (CARD_NUMBER, CARD_TYPE, CUST_ID, CREDIT_LIMIT, STATUS, RATING);
+SQL> -- INSERT INTO BCA_ADDRESS VALUES (ADDR_ID, CUST_ID, STREET, CITY, STATE, ZIP, COUNTRY);
+SQL> INSERT INTO BCA_CUSTOMERS VALUES (1, 'Steve', 'King', 'sking@&hostname', 'sking', 'welcome1', 'gold');
+old:INSERT INTO BCA_CUSTOMERS VALUES (1, 'Steve', 'King', 'sking@&hostname', 'sking', 'welcome1', 'gold')
+new:INSERT INTO BCA_CUSTOMERS VALUES (1, 'Steve', 'King', 'sking@emailExample.com', 'sking', 'welcome1', 'gold')
+
+Error starting at line : 12 in command -
+INSERT INTO BCA_CUSTOMERS VALUES (1, 'Steve', 'King', 'sking@emailExample.com', 'sking', 'welcome1', 'gold')
+Error at Command Line : 12 Column : 1
+Error report -
+SQL Error: The statement was aborted because it would have caused a duplicate key value in a unique or primary key constraint or unique index identified by 'CUSTOMERS_PK' defined on 'BCA_CUSTOMERS'.
+SQL> INSERT INTO BCA_CREDITCARDS VALUES ('5678-5678-5678-5678', 'AMCD', 1, 20000, 'VALID', 4);
+
+Error starting at line : 13 in command -
+INSERT INTO BCA_CREDITCARDS VALUES ('5678-5678-5678-5678', 'AMCD', 1, 20000, 'VALID', 4)
+Error at Command Line : 13 Column : 1
+Error report -
+SQL Error: The statement was aborted because it would have caused a duplicate key value in a unique or primary key constraint or unique index identified by 'CREDITCARDS_PK' defined on 'BCA_CREDITCARDS'.
+SQL> INSERT INTO BCA_ADDRESS VALUES (1, 1, '2004 Charade Street', 'Demo City', 'CA', '94065', 'USA');
+
+Error starting at line : 14 in command -
+INSERT INTO BCA_ADDRESS VALUES (1, 1, '2004 Charade Street', 'Demo City', 'CA', '94065', 'USA')
+Error at Command Line : 14 Column : 1
+Error report -
+SQL Error: The statement was aborted because it would have caused a duplicate key value in a unique or primary key constraint or unique index identified by 'TABLE1_PK' defined on 'BCA_ADDRESS'.
+SQL> INSERT INTO BCA_CUSTOMERS VALUES (2, 'Andrea', 'Christie', 'achrist@&hostname', 'achrist', 'welcome1', 'silver');
+old:INSERT INTO BCA_CUSTOMERS VALUES (2, 'Andrea', 'Christie', 'achrist@&hostname', 'achrist', 'welcome1', 'silver')
+new:INSERT INTO BCA_CUSTOMERS VALUES (2, 'Andrea', 'Christie', 'achrist@emailExample.com', 'achrist', 'welcome1', 'silver')
+
+Error starting at line : 16 in command -
+INSERT INTO BCA_CUSTOMERS VALUES (2, 'Andrea', 'Christie', 'achrist@emailExample.com', 'achrist', 'welcome1', 'silver')
+Error at Command Line : 16 Column : 1
+Error report -
+SQL Error: The statement was aborted because it would have caused a duplicate key value in a unique or primary key constraint or unique index identified by 'CUSTOMERS_PK' defined on 'BCA_CUSTOMERS'.
+SQL> INSERT INTO BCA_CREDITCARDS VALUES ('1234-1234-1234-1234', 'VISTA', 2, 20000, 'VALID', 3);
+
+Error starting at line : 17 in command -
+INSERT INTO BCA_CREDITCARDS VALUES ('1234-1234-1234-1234', 'VISTA', 2, 20000, 'VALID', 3)
+Error at Command Line : 17 Column : 1
+Error report -
+SQL Error: The statement was aborted because it would have caused a duplicate key value in a unique or primary key constraint or unique index identified by 'CREDITCARDS_PK' defined on 'BCA_CREDITCARDS'.
+SQL> INSERT INTO BCA_ADDRESS VALUES (2, 2, '100 Test Road', 'Debug City', 'CA', '94022', 'USA');
+
+Error starting at line : 18 in command -
+INSERT INTO BCA_ADDRESS VALUES (2, 2, '100 Test Road', 'Debug City', 'CA', '94022', 'USA')
+Error at Command Line : 18 Column : 1
+Error report -
+SQL Error: The statement was aborted because it would have caused a duplicate key value in a unique or primary key constraint or unique index identified by 'TABLE1_PK' defined on 'BCA_ADDRESS'.
+SQL> INSERT INTO BCA_CUSTOMERS VALUES (3, 'John', 'Stein', 'jstein@&hostname', 'jstein', 'welcome1', 'bronze');
+old:INSERT INTO BCA_CUSTOMERS VALUES (3, 'John', 'Stein', 'jstein@&hostname', 'jstein', 'welcome1', 'bronze')
+new:INSERT INTO BCA_CUSTOMERS VALUES (3, 'John', 'Stein', 'jstein@emailExample.com', 'jstein', 'welcome1', 'bronze')
+
+1 row inserted.
+
+SQL> INSERT INTO BCA_CREDITCARDS VALUES ('4321-4321-4321-4321', 'MCRD', 3, 20000, 'INVALID', 3);
+
+1 row inserted.
+
+SQL> INSERT INTO BCA_ADDRESS VALUES (3, 3, '19 Limelight Blvd', 'Tinsel City', 'CA', '90402', 'USA');
+
+1 row inserted.
+
+SQL> INSERT INTO BCA_CUSTOMERS VALUES (4, 'June', 'Austen', 'jausten@&hostname', 'jausten', 'welcome1', 'platinum');
+old:INSERT INTO BCA_CUSTOMERS VALUES (4, 'June', 'Austen', 'jausten@&hostname', 'jausten', 'welcome1', 'platinum')
+new:INSERT INTO BCA_CUSTOMERS VALUES (4, 'June', 'Austen', 'jausten@emailExample.com', 'jausten', 'welcome1', 'platinum')
+
+1 row inserted.
+
+SQL> INSERT INTO BCA_CREDITCARDS VALUES ('8765-8765-8765-8765', 'AMCD', 4, 30000, 'VALID', 5);
+
+1 row inserted.
+
+SQL> INSERT INTO BCA_ADDRESS VALUES (4, 4, '303 Broadway Ave', 'Big Apple', 'NY', '10001', 'USA');
+
+1 row inserted.
+
+SQL> -- INSERT INTO BCA_PRODUCTS VALUES (PROD_ID, PROD_NAME, RETAIL_PRICE);
+SQL> -- Guitars
+SQL> INSERT INTO BCA_PRODUCTS VALUES ('SKU101', 'Journeyman Guitar', 1500);
+
+1 row inserted.
+
+SQL> INSERT INTO BCA_PRODUCTS VALUES ('SKU102', 'Classic Guitar', 799);
+
+1 row inserted.
+
+SQL> INSERT INTO BCA_PRODUCTS VALUES ('SKU103', 'Acoustic Guitar', 200);
+
+1 row inserted.
+
+SQL> INSERT INTO BCA_PRODUCTS VALUES ('SKU104', 'Electric Guitar', 540);
+
+1 row inserted.
+
+SQL> INSERT INTO BCA_PRODUCTS VALUES ('SKU105', 'Starmaker Guitar', 2500);
+
+1 row inserted.
+
+SQL> INSERT INTO BCA_PRODUCTS VALUES ('SKU106', 'Signature Guitar', 3000);
+
+1 row inserted.
+
+SQL> -- Amps
+SQL> INSERT INTO BCA_PRODUCTS VALUES ('SKU200', 'Model 2000 Amp', 1100);
+
+1 row inserted.
+
+SQL> INSERT INTO BCA_PRODUCTS VALUES ('SKU201', 'Model 1000 Amp', 800);
+
+1 row inserted.
+
+SQL> INSERT INTO BCA_PRODUCTS VALUES ('SKU202', '200w Amp', 700);
+
+1 row inserted.
+
+SQL> INSERT INTO BCA_PRODUCTS VALUES ('SKU203', '100w Amp', 450);
+
+1 row inserted.
+
+SQL> INSERT INTO BCA_PRODUCTS VALUES ('SKU204', 'Practice Amp', 150);
+
+1 row inserted.
+
+SQL> -- Music Players
+SQL> INSERT INTO BCA_PRODUCTS VALUES ('SKU301', 'Music Player 1Gb', 45);
+
+1 row inserted.
+
+SQL> INSERT INTO BCA_PRODUCTS VALUES ('SKU302', 'Music Player 2Gb', 65);
+
+1 row inserted.
+
+SQL> INSERT INTO BCA_PRODUCTS VALUES ('SKU303', 'Music Player 4Gb', 99);
+
+1 row inserted.
+
+SQL> INSERT INTO BCA_PRODUCTS VALUES ('SKU304', 'Music Player 8Gb', 140);
+
+1 row inserted.
+
+SQL> INSERT INTO BCA_PRODUCTS VALUES ('SKU305', 'Music Player 120Gb', 250);
+
+1 row inserted.
+
+SQL> -- INSERT INTO BCA_SHIPTYPES VALUES (SHIP_ID, SHIP_TYPE, SHIP_COMPANY);
+SQL> INSERT INTO BCA_SHIPTYPES VALUES (1, 'next_day', 'BLUE_SHIPPER');
+
+1 row inserted.
+
+SQL> INSERT INTO BCA_SHIPTYPES VALUES (2, 'two_day', 'RED_SHIPPER');
+
+1 row inserted.
+
+SQL> INSERT INTO BCA_SHIPTYPES VALUES (3, 'five_day', 'GREEN_SHIPPER');
+
+1 row inserted.
+
+SQL> INSERT INTO BCA_SHIPTYPES VALUES (4, 'international', 'BLUE_SHIPPER');
+
+1 row inserted.
+
+SQL> -- INSERT INTO BCA_INVENTORY VALUES (PROD_ID, QUANTITY);
+SQL> -- Guitars
+SQL> INSERT INTO BCA_INVENTORY VALUES ('SKU101', 5);
+
+1 row inserted.
+
+SQL> INSERT INTO BCA_INVENTORY VALUES ('SKU102', 5);
+
+1 row inserted.
+
+SQL> INSERT INTO BCA_INVENTORY VALUES ('SKU103', 5);
+
+1 row inserted.
+
+SQL> INSERT INTO BCA_INVENTORY VALUES ('SKU104', 10);
+
+1 row inserted.
+
+SQL> INSERT INTO BCA_INVENTORY VALUES ('SKU105', 4);
+
+1 row inserted.
+
+SQL> INSERT INTO BCA_INVENTORY VALUES ('SKU106', 3);
+
+1 row inserted.
+
+SQL> -- Amps
+SQL> INSERT INTO BCA_INVENTORY VALUES ('SKU200', 5);
+
+1 row inserted.
+
+SQL> INSERT INTO BCA_INVENTORY VALUES ('SKU201', 5);
+
+1 row inserted.
+
+SQL> INSERT INTO BCA_INVENTORY VALUES ('SKU202', 5);
+
+1 row inserted.
+
+SQL> INSERT INTO BCA_INVENTORY VALUES ('SKU203', 5);
+
+1 row inserted.
+
+SQL> INSERT INTO BCA_INVENTORY VALUES ('SKU204', 10);
+
+1 row inserted.
+
+SQL> -- Music Players
+SQL> INSERT INTO BCA_INVENTORY VALUES ('SKU301', 20);
+
+1 row inserted.
+
+SQL> INSERT INTO BCA_INVENTORY VALUES ('SKU302', 20);
+
+1 row inserted.
+
+SQL> INSERT INTO BCA_INVENTORY VALUES ('SKU303', 15);
+
+1 row inserted.
+
+SQL> INSERT INTO BCA_INVENTORY VALUES ('SKU304', 10);
+
+1 row inserted.
+
+SQL> INSERT INTO BCA_INVENTORY VALUES ('SKU305', 10);
+
+1 row inserted.
+
+SQL> -- INSERT INTO BCA_INTERNAL_STORE VALUES (PROD_ID, QUANTITY);
+SQL> -- Guitars
+SQL> INSERT INTO BCA_INTERNAL_STORE VALUES ('SKU101', 5);
+
+1 row inserted.
+
+SQL> INSERT INTO BCA_INTERNAL_STORE VALUES ('SKU102', 5);
+
+1 row inserted.
+
+SQL> INSERT INTO BCA_INTERNAL_STORE VALUES ('SKU103', 5);
+
+1 row inserted.
+
+SQL> INSERT INTO BCA_INTERNAL_STORE VALUES ('SKU104', 10);
+
+1 row inserted.
+
+SQL> INSERT INTO BCA_INTERNAL_STORE VALUES ('SKU105', 4);
+
+1 row inserted.
+
+SQL> INSERT INTO BCA_INTERNAL_STORE VALUES ('SKU106', 3);
+
+1 row inserted.
+
+SQL> -- Amps
+SQL> INSERT INTO BCA_INTERNAL_STORE VALUES ('SKU200', 5);
+
+1 row inserted.
+
+SQL> INSERT INTO BCA_INTERNAL_STORE VALUES ('SKU201', 5);
+
+1 row inserted.
+
+SQL> INSERT INTO BCA_INTERNAL_STORE VALUES ('SKU202', 5);
+
+1 row inserted.
+
+SQL> INSERT INTO BCA_INTERNAL_STORE VALUES ('SKU203', 5);
+
+1 row inserted.
+
+SQL> INSERT INTO BCA_INTERNAL_STORE VALUES ('SKU204', 10);
+
+1 row inserted.
+
+SQL> -- Music Players
+SQL> INSERT INTO BCA_INTERNAL_STORE VALUES ('SKU301', 20);
+
+1 row inserted.
+
+SQL> INSERT INTO BCA_INTERNAL_STORE VALUES ('SKU302', 20);
+
+1 row inserted.
+
+SQL> INSERT INTO BCA_INTERNAL_STORE VALUES ('SKU303', 15);
+
+1 row inserted.
+
+SQL> INSERT INTO BCA_INTERNAL_STORE VALUES ('SKU304', 10);
+
+1 row inserted.
+
+SQL> INSERT INTO BCA_INTERNAL_STORE VALUES ('SKU305', 10);
+
+1 row inserted.
+
+SQL> -- INSERT INTO BCA_ONLINE_STORE VALUES (PROD_ID, QUANTITY);
+SQL> -- Guitars
+SQL> INSERT INTO BCA_ONLINE_STORE VALUES ('SKU101', 6);
+
+1 row inserted.
+
+SQL> INSERT INTO BCA_ONLINE_STORE VALUES ('SKU102', 8);
+
+1 row inserted.
+
+SQL> INSERT INTO BCA_ONLINE_STORE VALUES ('SKU103', 10);
+
+1 row inserted.
+
+SQL> INSERT INTO BCA_ONLINE_STORE VALUES ('SKU104', 6);
+
+1 row inserted.
+
+SQL> INSERT INTO BCA_ONLINE_STORE VALUES ('SKU105', 2);
+
+1 row inserted.
+
+SQL> INSERT INTO BCA_ONLINE_STORE VALUES ('SKU106', 3);
+
+1 row inserted.
+
+SQL> -- Amps
+SQL> INSERT INTO BCA_ONLINE_STORE VALUES ('SKU200', 2);
+
+1 row inserted.
+
+SQL> INSERT INTO BCA_ONLINE_STORE VALUES ('SKU201', 3);
+
+1 row inserted.
+
+SQL> INSERT INTO BCA_ONLINE_STORE VALUES ('SKU202', 4);
+
+1 row inserted.
+
+SQL> INSERT INTO BCA_ONLINE_STORE VALUES ('SKU203', 1);
+
+1 row inserted.
+
+SQL> INSERT INTO BCA_ONLINE_STORE VALUES ('SKU204', 10);
+
+1 row inserted.
+
+SQL> -- Music Players
+SQL> INSERT INTO BCA_ONLINE_STORE VALUES ('SKU301', 10);
+
+1 row inserted.
+
+SQL> INSERT INTO BCA_ONLINE_STORE VALUES ('SKU302', 12);
+
+1 row inserted.
+
+SQL> INSERT INTO BCA_ONLINE_STORE VALUES ('SKU303', 8);
+
+1 row inserted.
+
+SQL> INSERT INTO BCA_ONLINE_STORE VALUES ('SKU304', 7);
+
+1 row inserted.
+
+SQL> INSERT INTO BCA_ONLINE_STORE VALUES ('SKU305', 8);
+
+1 row inserted.
+
+SQL> -- INSERT INTO BCA_EXTERNAL_STORE VALUES (PROD_ID, QUANTITY)
+SQL> --===============================================
+SQL> -- Use the following data for XRef Demos
+SQL> --===============================================
+SQL> -- Guitars
+SQL> INSERT INTO BCA_EXTERNAL_STORE VALUES ('GUI001', 5);
+
+1 row inserted.
+
+SQL> INSERT INTO BCA_EXTERNAL_STORE VALUES ('GUI002', 5);
+
+1 row inserted.
+
+SQL> INSERT INTO BCA_EXTERNAL_STORE VALUES ('GUI003', 5);
+
+1 row inserted.
+
+SQL> INSERT INTO BCA_EXTERNAL_STORE VALUES ('GUI004', 10);
+
+1 row inserted.
+
+SQL> INSERT INTO BCA_EXTERNAL_STORE VALUES ('GUI005', 4);
+
+1 row inserted.
+
+SQL> INSERT INTO BCA_EXTERNAL_STORE VALUES ('GUI006', 3);
+
+1 row inserted.
+
+SQL> -- Amps
+SQL> INSERT INTO BCA_EXTERNAL_STORE VALUES ('AMP001', 5);
+
+1 row inserted.
+
+SQL> INSERT INTO BCA_EXTERNAL_STORE VALUES ('AMP002', 5);
+
+1 row inserted.
+
+SQL> INSERT INTO BCA_EXTERNAL_STORE VALUES ('AMP003', 5);
+
+1 row inserted.
+
+SQL> INSERT INTO BCA_EXTERNAL_STORE VALUES ('AMP004', 5);
+
+1 row inserted.
+
+SQL> INSERT INTO BCA_EXTERNAL_STORE VALUES ('AMP005', 10);
+
+1 row inserted.
+
+SQL> -- Music Players
+SQL> INSERT INTO BCA_EXTERNAL_STORE VALUES ('Music Player01', 20);
+
+1 row inserted.
+
+SQL> INSERT INTO BCA_EXTERNAL_STORE VALUES ('Music Player02', 20);
+
+1 row inserted.
+
+SQL> INSERT INTO BCA_EXTERNAL_STORE VALUES ('Music Player03', 15);
+
+1 row inserted.
+
+SQL> INSERT INTO BCA_EXTERNAL_STORE VALUES ('Music Player04', 10);
+
+1 row inserted.
+
+SQL> INSERT INTO BCA_EXTERNAL_STORE VALUES ('Music Player05', 10);
+
+1 row inserted.
+
+SQL> -- INSERT INTO BCA_PRODID_XREFS VALUES (INT_ID, EXT_ID)
+SQL> INSERT INTO BCA_PRODID_XREFS VALUES ('SKU101', 'GUI001');
+
+1 row inserted.
+
+SQL> INSERT INTO BCA_PRODID_XREFS VALUES ('SKU102', 'GUI002');
+
+1 row inserted.
+
+SQL> INSERT INTO BCA_PRODID_XREFS VALUES ('SKU103', 'GUI003');
+
+1 row inserted.
+
+SQL> INSERT INTO BCA_PRODID_XREFS VALUES ('SKU104', 'GUI004');
+
+1 row inserted.
+
+SQL> INSERT INTO BCA_PRODID_XREFS VALUES ('SKU105', 'GUI005');
+
+1 row inserted.
+
+SQL> INSERT INTO BCA_PRODID_XREFS VALUES ('SKU106', 'GUI006');
+
+1 row inserted.
+
+SQL> -- Amps
+SQL> INSERT INTO BCA_PRODID_XREFS VALUES ('SKU200', 'AMP001');
+
+1 row inserted.
+
+SQL> INSERT INTO BCA_PRODID_XREFS VALUES ('SKU201', 'AMP002');
+
+1 row inserted.
+
+SQL> INSERT INTO BCA_PRODID_XREFS VALUES ('SKU202', 'AMP003');
+
+1 row inserted.
+
+SQL> INSERT INTO BCA_PRODID_XREFS VALUES ('SKU203', 'AMP004');
+
+1 row inserted.
+
+SQL> INSERT INTO BCA_PRODID_XREFS VALUES ('SKU204', 'AMP005');
+
+1 row inserted.
+
+SQL> -- Music Players
+SQL> INSERT INTO BCA_PRODID_XREFS VALUES ('SKU301', 'Music Player01');
+
+1 row inserted.
+
+SQL> INSERT INTO BCA_PRODID_XREFS VALUES ('SKU302', 'Music Player02');
+
+1 row inserted.
+
+SQL> INSERT INTO BCA_PRODID_XREFS VALUES ('SKU303', 'Music Player03');
+
+1 row inserted.
+
+SQL> INSERT INTO BCA_PRODID_XREFS VALUES ('SKU304', 'Music Player04');
+
+1 row inserted.
+
+SQL> INSERT INTO BCA_PRODID_XREFS VALUES ('SKU305', 'Music Player05');
+
+1 row inserted.
+
+SQL> COMMIT;
+
+Commit complete.
+
+SQL> UNDEFINE hostname;
+
+Error starting at line : 165 in command -
+UNDEFINE hostname
+Error report -
+SQL Error: Syntax error: Encountered "UNDEFINE" at line 1, column 1.
+SQL> SPOOL OFF

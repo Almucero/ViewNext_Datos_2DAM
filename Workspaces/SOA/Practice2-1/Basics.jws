@@ -25,5 +25,6 @@
    </list>
    <list n="listOfChildren">
       <hash><url n="URL" path="HelloWorld/HelloWorld.jpr"/></hash>
+      <hash><url n="URL" path="../Practice4-1/NativeData.jpr"/></hash>
    </list>
 </jws:workspace>

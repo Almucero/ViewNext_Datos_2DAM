@@ -3,10 +3,10 @@
   <connection-factory location="eis/FileAdapter"/>
   <endpoint-interaction portType="Write_ptt" operation="Write">
     <interaction-spec className="oracle.tip.adapter.file.outbound.FileInteractionSpec">
-      <property name="PhysicalDirectory" value="C:\Users\6003547\Desktop\ViewNext_Datos_2DAM\Workspaces\SOA\labs\output\podata"/>
       <property name="NumberMessages" value="1"/>
       <property name="Append" value="false"/>
       <property name="FileNamingConvention" value="order_%SEQ%.xml"/>
+      <property name="LogicalDirectory" value="orderfiles"/>
     </interaction-spec>
   </endpoint-interaction>
 

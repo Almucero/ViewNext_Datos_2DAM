@@ -1,0 +1,14 @@
+<adapter-config name="CreditCardService" adapter="db" wsdlLocation="../WSDLs/CreditCardService.wsdl" xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata">
+  
+  <connection-factory UIConnectionName="SOA" location="eis/DB/SOA"/>
+  <endpoint-interaction portType="CreditCardService_ptt" operation="CreditCardServiceSelect">
+    <interaction-spec className="oracle.tip.adapter.db.DBReadInteractionSpec">
+      <property name="DescriptorName" value="CreditCardService.BcaCreditcards"/>
+      <property name="QueryName" value="CreditCardServiceSelect"/>
+      <property name="MappingsMetaDataURL" value="CreditCardService-or-mappings.xml"/>
+      <property name="ReturnSingleResultSet" value="false"/>
+      <property name="GetActiveUnitOfWork" value="false"/>
+    </interaction-spec>
+  </endpoint-interaction>
+
+</adapter-config>

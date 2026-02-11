@@ -4,8 +4,8 @@
      xmlns:tns="http://xmlns.oracle.com/pcbpel/adapter/file/Basics/HelloWorld/WriteData"
      xmlns:jca="http://xmlns.oracle.com/pcbpel/wsdl/jca/"
      xmlns:plt="http://schemas.xmlsoap.org/ws/2003/05/partner-link/"
-     xmlns:imp1="http://www.example.org/ns/porder"
      xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+     xmlns:imp1="http://www.example.org/ns/porder"
     >
   <plt:partnerLinkType name="Write_plt" >
     <plt:role name="Write_role" >
