@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions
+     name="ValidateCreditCard"
+     targetNamespace="http://xmlns.oracle.com/Basics/CCValidate/ValidateCreditCard"
+     xmlns:tns="http://xmlns.oracle.com/Basics/CCValidate/ValidateCreditCard"
+     xmlns:inp1="http://www.example.org/ns/ccauthorize"
+     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+     xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+    >
+    <wsdl:documentation>
+        <abstractWSDL>http://soa12c.example.com:7101/soa-infra/services/default/CCValidate!1.0/WSDLs/ValidateCreditCard.wsdl</abstractWSDL>
+    </wsdl:documentation>
+    <wsdl:types>
+        <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+            <xsd:import namespace="http://www.example.org/ns/ccauthorize" schemaLocation="../Schemas/creditcheck.xsd"/>
+        </xsd:schema>
+    </wsdl:types>
+    <wsdl:message name="requestMessage">
+        <wsdl:part name="part1" element="inp1:CreditCheckRequest"/>
+    </wsdl:message>
+    <wsdl:message name="replyMessage">
+        <wsdl:part name="part1" element="inp1:CreditCheckResponse"/>
+    </wsdl:message>
+    <wsdl:message name="faultMessage">
+        <wsdl:part name="part1" element="inp1:CreditCheckFault"/>
+    </wsdl:message>
+    <wsdl:portType name="validateCC_ptt">
+        <wsdl:operation name="validateCC">
+            <wsdl:input message="tns:requestMessage"/>
+            <wsdl:output message="tns:replyMessage"/>
+            <wsdl:fault name="validateCCfault" message="tns:faultMessage"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="validateCC_pttBinding" type="tns:validateCC_ptt">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="validateCC">
+            <soap:operation style="document" soapAction="validateCC"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="validateCCfault">
+                <soap:fault name="validateCCfault" use="literal"/>
+            </wsdl:fault>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="ValidateCreditCard_ep">
+        <wsdl:port name="validateCC_pt" binding="tns:validateCC_pttBinding">
+            <soap:address location="http://soa12c.example.com:7101/soa-infra/services/default/CCValidate/ValidateCreditCard_ep"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

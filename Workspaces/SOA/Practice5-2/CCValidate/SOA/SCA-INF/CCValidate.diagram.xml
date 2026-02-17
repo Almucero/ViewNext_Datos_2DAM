@@ -15,11 +15,11 @@
         </dgm:operations>
     </dgm:gService>
     <dgm:gReference name="CreditCardService">
-        <dgm:body borderWidth="2" arcRad="20" X="1012" Y="41" width="136" height="84">
+        <dgm:body borderWidth="2" arcRad="20" X="808" Y="41" width="136" height="84">
             <dgm:borderColor r="153" g="153" b="153"/>
             <dgm:bgColor r="255" g="255" b="255"/>
         </dgm:body>
-        <dgm:shadow arcRad="20" X="1002" Y="34" width="156" height="98">
+        <dgm:shadow arcRad="20" X="798" Y="34" width="156" height="98">
             <dgm:bgColor r="196" g="228" b="240"/>
         </dgm:shadow>
         <dgm:inputPort name="CreditCardService" X="-10" Y="0" diameter="20" imageURI="oracle/tip/tools/ide/fabric/resource/image/visuals_rd1/servicereference.png" interface="http://xmlns.oracle.com/pcbpel/adapter/db/CCValidate/CCValidate/CreditCardService#wsdl.interface(CreditCardService_ptt)"/>
@@ -29,12 +29,12 @@
         </dgm:operations>
     </dgm:gReference>
     <dgm:gComponent name="ValidateCreditCard">
-        <dgm:body borderWidth="2" arcRad="20" X="520" Y="26" width="130" height="61">
+        <dgm:body borderWidth="2" arcRad="20" X="418" Y="26" width="130" height="61">
             <dgm:borderColor r="128" g="92" b="148"/>
             <dgm:lightBgColor r="208" g="169" b="227"/>
             <dgm:darkBgColor r="183" g="132" b="212"/>
         </dgm:body>
-        <dgm:shadow arcRad="20" X="510" Y="19" width="150" height="77">
+        <dgm:shadow arcRad="20" X="408" Y="19" width="150" height="77">
             <dgm:bgColor r="196" g="228" b="240"/>
         </dgm:shadow>
         <dgm:inputPort name="ValidateCreditCard" X="-10" Y="15" diameter="20" imageURI="oracle/tip/tools/ide/fabric/resource/image/visuals_rd1/servicereference.png" interface="http://xmlns.oracle.com/CCValidate/CCValidate/ValidateCreditCard#wsdl.interface(validateCC_ptt)"/>
@@ -42,12 +42,12 @@
         <dgm:nodeIcon URI="/oracle/tip/tools/ide/mediator/resource/image/mediator_20x20.png" X="10" Y="4" width="20" height="20"/>
     </dgm:gComponent>
     <dgm:gWireLink source="ValidateCreditCard_ep" target="ValidateCreditCard/ValidateCreditCard" width="2">
-        <dgm:gSegment X1="168" Y1="51" X2="510" Y2="51"/>
+        <dgm:gSegment X1="168" Y1="51" X2="408" Y2="51"/>
         <dgm:baseColor r="153" g="153" b="153"/>
         <dgm:selectedColor r="49" g="106" b="196"/>
     </dgm:gWireLink>
     <dgm:gWireLink source="ValidateCreditCard/CreditCardService" target="CreditCardService" width="2">
-        <dgm:gSegment X1="660" Y1="51" X2="1002" Y2="51"/>
+        <dgm:gSegment X1="558" Y1="51" X2="798" Y2="51"/>
         <dgm:baseColor r="153" g="153" b="153"/>
         <dgm:selectedColor r="49" g="106" b="196"/>
     </dgm:gWireLink>

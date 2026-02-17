@@ -1,0 +1,30 @@
+<?xml version= '1.0' encoding= 'UTF-8' ?>
+<wsdl:definitions
+     name="Enroll"
+     targetNamespace="http://oracle.com/sca/soapservice/AsyncDemo/Enroll/Enroll"
+     xmlns:tns="http://oracle.com/sca/soapservice/AsyncDemo/Enroll/Enroll"
+     xmlns:inp1="http://www.example.org/ns/enroll"
+     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    >
+    <wsdl:types>
+        <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+            <xsd:import namespace="http://www.example.org/ns/enroll" schemaLocation="../Schemas/enrollment.xsd"/>
+        </xsd:schema>
+    </wsdl:types>
+    <wsdl:message name="requestMessage">
+        <wsdl:part name="request" element="inp1:enrollmentRequest"/>
+    </wsdl:message>
+    <wsdl:message name="replyMessage">
+        <wsdl:part name="response" element="inp1:enrollmentResponse"/>
+    </wsdl:message>
+    <wsdl:message name="faultMessage">
+        <wsdl:part name="fault" element="inp1:enrollmentFault"/>
+    </wsdl:message>
+    <wsdl:portType name="execute_ptt">
+        <wsdl:operation name="execute">
+            <wsdl:input message="tns:requestMessage"/>
+            <wsdl:output message="tns:replyMessage"/>
+            <wsdl:fault name="executefault" message="tns:faultMessage"/>
+        </wsdl:operation>
+    </wsdl:portType>
+</wsdl:definitions>

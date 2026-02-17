@@ -1,0 +1,13 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Faults>
+   <Fault>
+      <severity>warning</severity>
+      <loc>/ns:composite/ns:wire/ns:target.uri[.='CallingProcess/callingprocess_client']</loc>
+      <line>54</line>
+      <col>17</col>
+      <file>C:\Users\6003547\Desktop\ViewNext_Datos_2DAM\Workspaces\SOA\Practice7-1\CallGreeting\SOA\composite.xml</file>
+      <name>C:\Users\6003547\Desktop\ViewNext_Datos_2DAM\Workspaces\SOA\Practice7-1\CallGreeting\SOA\composite.xml</name>
+      <fix/>
+      <msg>Fallo de validación de esquema con la excepción "null"</msg>
+   </Fault>
+</Faults>

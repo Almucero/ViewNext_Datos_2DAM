@@ -1,0 +1,51 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+   <entry key="root_descriptor_alias">BCA_ORDERS</entry>
+   <entry key="BCA_ORDERS.STATUS:db_column_type">VARCHAR</entry>
+   <entry key="BCA_ORDERS.CUST_ID:db_column_not_null">true</entry>
+   <entry key="BCA_ORDERS.CARRIER:db_column_not_null">false</entry>
+   <entry key="BCA_ORDERS.STATUS:db_column_not_null">false</entry>
+   <entry key="BCA_ORDERS.STATUS:db_column_size">20</entry>
+   <entry key="BCA_ORDERS.CARD_TYPE:db_column_not_null">false</entry>
+   <entry key="BCA_ORDERS.TOTAL_PRICE:db_column_type">NUMERIC</entry>
+   <entry key="BCA_ORDERS.TOTAL_PRICE:db_column_not_null">true</entry>
+   <entry key="BCA_ORDERS.CARRIER:db_column_type">VARCHAR</entry>
+   <entry key="BCA_ORDERS:db_table_type">TABLE</entry>
+   <entry key="BCA_ORDERS.SHIP_METHOD:db_column_not_null">false</entry>
+   <entry key="BCA_ORDERS:db_column_9">DATE_SHIPPED</entry>
+   <entry key="BCA_ORDERS:db_column_8">DATE_ORDERED</entry>
+   <entry key="BCA_ORDERS:db_column_7">TOTAL_PRICE</entry>
+   <entry key="BCA_ORDERS.CARD_NUMBER:db_column_type">VARCHAR</entry>
+   <entry key="BCA_ORDERS:db_column_6">CARD_NUMBER</entry>
+   <entry key="BCA_ORDERS:db_column_5">CARD_TYPE</entry>
+   <entry key="BCA_ORDERS.TOTAL_PRICE:db_column_size">9</entry>
+   <entry key="BCA_ORDERS:db_column_4">CARRIER</entry>
+   <entry key="BCA_ORDERS:db_column_3">SHIP_METHOD</entry>
+   <entry key="BCA_ORDERS:db_column_2">PAY_METHOD</entry>
+   <entry key="BCA_ORDERS.SHIP_METHOD:db_column_type">VARCHAR</entry>
+   <entry key="BCA_ORDERS:db_column_1">CUST_ID</entry>
+   <entry key="BCA_ORDERS:db_column_0">ORD_ID</entry>
+   <entry key="BCA_ORDERS.DATE_SHIPPED:db_column_type">DATE</entry>
+   <entry key="BCA_ORDERS.TOTAL_PRICE:db_column_scale">2</entry>
+   <entry key="BCA_ORDERS.CARRIER:db_column_size">20</entry>
+   <entry key="BCA_ORDERS.PAY_METHOD:db_column_not_null">false</entry>
+   <entry key="BCA_ORDERS:db_column_10">STATUS</entry>
+   <entry key="BCA_ORDERS.ORD_ID:db_column_not_null">true</entry>
+   <entry key="BCA_ORDERS.DATE_ORDERED:db_column_not_null">true</entry>
+   <entry key="BCA_ORDERS.CARD_NUMBER:db_column_size">20</entry>
+   <entry key="BCA_ORDERS.CARD_TYPE:db_column_type">VARCHAR</entry>
+   <entry key="BCA_ORDERS.SHIP_METHOD:db_column_size">20</entry>
+   <entry key="BCA_ORDERS.PAY_METHOD:db_column_type">VARCHAR</entry>
+   <entry key="BCA_ORDERS.ORD_ID:db_column_type">NUMERIC</entry>
+   <entry key="BCA_ORDERS.ORD_ID:db_column_scale">0</entry>
+   <entry key="BCA_ORDERS.CUST_ID:db_column_type">NUMERIC</entry>
+   <entry key="BCA_ORDERS.CUST_ID:db_column_scale">0</entry>
+   <entry key="BCA_ORDERS.DATE_SHIPPED:db_column_not_null">false</entry>
+   <entry key="BCA_ORDERS.CARD_TYPE:db_column_size">20</entry>
+   <entry key="BCA_ORDERS.PAY_METHOD:db_column_size">20</entry>
+   <entry key="BCA_ORDERS.DATE_ORDERED:db_column_type">DATE</entry>
+   <entry key="BCA_ORDERS.ORD_ID:db_column_size">6</entry>
+   <entry key="BCA_ORDERS.CARD_NUMBER:db_column_not_null">false</entry>
+   <entry key="BCA_ORDERS.CUST_ID:db_column_size">6</entry>
+</properties>

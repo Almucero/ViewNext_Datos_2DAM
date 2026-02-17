@@ -1,0 +1,14 @@
+<adapter-config name="CustomerLookup" adapter="db" wsdlLocation="../WSDLs/CustomerLookup.wsdl" xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata">
+  
+  <connection-factory UIConnectionName="SOA" location="eis/DB/SOA"/>
+  <endpoint-interaction portType="CustomerLookup_ptt" operation="CustomerLookupSelect">
+    <interaction-spec className="oracle.tip.adapter.db.DBReadInteractionSpec">
+      <property name="DescriptorName" value="CustomerLookup.BcaCustomers"/>
+      <property name="QueryName" value="CustomerLookupSelect"/>
+      <property name="MappingsMetaDataURL" value="CustomerLookup-or-mappings.xml"/>
+      <property name="ReturnSingleResultSet" value="false"/>
+      <property name="GetActiveUnitOfWork" value="false"/>
+    </interaction-spec>
+  </endpoint-interaction>
+
+</adapter-config>

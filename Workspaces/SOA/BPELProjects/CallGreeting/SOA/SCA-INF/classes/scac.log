@@ -1,0 +1,32 @@
+2026-02-13 09:21:10.292/1.554 Oracle Coherence 12.2.1.3.0 <Info> (thread=main, member=n/a): Loaded operational configuration from "jar:file:/C:/Oracle_/coherence/lib/coherence.jar!/tangosol-coherence.xml"
+2026-02-13 09:21:10.327/1.589 Oracle Coherence 12.2.1.3.0 <Info> (thread=main, member=n/a): Loaded operational overrides from "jar:file:/C:/Oracle_/coherence/lib/coherence.jar!/tangosol-coherence-override-dev.xml"
+2026-02-13 09:21:10.329/1.591 Oracle Coherence 12.2.1.3.0 <D5> (thread=main, member=n/a): Optional configuration override "/tangosol-coherence-override.xml" is not specified
+2026-02-13 09:21:10.332/1.593 Oracle Coherence 12.2.1.3.0 <D5> (thread=main, member=n/a): Optional configuration override "cache-factory-config.xml" is not specified
+2026-02-13 09:21:10.332/1.594 Oracle Coherence 12.2.1.3.0 <D5> (thread=main, member=n/a): Optional configuration override "cache-factory-builder-config.xml" is not specified
+2026-02-13 09:21:10.333/1.595 Oracle Coherence 12.2.1.3.0 <D5> (thread=main, member=n/a): Optional configuration override "/custom-mbeans.xml" is not specified
+
+Oracle Coherence Version 12.2.1.3.0 Build 68243
+ Grid Edition: Development mode
+Copyright (c) 2000, 2017, Oracle and/or its affiliates. All rights reserved.
+
+2026-02-13 09:21:11.118/2.380 Oracle Coherence GE 12.2.1.3.0 <Info> (thread=main, member=n/a): Created cache factory com.tangosol.net.ExtensibleConfigurableCacheFactory
+2026-02-13 09:21:11.267/2.530 Oracle Coherence GE 12.2.1.3.0 <Info> (thread=main, member=n/a): The cluster name has not been configured, a value of "6003547's cluster" has been automatically generated
+feb 13, 2026 9:21:12 AM oracle.soa.scac.ValidateComposite loadWSDLs
+ADVERTENCIA: Validating WSDLs from WSDLManager....  with option UseSoaInfraMds:false
+feb 13, 2026 9:21:12 AM oracle.fabric.common.wsdl.SchemaManager isIncrementalBuildSupported
+INFORMACIÓN: XMLSchema incremental build enabled.
+Fallo de validación de esquema con la excepción "null"
+oracle.xml.parser.schema.XSDException
+	at oracle.xml.parser.schema.XSDBuilder.buildSchema(XSDBuilder.java:1141)
+	at oracle.xml.parser.schema.XSDBuilder.build(XSDBuilder.java:634)
+	at oracle.soa.scac.ValidationFaultUtil.validateSourceWithSchema(ValidationFaultUtil.java:182)
+	at oracle.soa.scac.ValidationFaultUtil.validateWithSchema(ValidationFaultUtil.java:241)
+	at oracle.soa.scac.ValidationFaultUtil.validateWithSchema(ValidationFaultUtil.java:225)
+	at oracle.soa.scac.ValidateComposite.validateFaultPolicy(ValidateComposite.java:1413)
+	at oracle.soa.scac.ValidateComposite.doValidation0(ValidateComposite.java:613)
+	at oracle.soa.scac.ValidateComposite.doValidation(ValidateComposite.java:586)
+	at oracle.soa.scac.ValidateComposite.run0(ValidateComposite.java:234)
+	at oracle.soa.scac.ValidateComposite.run(ValidateComposite.java:215)
+	at oracle.soa.scac.ValidateComposite.main(ValidateComposite.java:207)
+Java HotSpot(TM) 64-Bit Server VM warning: ignoring option PermSize=32m; support was removed in 8.0
+Java HotSpot(TM) 64-Bit Server VM warning: ignoring option MaxPermSize=256m; support was removed in 8.0

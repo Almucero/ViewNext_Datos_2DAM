@@ -1,0 +1,13 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Faults>
+   <Fault>
+      <severity>warning</severity>
+      <loc>/ns:composite/ns:component[@name='CallREST/callrest_client']</loc>
+      <line/>
+      <col/>
+      <file>C:\Users\6003547\Desktop\ViewNext_Datos_2DAM\Workspaces\SOA\Practice6-1\CallREST\SOA\composite.xml</file>
+      <name>C:\Users\6003547\Desktop\ViewNext_Datos_2DAM\Workspaces\SOA\Practice6-1\CallREST\SOA\composite.xml</name>
+      <fix/>
+      <msg>El servicio "callrest_client" expuesto por el componente "CallREST" no se ha transmitido o lo está utilizando otro componente.</msg>
+   </Fault>
+</Faults>

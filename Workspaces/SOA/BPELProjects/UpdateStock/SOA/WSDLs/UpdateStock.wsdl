@@ -1,0 +1,28 @@
+<?xml version= '1.0' encoding= 'UTF-8' ?>
+<wsdl:definitions
+     name="UpdateStock"
+     targetNamespace="http://xmlns.oracle.com/BPELProjects/UpdateStock/UpdateStock"
+     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+     xmlns:client="http://xmlns.oracle.com/BPELProjects/UpdateStock/UpdateStock"
+     xmlns:ns1="http://www.example.org/ns/updtstock"
+     xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype"
+    >
+    <plnk:partnerLinkType name="UpdateStock">
+        <plnk:role name="UpdateStockProvider" portType="client:UpdateStock"/>
+    </plnk:partnerLinkType>
+    <wsdl:types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+             xmlns:client="http://xmlns.oracle.com/BPELProjects/UpdateStock/UpdateStock"
+             xmlns:ns1="http://www.example.org/ns/updtstock" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype">
+            <import namespace="http://www.example.org/ns/updtstock" schemaLocation="../Schemas/updateStock.xsd"/>
+        </schema>
+    </wsdl:types>
+    <wsdl:message name="UpdateStockRequestMessage">
+        <wsdl:part name="payload" element="ns1:UpdateStock"/>
+    </wsdl:message>
+    <wsdl:portType name="UpdateStock">
+        <wsdl:operation name="process">
+            <wsdl:input message="client:UpdateStockRequestMessage"/>
+        </wsdl:operation>
+    </wsdl:portType>
+</wsdl:definitions>

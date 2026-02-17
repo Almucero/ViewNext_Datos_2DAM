@@ -1,0 +1,32 @@
+<wsdl:definitions
+     name="CustomerLookup"
+     targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/BPELProjects/Approval/CustomerLookup"
+     xmlns:tns="http://xmlns.oracle.com/pcbpel/adapter/db/BPELProjects/Approval/CustomerLookup"
+     xmlns:jca="http://xmlns.oracle.com/pcbpel/wsdl/jca/"
+     xmlns:plt="http://schemas.xmlsoap.org/ws/2003/05/partner-link/"
+     xmlns:top="http://xmlns.oracle.com/pcbpel/adapter/db/top/CustomerLookup"
+     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    >
+  <plt:partnerLinkType name="CustomerLookup_plt" >
+    <plt:role name="CustomerLookup_role" >
+      <plt:portType name="tns:CustomerLookup_ptt" />
+    </plt:role>
+  </plt:partnerLinkType>
+    <wsdl:types>
+      <schema xmlns="http://www.w3.org/2001/XMLSchema" >
+        <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/CustomerLookup" schemaLocation="../Schemas/CustomerLookup_table.xsd" />
+      </schema>
+    </wsdl:types>
+    <wsdl:message name="CustomerLookupSelect_inputParameters">
+        <wsdl:part name="CustomerLookupSelect_inputParameters" element="top:CustomerLookupSelect_custNumInputParameters"/>
+    </wsdl:message>
+    <wsdl:message name="BcaCustomersCollection_msg">
+        <wsdl:part name="BcaCustomersCollection" element="top:BcaCustomersCollection"/>
+    </wsdl:message>
+    <wsdl:portType name="CustomerLookup_ptt">
+        <wsdl:operation name="CustomerLookupSelect">
+            <wsdl:input message="tns:CustomerLookupSelect_inputParameters"/>
+            <wsdl:output message="tns:BcaCustomersCollection_msg"/>
+        </wsdl:operation>
+    </wsdl:portType>
+</wsdl:definitions>

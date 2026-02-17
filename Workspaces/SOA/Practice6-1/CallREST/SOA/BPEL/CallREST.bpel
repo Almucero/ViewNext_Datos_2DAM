@@ -1,0 +1,84 @@
+<?xml version = "1.0" encoding = "UTF-8" ?>
+<!--
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  Oracle JDeveloper BPEL Designer 
+  
+  Created: Mon Feb 16 10:43:01 CET 2026
+  Author:  6003547
+  Type: BPEL 2.0 Process
+  Purpose: Synchronous BPEL Process
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+-->
+<process name="CallREST"
+               targetNamespace="http://xmlns.oracle.com/BPELProjects/CallREST/CallREST"
+               xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+               xmlns:client="http://xmlns.oracle.com/BPELProjects/CallREST/CallREST"
+               xmlns:ora="http://schemas.oracle.com/xpath/extension"
+               xmlns:ui="http://xmlns.oracle.com/soa/designer"
+               xmlns:bpelx="http://schemas.oracle.com/bpel/extension"
+         xmlns:bpel="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+         xmlns:ns1="http://www.example.org/ns/ccauthorize">
+
+    <import ui:processWSDL="true" namespace="http://xmlns.oracle.com/BPELProjects/CallREST/CallREST" location="../WSDLs/CallREST.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <!-- 
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        PARTNERLINKS                                                      
+        List of services participating in this BPEL process               
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    --> 
+  <partnerLinks>
+    <!-- 
+      The 'client' role represents the requester of this service. It is 
+      used for callback. The location and correlation information associated
+      with the client role are automatically set using WS-Addressing.
+    -->
+    <partnerLink name="callrest_client" partnerLinkType="client:CallREST"
+                 myRole="CallRESTProvider"/>
+    <partnerLink name="helloBPEL" bpelx:wadl="yes"/>
+  </partnerLinks>
+  <variables>
+    <variable name="receiveInput_process_InputVariable" messageType="client:CallRESTRequestMessage"/>
+    <variable name="replyOutput_process_OutputVariable" messageType="client:CallRESTResponseMessage"/>
+  </variables>
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      VARIABLES                                                        
+      List of messages and XML documents used within this BPEL process 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+     ORCHESTRATION LOGIC                                               
+     Set of activities coordinating the flow of messages across the    
+     services integrated within this business process                  
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+  <sequence name="main">
+
+    <!-- Receive input from requestor. (Note: This maps to operation defined in CallREST.wsdl) -->
+    <receive name="receiveInput" partnerLink="callrest_client" portType="client:CallREST" operation="process"
+             variable="receiveInput_process_InputVariable" createInstance="yes"/>
+    <assign name="Assign_CreditCard">
+      <copy>
+        <from>$receiveInput_process_InputVariable.payload/ns1:CCNumber</from>
+        <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$receiveInput_process_InputVariable.payload/ns1:CCNumber</to>
+      </copy>
+      <copy>
+        <from>$receiveInput_process_InputVariable.payload/ns1:amount</from>
+        <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$receiveInput_process_InputVariable.payload/ns1:amount</to>
+      </copy>
+    </assign>
+    <invoke name="Invoke_helloBPEL" partnerLink="helloBPEL" inputVariable="receiveInput_process_InputVariable"
+            outputVariable="replyOutput_process_OutputVariable" bpelx:method="validateCard" bpelx:invokeAsDetail="no"/>
+    <assign name="Assign_Reply">
+      <copy>
+        <from>$replyOutput_process_OutputVariable.payload/ns1:status</from>
+        <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$replyOutput_process_OutputVariable.payload/ns1:status</to>
+      </copy>
+    </assign>
+    <!-- Generate reply to synchronous request -->
+    <reply name="replyOutput" partnerLink="callrest_client" portType="client:CallREST" operation="process"
+           variable="replyOutput_process_OutputVariable"/>
+  </sequence>
+</process>

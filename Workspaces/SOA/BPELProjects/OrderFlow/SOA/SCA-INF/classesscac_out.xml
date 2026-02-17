@@ -1,0 +1,503 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Faults>
+   <Fault>
+      <severity>error</severity>
+      <loc>/ns:composite/ns:import[@location='http://soa12c.example.com:7101/soa-infra/services/default/Approval!1.0/WSDLs/Approval.wsdl']</loc>
+      <line>22</line>
+      <col>30</col>
+      <file>C:\Users\6003547\Desktop\ViewNext_Datos_2DAM\Workspaces\SOA\Practice7-1\OrderFlow\SOA\composite.xml</file>
+      <name>C:\Users\6003547\Desktop\ViewNext_Datos_2DAM\Workspaces\SOA\Practice7-1\OrderFlow\SOA\composite.xml</name>
+      <fix/>
+      <msg>Fallo al cargar WSDL "http://soa12c.example.com:7101/soa-infra/services/default/Approval!1.0/WSDLs/Approval.wsdl"</msg>
+   </Fault>
+   <Fault>
+      <severity>error</severity>
+      <loc>/ns:composite/ns:reference[@name='ValidationService']</loc>
+      <line>48</line>
+      <col>90</col>
+      <file>C:\Users\6003547\Desktop\ViewNext_Datos_2DAM\Workspaces\SOA\Practice7-1\OrderFlow\SOA\composite.xml</file>
+      <name>C:\Users\6003547\Desktop\ViewNext_Datos_2DAM\Workspaces\SOA\Practice7-1\OrderFlow\SOA\composite.xml</name>
+      <fix/>
+      <msg>La referencia ValidationService no existe como destino de transmisión</msg>
+   </Fault>
+   <Fault>
+      <severity>warning</severity>
+      <loc>/ns:composite/ns:reference[@name='ApprovalService']</loc>
+      <line>56</line>
+      <col>85</col>
+      <file>C:\Users\6003547\Desktop\ViewNext_Datos_2DAM\Workspaces\SOA\Practice7-1\OrderFlow\SOA\composite.xml</file>
+      <name>C:\Users\6003547\Desktop\ViewNext_Datos_2DAM\Workspaces\SOA\Practice7-1\OrderFlow\SOA\composite.xml</name>
+      <fix/>
+      <msg>Fallo al buscar el enlace "ApprovalService":"{http://xmlns.oracle.com/BPELProjects/Approval/Approval}Approval_pt" en el gestor de WSDL</msg>
+   </Fault>
+   <Fault>
+      <severity>error</severity>
+      <loc>/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='process']</loc>
+      <line>34</line>
+      <col/>
+      <file>BPEL/ProcessOrder.bpel</file>
+      <name>BPEL/ProcessOrder.bpel</name>
+      <fix>Please check import location or element QNames.</fix>
+      <msg>Error al obtener el flujo de entrada XML: http://soa12c.example.com:7101/soa-infra/services/default/Approval!1.0/WSDLs/Approval.wsdl: soa12c.example.com</msg>
+   </Fault>
+   <Fault>
+      <severity>warning</severity>
+      <loc>/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='process']/*[namespace-uri()='http://schemas.oracle.com/bpel/extension'][local-name()='inlineSubProcess'][@name='updateOrderStatusSP']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='sequence'][@name='Sequence1']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='invoke'][@name='Invoke_Update']</loc>
+      <line>38</line>
+      <col/>
+      <file>BPEL/ProcessOrder.bpel</file>
+      <name>BPEL/ProcessOrder.bpel</name>
+      <fix>Check the bpel:partnerLink specified on this activity via attribute "partnerLink" and make sure it is itself specified correctly.</fix>
+      <msg>The activity &lt;bpel:invoke> refers to a bpel:partnerLink (via the attribute "partnerLink") - this bpel:partnerLink needs to be defined correctly.</msg>
+   </Fault>
+   <Fault>
+      <severity>warning</severity>
+      <loc>/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='process']/*[namespace-uri()='http://schemas.oracle.com/bpel/extension'][local-name()='inlineSubProcess'][@name='updateOrderStatusSP']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='sequence'][@name='Sequence1']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='invoke'][@name='Invoke_Update']</loc>
+      <line>38</line>
+      <col/>
+      <file>BPEL/ProcessOrder.bpel</file>
+      <name>BPEL/ProcessOrder.bpel</name>
+      <fix>Check the bpel:variable specified on this activity via attribute "inputVariable" and make sure it is itself specified correctly.</fix>
+      <msg>The activity &lt;bpel:invoke> refers to a bpel:variable (via the attribute "inputVariable") - this bpel:variable needs to be defined correctly.</msg>
+   </Fault>
+   <Fault>
+      <severity>error</severity>
+      <loc>/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='process']/*[namespace-uri()='http://schemas.oracle.com/bpel/extension'][local-name()='inlineSubProcess'][@name='updateOrderStatusSP']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='sequence'][@name='Sequence1']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='invoke'][@name='Invoke_Update']</loc>
+      <line>38</line>
+      <col/>
+      <file>BPEL/ProcessOrder.bpel</file>
+      <name>BPEL/ProcessOrder.bpel</name>
+      <fix>Make sure that value "ns6:UpdateStatus_ptt" is resolvable (check imports, value of "portType").</fix>
+      <msg>"portType" is set to "ns6:UpdateStatus_ptt" on this &lt;bpel:invoke> activity but it cannot be resolved (check value of "portType", imports, WSDLs or XSDs).</msg>
+   </Fault>
+   <Fault>
+      <severity>error</severity>
+      <loc>/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='process']/*[namespace-uri()='http://schemas.oracle.com/bpel/extension'][local-name()='inlineSubProcess'][@name='updateOrderStatusSP']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='sequence'][@name='Sequence1']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='assign'][@name='setUpdate']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='copy'][1]/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='to']</loc>
+      <line>42</line>
+      <col/>
+      <file>BPEL/ProcessOrder.bpel</file>
+      <name>BPEL/ProcessOrder.bpel</name>
+      <fix>Please define this prefix in the BPEL source file.</fix>
+      <msg>Namespace prefix "ns7" qualifying "BcaOrders" cannot be resolved.</msg>
+   </Fault>
+   <Fault>
+      <severity>error</severity>
+      <loc>/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='process']/*[namespace-uri()='http://schemas.oracle.com/bpel/extension'][local-name()='inlineSubProcess'][@name='updateOrderStatusSP']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='sequence'][@name='Sequence1']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='assign'][@name='setUpdate']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='copy'][1]/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='to']</loc>
+      <line>42</line>
+      <col/>
+      <file>BPEL/ProcessOrder.bpel</file>
+      <name>BPEL/ProcessOrder.bpel</name>
+      <fix>Please define this prefix in the BPEL source file.</fix>
+      <msg>Namespace prefix "ns7" qualifying "ordId" cannot be resolved.</msg>
+   </Fault>
+   <Fault>
+      <severity>error</severity>
+      <loc>/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='process']/*[namespace-uri()='http://schemas.oracle.com/bpel/extension'][local-name()='inlineSubProcess'][@name='updateOrderStatusSP']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='sequence'][@name='Sequence1']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='assign'][@name='setUpdate']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='copy'][2]/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='to']</loc>
+      <line>46</line>
+      <col/>
+      <file>BPEL/ProcessOrder.bpel</file>
+      <name>BPEL/ProcessOrder.bpel</name>
+      <fix>Please define this prefix in the BPEL source file.</fix>
+      <msg>Namespace prefix "ns7" qualifying "BcaOrders" cannot be resolved.</msg>
+   </Fault>
+   <Fault>
+      <severity>error</severity>
+      <loc>/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='process']/*[namespace-uri()='http://schemas.oracle.com/bpel/extension'][local-name()='inlineSubProcess'][@name='updateOrderStatusSP']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='sequence'][@name='Sequence1']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='assign'][@name='setUpdate']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='copy'][2]/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='to']</loc>
+      <line>46</line>
+      <col/>
+      <file>BPEL/ProcessOrder.bpel</file>
+      <name>BPEL/ProcessOrder.bpel</name>
+      <fix>Please define this prefix in the BPEL source file.</fix>
+      <msg>Namespace prefix "ns7" qualifying "status" cannot be resolved.</msg>
+   </Fault>
+   <Fault>
+      <severity>warning</severity>
+      <loc>/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='process']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='import']</loc>
+      <line>51</line>
+      <col/>
+      <file>BPEL/ProcessOrder.bpel</file>
+      <name>BPEL/ProcessOrder.bpel</name>
+      <fix>Check location "../WSDLs/ProcessOrder.wsdl" and import type "http://schemas.xmlsoap.org/wsdl/"</fix>
+      <msg>Cannot import type "http://schemas.xmlsoap.org/wsdl/" from location "../WSDLs/ProcessOrder.wsdl"</msg>
+   </Fault>
+   <Fault>
+      <severity>error</severity>
+      <loc>/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='process']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='partnerLinks']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='partnerLink'][@name='processorder_client']</loc>
+      <line>64</line>
+      <col/>
+      <file>BPEL/ProcessOrder.bpel</file>
+      <name>BPEL/ProcessOrder.bpel</name>
+      <fix>Make sure that value "client:ProcessOrder" is resolvable (check imports, value of "partnerLinkType").</fix>
+      <msg>"partnerLinkType" is set to "client:ProcessOrder" on this &lt;bpel:partnerLink>  but it cannot be resolved (check value of "partnerLinkType", imports, WSDLs or XSDs).</msg>
+   </Fault>
+   <Fault>
+      <severity>error</severity>
+      <loc>/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='process']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='partnerLinks']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='partnerLink'][@name='ApprovalService']</loc>
+      <line>67</line>
+      <col/>
+      <file>BPEL/ProcessOrder.bpel</file>
+      <name>BPEL/ProcessOrder.bpel</name>
+      <fix>Make sure that value "ns2:Approval" is resolvable (check imports, value of "partnerLinkType").</fix>
+      <msg>"partnerLinkType" is set to "ns2:Approval" on this &lt;bpel:partnerLink>  but it cannot be resolved (check value of "partnerLinkType", imports, WSDLs or XSDs).</msg>
+   </Fault>
+   <Fault>
+      <severity>error</severity>
+      <loc>/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='process']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='partnerLinks']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='partnerLink'][@name='UpdateStatus']</loc>
+      <line>68</line>
+      <col/>
+      <file>BPEL/ProcessOrder.bpel</file>
+      <name>BPEL/ProcessOrder.bpel</name>
+      <fix>Make sure that value "ns6:UpdateStatus_plt" is resolvable (check imports, value of "partnerLinkType").</fix>
+      <msg>"partnerLinkType" is set to "ns6:UpdateStatus_plt" on this &lt;bpel:partnerLink>  but it cannot be resolved (check value of "partnerLinkType", imports, WSDLs or XSDs).</msg>
+   </Fault>
+   <Fault>
+      <severity>error</severity>
+      <loc>/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='process']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='variables']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='variable'][@name='inputVariable']</loc>
+      <line>79</line>
+      <col/>
+      <file>BPEL/ProcessOrder.bpel</file>
+      <name>BPEL/ProcessOrder.bpel</name>
+      <fix>Make sure that value "client:ProcessOrderRequestMessage" is resolvable (check imports, value of "messageType").</fix>
+      <msg>"messageType" is set to "client:ProcessOrderRequestMessage" on this &lt;bpel:variable>  but it cannot be resolved (check value of "messageType", imports, WSDLs or XSDs).</msg>
+   </Fault>
+   <Fault>
+      <severity>error</severity>
+      <loc>/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='process']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='variables']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='variable'][@name='outputVariable']</loc>
+      <line>82</line>
+      <col/>
+      <file>BPEL/ProcessOrder.bpel</file>
+      <name>BPEL/ProcessOrder.bpel</name>
+      <fix>Make sure that value "client:ProcessOrderResponseMessage" is resolvable (check imports, value of "messageType").</fix>
+      <msg>"messageType" is set to "client:ProcessOrderResponseMessage" on this &lt;bpel:variable>  but it cannot be resolved (check value of "messageType", imports, WSDLs or XSDs).</msg>
+   </Fault>
+   <Fault>
+      <severity>error</severity>
+      <loc>/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='process']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='variables']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='variable'][@name='Invoke_Validation_validateCC_InputVariable']</loc>
+      <line>83</line>
+      <col/>
+      <file>BPEL/ProcessOrder.bpel</file>
+      <name>BPEL/ProcessOrder.bpel</name>
+      <fix>Make sure that value "ns1:requestMessage" is resolvable (check imports, value of "messageType").</fix>
+      <msg>"messageType" is set to "ns1:requestMessage" on this &lt;bpel:variable>  but it cannot be resolved (check value of "messageType", imports, WSDLs or XSDs).</msg>
+   </Fault>
+   <Fault>
+      <severity>error</severity>
+      <loc>/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='process']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='variables']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='variable'][@name='Invoke_Validation_validateCC_OutputVariable']</loc>
+      <line>84</line>
+      <col/>
+      <file>BPEL/ProcessOrder.bpel</file>
+      <name>BPEL/ProcessOrder.bpel</name>
+      <fix>Make sure that value "ns1:replyMessage" is resolvable (check imports, value of "messageType").</fix>
+      <msg>"messageType" is set to "ns1:replyMessage" on this &lt;bpel:variable>  but it cannot be resolved (check value of "messageType", imports, WSDLs or XSDs).</msg>
+   </Fault>
+   <Fault>
+      <severity>error</severity>
+      <loc>/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='process']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='variables']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='variable'][@name='Invoke_Approval_process_InputVariable']</loc>
+      <line>85</line>
+      <col/>
+      <file>BPEL/ProcessOrder.bpel</file>
+      <name>BPEL/ProcessOrder.bpel</name>
+      <fix>Make sure that value "ns2:ApprovalRequestMessage" is resolvable (check imports, value of "messageType").</fix>
+      <msg>"messageType" is set to "ns2:ApprovalRequestMessage" on this &lt;bpel:variable>  but it cannot be resolved (check value of "messageType", imports, WSDLs or XSDs).</msg>
+   </Fault>
+   <Fault>
+      <severity>error</severity>
+      <loc>/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='process']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='variables']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='variable'][@name='Receive_Approval_processResponse_InputVariable']</loc>
+      <line>86</line>
+      <col/>
+      <file>BPEL/ProcessOrder.bpel</file>
+      <name>BPEL/ProcessOrder.bpel</name>
+      <fix>Make sure that value "ns2:ApprovalResponseMessage" is resolvable (check imports, value of "messageType").</fix>
+      <msg>"messageType" is set to "ns2:ApprovalResponseMessage" on this &lt;bpel:variable>  but it cannot be resolved (check value of "messageType", imports, WSDLs or XSDs).</msg>
+   </Fault>
+   <Fault>
+      <severity>error</severity>
+      <loc>/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='process']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='variables']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='variable'][@name='Invoke_Update_update_InputVariable']</loc>
+      <line>87</line>
+      <col/>
+      <file>BPEL/ProcessOrder.bpel</file>
+      <name>BPEL/ProcessOrder.bpel</name>
+      <fix>Make sure that value "ns6:BcaOrdersCollection_msg" is resolvable (check imports, value of "messageType").</fix>
+      <msg>"messageType" is set to "ns6:BcaOrdersCollection_msg" on this &lt;bpel:variable>  but it cannot be resolved (check value of "messageType", imports, WSDLs or XSDs).</msg>
+   </Fault>
+   <Fault>
+      <severity>warning</severity>
+      <loc>/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='process']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='sequence'][@name='main']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='receive'][@name='receiveInput']</loc>
+      <line>100</line>
+      <col/>
+      <file>BPEL/ProcessOrder.bpel</file>
+      <name>BPEL/ProcessOrder.bpel</name>
+      <fix>Check the bpel:partnerLink specified on this activity via attribute "partnerLink" and make sure it is itself specified correctly.</fix>
+      <msg>The activity &lt;bpel:receive> refers to a bpel:partnerLink (via the attribute "partnerLink") - this bpel:partnerLink needs to be defined correctly.</msg>
+   </Fault>
+   <Fault>
+      <severity>error</severity>
+      <loc>/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='process']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='sequence'][@name='main']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='receive'][@name='receiveInput']</loc>
+      <line>100</line>
+      <col/>
+      <file>BPEL/ProcessOrder.bpel</file>
+      <name>BPEL/ProcessOrder.bpel</name>
+      <fix>Make sure that value "client:ProcessOrder" is resolvable (check imports, value of "portType").</fix>
+      <msg>"portType" is set to "client:ProcessOrder" on this &lt;bpel:receive> activity but it cannot be resolved (check value of "portType", imports, WSDLs or XSDs).</msg>
+   </Fault>
+   <Fault>
+      <severity>warning</severity>
+      <loc>/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='process']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='sequence'][@name='main']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='receive'][@name='receiveInput']</loc>
+      <line>100</line>
+      <col/>
+      <file>BPEL/ProcessOrder.bpel</file>
+      <name>BPEL/ProcessOrder.bpel</name>
+      <fix>Check the bpel:variable specified on this activity via attribute "variable" and make sure it is itself specified correctly.</fix>
+      <msg>The activity &lt;bpel:receive> refers to a bpel:variable (via the attribute "variable") - this bpel:variable needs to be defined correctly.</msg>
+   </Fault>
+   <Fault>
+      <severity>warning</severity>
+      <loc>/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='process']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='sequence'][@name='main']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='assign'][@name='SetOutput']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='copy']</loc>
+      <line>102</line>
+      <col/>
+      <file>BPEL/ProcessOrder.bpel</file>
+      <name>BPEL/ProcessOrder.bpel</name>
+      <fix>Types must be compatible.</fix>
+      <msg>The from-spec of "type" is not compatible with to-spec of "type"</msg>
+   </Fault>
+   <Fault>
+      <severity>warning</severity>
+      <loc>/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='process']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='sequence'][@name='main']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='assign'][@name='SetValidation']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='copy'][1]</loc>
+      <line>108</line>
+      <col/>
+      <file>BPEL/ProcessOrder.bpel</file>
+      <name>BPEL/ProcessOrder.bpel</name>
+      <fix>Types must be compatible.</fix>
+      <msg>The from-spec of "type" is not compatible with to-spec of "type"</msg>
+   </Fault>
+   <Fault>
+      <severity>warning</severity>
+      <loc>/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='process']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='sequence'][@name='main']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='assign'][@name='SetValidation']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='copy'][2]</loc>
+      <line>112</line>
+      <col/>
+      <file>BPEL/ProcessOrder.bpel</file>
+      <name>BPEL/ProcessOrder.bpel</name>
+      <fix>Types must be compatible.</fix>
+      <msg>The from-spec of "type" is not compatible with to-spec of "type"</msg>
+   </Fault>
+   <Fault>
+      <severity>warning</severity>
+      <loc>/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='process']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='sequence'][@name='main']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='invoke'][@name='Invoke_Validation']</loc>
+      <line>120</line>
+      <col/>
+      <file>BPEL/ProcessOrder.bpel</file>
+      <name>BPEL/ProcessOrder.bpel</name>
+      <fix>Check the bpel:variable specified on this activity via attribute "outputVariable" and make sure it is itself specified correctly.</fix>
+      <msg>The activity &lt;bpel:invoke> refers to a bpel:variable (via the attribute "outputVariable") - this bpel:variable needs to be defined correctly.</msg>
+   </Fault>
+   <Fault>
+      <severity>warning</severity>
+      <loc>/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='process']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='sequence'][@name='main']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='invoke'][@name='Invoke_Validation']</loc>
+      <line>120</line>
+      <col/>
+      <file>BPEL/ProcessOrder.bpel</file>
+      <name>BPEL/ProcessOrder.bpel</name>
+      <fix>Check the bpel:variable specified on this activity via attribute "inputVariable" and make sure it is itself specified correctly.</fix>
+      <msg>The activity &lt;bpel:invoke> refers to a bpel:variable (via the attribute "inputVariable") - this bpel:variable needs to be defined correctly.</msg>
+   </Fault>
+   <Fault>
+      <severity>error</severity>
+      <loc>/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='process']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='sequence'][@name='main']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='invoke'][@name='Invoke_Validation']</loc>
+      <line>120</line>
+      <col/>
+      <file>BPEL/ProcessOrder.bpel</file>
+      <name>BPEL/ProcessOrder.bpel</name>
+      <fix>Make sure that value "ns1:validateCC_ptt" is resolvable (check imports, value of "portType").</fix>
+      <msg>"portType" is set to "ns1:validateCC_ptt" on this &lt;bpel:invoke> activity but it cannot be resolved (check value of "portType", imports, WSDLs or XSDs).</msg>
+   </Fault>
+   <Fault>
+      <severity>warning</severity>
+      <loc>/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='process']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='sequence'][@name='main']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='assign'][@name='GetValidation']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='copy']</loc>
+      <line>122</line>
+      <col/>
+      <file>BPEL/ProcessOrder.bpel</file>
+      <name>BPEL/ProcessOrder.bpel</name>
+      <fix>Types must be compatible.</fix>
+      <msg>The from-spec of "type" is not compatible with to-spec of "type"</msg>
+   </Fault>
+   <Fault>
+      <severity>warning</severity>
+      <loc>/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='process']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='sequence'][@name='main']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='if'][@name='If']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='sequence']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='assign'][@name='SetApproval']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='copy'][1]</loc>
+      <line>137</line>
+      <col/>
+      <file>BPEL/ProcessOrder.bpel</file>
+      <name>BPEL/ProcessOrder.bpel</name>
+      <fix>Types must be compatible.</fix>
+      <msg>The from-spec of "type" is not compatible with to-spec of "type"</msg>
+   </Fault>
+   <Fault>
+      <severity>warning</severity>
+      <loc>/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='process']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='sequence'][@name='main']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='if'][@name='If']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='sequence']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='assign'][@name='SetApproval']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='copy'][2]</loc>
+      <line>141</line>
+      <col/>
+      <file>BPEL/ProcessOrder.bpel</file>
+      <name>BPEL/ProcessOrder.bpel</name>
+      <fix>Types must be compatible.</fix>
+      <msg>The from-spec of "type" is not compatible with to-spec of "type"</msg>
+   </Fault>
+   <Fault>
+      <severity>warning</severity>
+      <loc>/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='process']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='sequence'][@name='main']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='if'][@name='If']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='sequence']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='assign'][@name='SetApproval']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='copy'][3]</loc>
+      <line>145</line>
+      <col/>
+      <file>BPEL/ProcessOrder.bpel</file>
+      <name>BPEL/ProcessOrder.bpel</name>
+      <fix>Types must be compatible.</fix>
+      <msg>The from-spec of "type" is not compatible with to-spec of "type"</msg>
+   </Fault>
+   <Fault>
+      <severity>warning</severity>
+      <loc>/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='process']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='sequence'][@name='main']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='if'][@name='If']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='sequence']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='assign'][@name='SetApproval']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='copy'][4]</loc>
+      <line>149</line>
+      <col/>
+      <file>BPEL/ProcessOrder.bpel</file>
+      <name>BPEL/ProcessOrder.bpel</name>
+      <fix>Types must be compatible.</fix>
+      <msg>The from-spec of "type" is not compatible with to-spec of "type"</msg>
+   </Fault>
+   <Fault>
+      <severity>warning</severity>
+      <loc>/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='process']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='sequence'][@name='main']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='if'][@name='If']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='sequence']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='assign'][@name='SetApproval']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='copy'][5]</loc>
+      <line>153</line>
+      <col/>
+      <file>BPEL/ProcessOrder.bpel</file>
+      <name>BPEL/ProcessOrder.bpel</name>
+      <fix>Types must be compatible.</fix>
+      <msg>The from-spec of "type" is not compatible with to-spec of "type"</msg>
+   </Fault>
+   <Fault>
+      <severity>warning</severity>
+      <loc>/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='process']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='sequence'][@name='main']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='if'][@name='If']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='sequence']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='assign'][@name='SetApproval']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='copy'][6]</loc>
+      <line>157</line>
+      <col/>
+      <file>BPEL/ProcessOrder.bpel</file>
+      <name>BPEL/ProcessOrder.bpel</name>
+      <fix>Types must be compatible.</fix>
+      <msg>The from-spec of "type" is not compatible with to-spec of "type"</msg>
+   </Fault>
+   <Fault>
+      <severity>warning</severity>
+      <loc>/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='process']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='sequence'][@name='main']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='if'][@name='If']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='sequence']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='assign'][@name='SetApproval']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='copy'][7]</loc>
+      <line>161</line>
+      <col/>
+      <file>BPEL/ProcessOrder.bpel</file>
+      <name>BPEL/ProcessOrder.bpel</name>
+      <fix>Types must be compatible.</fix>
+      <msg>The from-spec of "type" is not compatible with to-spec of "type"</msg>
+   </Fault>
+   <Fault>
+      <severity>warning</severity>
+      <loc>/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='process']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='sequence'][@name='main']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='if'][@name='If']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='sequence']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='assign'][@name='SetApproval']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='copy'][8]</loc>
+      <line>165</line>
+      <col/>
+      <file>BPEL/ProcessOrder.bpel</file>
+      <name>BPEL/ProcessOrder.bpel</name>
+      <fix>Types must be compatible.</fix>
+      <msg>The from-spec of "type" is not compatible with to-spec of "type"</msg>
+   </Fault>
+   <Fault>
+      <severity>warning</severity>
+      <loc>/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='process']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='sequence'][@name='main']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='if'][@name='If']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='sequence']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='invoke'][@name='Invoke_Approval']</loc>
+      <line>171</line>
+      <col/>
+      <file>BPEL/ProcessOrder.bpel</file>
+      <name>BPEL/ProcessOrder.bpel</name>
+      <fix>Check the bpel:partnerLink specified on this activity via attribute "partnerLink" and make sure it is itself specified correctly.</fix>
+      <msg>The activity &lt;bpel:invoke> refers to a bpel:partnerLink (via the attribute "partnerLink") - this bpel:partnerLink needs to be defined correctly.</msg>
+   </Fault>
+   <Fault>
+      <severity>warning</severity>
+      <loc>/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='process']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='sequence'][@name='main']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='if'][@name='If']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='sequence']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='invoke'][@name='Invoke_Approval']</loc>
+      <line>171</line>
+      <col/>
+      <file>BPEL/ProcessOrder.bpel</file>
+      <name>BPEL/ProcessOrder.bpel</name>
+      <fix>Check the bpel:variable specified on this activity via attribute "inputVariable" and make sure it is itself specified correctly.</fix>
+      <msg>The activity &lt;bpel:invoke> refers to a bpel:variable (via the attribute "inputVariable") - this bpel:variable needs to be defined correctly.</msg>
+   </Fault>
+   <Fault>
+      <severity>error</severity>
+      <loc>/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='process']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='sequence'][@name='main']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='if'][@name='If']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='sequence']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='invoke'][@name='Invoke_Approval']</loc>
+      <line>171</line>
+      <col/>
+      <file>BPEL/ProcessOrder.bpel</file>
+      <name>BPEL/ProcessOrder.bpel</name>
+      <fix>Make sure that value "ns2:Approval" is resolvable (check imports, value of "portType").</fix>
+      <msg>"portType" is set to "ns2:Approval" on this &lt;bpel:invoke> activity but it cannot be resolved (check value of "portType", imports, WSDLs or XSDs).</msg>
+   </Fault>
+   <Fault>
+      <severity>warning</severity>
+      <loc>/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='process']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='sequence'][@name='main']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='if'][@name='If']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='sequence']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='receive'][@name='Receive_Approval']</loc>
+      <line>173</line>
+      <col/>
+      <file>BPEL/ProcessOrder.bpel</file>
+      <name>BPEL/ProcessOrder.bpel</name>
+      <fix>Check the bpel:partnerLink specified on this activity via attribute "partnerLink" and make sure it is itself specified correctly.</fix>
+      <msg>The activity &lt;bpel:receive> refers to a bpel:partnerLink (via the attribute "partnerLink") - this bpel:partnerLink needs to be defined correctly.</msg>
+   </Fault>
+   <Fault>
+      <severity>error</severity>
+      <loc>/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='process']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='sequence'][@name='main']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='if'][@name='If']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='sequence']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='receive'][@name='Receive_Approval']</loc>
+      <line>173</line>
+      <col/>
+      <file>BPEL/ProcessOrder.bpel</file>
+      <name>BPEL/ProcessOrder.bpel</name>
+      <fix>Make sure that value "ns2:ApprovalCallback" is resolvable (check imports, value of "portType").</fix>
+      <msg>"portType" is set to "ns2:ApprovalCallback" on this &lt;bpel:receive> activity but it cannot be resolved (check value of "portType", imports, WSDLs or XSDs).</msg>
+   </Fault>
+   <Fault>
+      <severity>warning</severity>
+      <loc>/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='process']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='sequence'][@name='main']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='if'][@name='If']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='sequence']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='receive'][@name='Receive_Approval']</loc>
+      <line>173</line>
+      <col/>
+      <file>BPEL/ProcessOrder.bpel</file>
+      <name>BPEL/ProcessOrder.bpel</name>
+      <fix>Check the bpel:variable specified on this activity via attribute "variable" and make sure it is itself specified correctly.</fix>
+      <msg>The activity &lt;bpel:receive> refers to a bpel:variable (via the attribute "variable") - this bpel:variable needs to be defined correctly.</msg>
+   </Fault>
+   <Fault>
+      <severity>warning</severity>
+      <loc>/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='process']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='sequence'][@name='main']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='if'][@name='If']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='sequence']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='assign'][@name='GetApproval']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='copy']</loc>
+      <line>175</line>
+      <col/>
+      <file>BPEL/ProcessOrder.bpel</file>
+      <name>BPEL/ProcessOrder.bpel</name>
+      <fix>Types must be compatible.</fix>
+      <msg>The from-spec of "type" is not compatible with to-spec of "type"</msg>
+   </Fault>
+   <Fault>
+      <severity>warning</severity>
+      <loc>/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='process']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='sequence'][@name='main']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='reply'][@name='replyOutput']</loc>
+      <line>192</line>
+      <col/>
+      <file>BPEL/ProcessOrder.bpel</file>
+      <name>BPEL/ProcessOrder.bpel</name>
+      <fix>Check the bpel:partnerLink specified on this activity via attribute "partnerLink" and make sure it is itself specified correctly.</fix>
+      <msg>The activity &lt;bpel:reply> refers to a bpel:partnerLink (via the attribute "partnerLink") - this bpel:partnerLink needs to be defined correctly.</msg>
+   </Fault>
+   <Fault>
+      <severity>warning</severity>
+      <loc>/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='process']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='sequence'][@name='main']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='reply'][@name='replyOutput']</loc>
+      <line>192</line>
+      <col/>
+      <file>BPEL/ProcessOrder.bpel</file>
+      <name>BPEL/ProcessOrder.bpel</name>
+      <fix>Check the bpel:variable specified on this activity via attribute "variable" and make sure it is itself specified correctly.</fix>
+      <msg>The activity &lt;bpel:reply> refers to a bpel:variable (via the attribute "variable") - this bpel:variable needs to be defined correctly.</msg>
+   </Fault>
+   <Fault>
+      <severity>error</severity>
+      <loc>/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='process']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='sequence'][@name='main']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='reply'][@name='replyOutput']</loc>
+      <line>192</line>
+      <col/>
+      <file>BPEL/ProcessOrder.bpel</file>
+      <name>BPEL/ProcessOrder.bpel</name>
+      <fix>Make sure that value "client:ProcessOrder" is resolvable (check imports, value of "portType").</fix>
+      <msg>"portType" is set to "client:ProcessOrder" on this &lt;bpel:reply> activity but it cannot be resolved (check value of "portType", imports, WSDLs or XSDs).</msg>
+   </Fault>
+</Faults>
