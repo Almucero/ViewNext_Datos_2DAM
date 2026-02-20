@@ -15,11 +15,11 @@
         </dgm:operations>
     </dgm:gService>
     <dgm:gReference name="ValidationService">
-        <dgm:body borderWidth="2" arcRad="20" X="1012" Y="26" width="136" height="84">
+        <dgm:body borderWidth="2" arcRad="20" X="798" Y="26" width="136" height="84">
             <dgm:borderColor r="153" g="153" b="153"/>
             <dgm:bgColor r="255" g="255" b="255"/>
         </dgm:body>
-        <dgm:shadow arcRad="20" X="1002" Y="19" width="156" height="98">
+        <dgm:shadow arcRad="20" X="788" Y="19" width="156" height="98">
             <dgm:bgColor r="196" g="228" b="240"/>
         </dgm:shadow>
         <dgm:inputPort name="ValidationService" X="-10" Y="0" diameter="20" imageURI="oracle/tip/tools/ide/fabric/resource/image/visuals_rd1/servicereference.png" interface="http://xmlns.oracle.com/Basics/CCValidate/ValidateCreditCard#wsdl.interface(validateCC_ptt)"/>
@@ -29,11 +29,11 @@
         </dgm:operations>
     </dgm:gReference>
     <dgm:gReference name="ApprovalService">
-        <dgm:body borderWidth="2" arcRad="20" X="1012" Y="142" width="136" height="96">
+        <dgm:body borderWidth="2" arcRad="20" X="798" Y="142" width="136" height="96">
             <dgm:borderColor r="153" g="153" b="153"/>
             <dgm:bgColor r="255" g="255" b="255"/>
         </dgm:body>
-        <dgm:shadow arcRad="20" X="1002" Y="135" width="156" height="110">
+        <dgm:shadow arcRad="20" X="788" Y="135" width="156" height="110">
             <dgm:bgColor r="196" g="228" b="240"/>
         </dgm:shadow>
         <dgm:inputPort name="ApprovalService" X="-10" Y="0" diameter="20" imageURI="oracle/tip/tools/ide/fabric/resource/image/visuals_rd1/servicereference.png" interface="http://xmlns.oracle.com/BPELProjects/Approval/Approval#wsdl.interface(Approval)" callbackInterface="http://xmlns.oracle.com/BPELProjects/Approval/Approval#wsdl.interface(ApprovalCallback)"/>
@@ -44,11 +44,11 @@
         </dgm:operations>
     </dgm:gReference>
     <dgm:gReference name="UpdateStatus">
-        <dgm:body borderWidth="2" arcRad="20" X="1012" Y="272" width="136" height="84">
+        <dgm:body borderWidth="2" arcRad="20" X="798" Y="272" width="136" height="84">
             <dgm:borderColor r="153" g="153" b="153"/>
             <dgm:bgColor r="255" g="255" b="255"/>
         </dgm:body>
-        <dgm:shadow arcRad="20" X="1002" Y="265" width="156" height="98">
+        <dgm:shadow arcRad="20" X="788" Y="265" width="156" height="98">
             <dgm:bgColor r="196" g="228" b="240"/>
         </dgm:shadow>
         <dgm:inputPort name="UpdateStatus" X="-10" Y="0" diameter="20" imageURI="oracle/tip/tools/ide/fabric/resource/image/visuals_rd1/servicereference.png" interface="http://xmlns.oracle.com/pcbpel/adapter/db/BPELProjects/OrderFlow/UpdateStatus#wsdl.interface(UpdateStatus_ptt)"/>
@@ -58,12 +58,12 @@
         </dgm:operations>
     </dgm:gReference>
     <dgm:gComponent name="ProcessOrder">
-        <dgm:body borderWidth="2" arcRad="20" X="520" Y="209" width="130" height="86">
+        <dgm:body borderWidth="2" arcRad="20" X="413" Y="209" width="130" height="86">
             <dgm:borderColor r="69" g="113" b="140"/>
             <dgm:lightBgColor r="166" g="208" b="230"/>
             <dgm:darkBgColor r="99" g="162" b="201"/>
         </dgm:body>
-        <dgm:shadow arcRad="20" X="510" Y="202" width="150" height="102">
+        <dgm:shadow arcRad="20" X="403" Y="202" width="150" height="102">
             <dgm:bgColor r="196" g="228" b="240"/>
         </dgm:shadow>
         <dgm:inputPort name="processorder_client" X="-10" Y="15" diameter="20" imageURI="oracle/tip/tools/ide/fabric/resource/image/visuals_rd1/servicereference.png" interface="http://xmlns.oracle.com/Templates/OrderFlowTemplate/ProcessOrder#wsdl.interface(ProcessOrder)"/>
@@ -72,21 +72,21 @@
         <dgm:nodeIcon URI="/oracle/tip/tools/ide/bpel/shared/plugins/resources/images/soa/process_20x20.png" X="10" Y="4" width="20" height="20"/>
     </dgm:gComponent>
     <dgm:gWireLink source="processorder_client_ep" target="ProcessOrder/processorder_client" width="2">
-        <dgm:gSegment X1="168" Y1="234" X2="510" Y2="234"/>
+        <dgm:gSegment X1="168" Y1="234" X2="403" Y2="234"/>
         <dgm:baseColor r="153" g="153" b="153"/>
         <dgm:selectedColor r="49" g="106" b="196"/>
     </dgm:gWireLink>
     <dgm:gWireLink source="ProcessOrder/ApprovalService" target="ApprovalService" width="2">
-        <dgm:gSegment X1="660" Y1="234" X2="684" Y2="234"/>
-        <dgm:gSegment X1="684" Y1="234" X2="684" Y2="152"/>
-        <dgm:gSegment X1="684" Y1="152" X2="1002" Y2="152"/>
+        <dgm:gSegment X1="553" Y1="234" X2="577" Y2="234"/>
+        <dgm:gSegment X1="577" Y1="234" X2="577" Y2="152"/>
+        <dgm:gSegment X1="577" Y1="152" X2="788" Y2="152"/>
         <dgm:baseColor r="153" g="153" b="153"/>
         <dgm:selectedColor r="49" g="106" b="196"/>
     </dgm:gWireLink>
     <dgm:gWireLink source="ProcessOrder/UpdateStatus" target="UpdateStatus" width="2">
-        <dgm:gSegment X1="660" Y1="259" X2="684" Y2="259"/>
-        <dgm:gSegment X1="684" Y1="259" X2="684" Y2="282"/>
-        <dgm:gSegment X1="684" Y1="282" X2="1002" Y2="282"/>
+        <dgm:gSegment X1="553" Y1="259" X2="577" Y2="259"/>
+        <dgm:gSegment X1="577" Y1="259" X2="577" Y2="282"/>
+        <dgm:gSegment X1="577" Y1="282" X2="788" Y2="282"/>
         <dgm:baseColor r="153" g="153" b="153"/>
         <dgm:selectedColor r="49" g="106" b="196"/>
     </dgm:gWireLink>
