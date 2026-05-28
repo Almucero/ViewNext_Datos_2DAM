@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<compositeTest compositeDN="CRUD_USER" xmlns="http://xmlns.oracle.com/sca/2006/test">
+  <about>Test Real a BD de Create User verificando todos los campos</about>
+  
+  <initiate serviceName="createuser_client_ep" operation="process" isAsync="false" delay="PT0S">
+    <message>
+      <part partName="payload">
+        <content>
+          <UserCollection xmlns="http://xmlns.oracle.com/pcbpel/adapter/db/top/dbReference">
+            <User>
+              <roleId>1</roleId>
+              <!-- OJO: He cambiado el email. Lee la explicación abajo -->
+              <email>manuel.castillo@viewnext.com</email>
+              <firstName>Manuel</firstName>
+              <lastName>Castillo</lastName>
+              <password>password74</password>
+            </User>
+          </UserCollection>
+        </content>
+      </part>
+    </message>
+  </initiate>
+
+  <wireActions wireSource="createuser_client_ep" operation="process">
+    
+    <assert comparisonMethod="string">
+      <description>Verifica roleId</description>
+      <expected>
+        <location key="output" partName="payload" xpath="//*[local-name()='roleId']"/>
+        <simple>1</simple>
+      </expected>
+    </assert>
+
+    <assert comparisonMethod="string">
+      <description>Verifica email</description>
+      <expected>
+        <location key="output" partName="payload" xpath="//*[local-name()='email']"/>
+        <!-- Este valor debe coincidir exactamente con el que envías arriba -->
+        <simple>manuel.castillo@viewnext.com</simple>
+      </expected>
+    </assert>
+
+    <assert comparisonMethod="string">
+      <description>Verifica firstName</description>
+      <expected>
+        <location key="output" partName="payload" xpath="//*[local-name()='firstName']"/>
+        <simple>Manuel</simple>
+      </expected>
+    </assert>
+
+    <assert comparisonMethod="string">
+      <description>Verifica lastName</description>
+      <expected>
+        <location key="output" partName="payload" xpath="//*[local-name()='lastName']"/>
+        <simple>Castillo</simple>
+      </expected>
+    </assert>
+
+    <assert comparisonMethod="pattern-match">
+      <description>Verifica que se generó un ID autoincremental</description>
+      <expected>
+        <location key="output" partName="payload" xpath="//*[local-name()='id']"/>
+        <simple>[0-9]+</simple>
+      </expected>
+    </assert>
+    
+  </wireActions>
+</compositeTest>

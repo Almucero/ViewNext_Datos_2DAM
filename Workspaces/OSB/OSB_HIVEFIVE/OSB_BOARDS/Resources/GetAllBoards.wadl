@@ -1,0 +1,19 @@
+<application xmlns:soa="http://www.oracle.com/soa/rest" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://wadl.dev.java.net/2009/02">
+   <doc title="GetAllBoards">RestService</doc>
+   <grammars>
+      <xsd:schema>
+            <xsd:import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/dbBoard"
+                        schemaLocation="../Schemas/getAllBoards_Payload.xsd"/>
+        </xsd:schema>
+   </grammars>
+   <resources>
+      <resource path="/boards/getAll">
+         <method name="GET" soa:wsdlOperation="getAllBoards">
+            <request/>
+            <response status="200">
+               <representation mediaType="application/json" element="cns:BoardCollection" xmlns:cns="http://xmlns.oracle.com/pcbpel/adapter/db/top/dbBoard"/>
+            </response>
+         </method>
+      </resource>
+   </resources>
+</application>

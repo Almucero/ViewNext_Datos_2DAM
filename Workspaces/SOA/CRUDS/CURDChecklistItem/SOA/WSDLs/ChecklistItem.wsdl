@@ -1,0 +1,51 @@
+<wsdl:definitions
+     name="ChecklistItem"
+     targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/CRUDS/CURDChecklistItem/ChecklistItem"
+     xmlns:tns="http://xmlns.oracle.com/pcbpel/adapter/db/CRUDS/CURDChecklistItem/ChecklistItem"
+     xmlns:jca="http://xmlns.oracle.com/pcbpel/wsdl/jca/"
+     xmlns:plt="http://schemas.xmlsoap.org/ws/2003/05/partner-link/"
+     xmlns:top="http://xmlns.oracle.com/pcbpel/adapter/db/top/ChecklistItem"
+     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    >
+  <plt:partnerLinkType name="ChecklistItem_plt" >
+    <plt:role name="ChecklistItem_role" >
+      <plt:portType name="tns:ChecklistItem_ptt" />
+    </plt:role>
+  </plt:partnerLinkType>
+    <wsdl:types>
+      <schema xmlns="http://www.w3.org/2001/XMLSchema" >
+        <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/ChecklistItem" schemaLocation="../Schemas/ChecklistItem_table.xsd" />
+      </schema>
+    </wsdl:types>
+    <wsdl:message name="ChecklistItemSelect_inputParameters">
+        <wsdl:part name="ChecklistItemSelect_inputParameters" element="top:ChecklistItemSelectInputParameters"/>
+    </wsdl:message>
+    <wsdl:message name="selectByPrimaryKey_inputParameters">
+        <wsdl:part name="selectByPrimaryKey_inputParameters" element="top:ChecklistItemPrimaryKey"/>
+    </wsdl:message>
+    <wsdl:message name="ChecklistItemCollection_msg">
+        <wsdl:part name="ChecklistItemCollection" element="top:ChecklistItemCollection"/>
+    </wsdl:message>
+    <wsdl:portType name="ChecklistItem_ptt">
+        <wsdl:operation name="insert">
+            <wsdl:input message="tns:ChecklistItemCollection_msg"/>
+            <wsdl:output message="tns:ChecklistItemCollection_msg"/>
+        </wsdl:operation>
+        <wsdl:operation name="update">
+            <wsdl:input message="tns:ChecklistItemCollection_msg"/>
+            <wsdl:output message="tns:ChecklistItemCollection_msg"/>
+        </wsdl:operation>
+        <wsdl:operation name="delete">
+            <wsdl:input message="tns:ChecklistItemCollection_msg"/>
+            <wsdl:output message="tns:ChecklistItemCollection_msg"/>
+        </wsdl:operation>
+        <wsdl:operation name="ChecklistItemSelect">
+            <wsdl:input message="tns:ChecklistItemSelect_inputParameters"/>
+            <wsdl:output message="tns:ChecklistItemCollection_msg"/>
+        </wsdl:operation>
+        <wsdl:operation name="selectByPrimaryKey">
+            <wsdl:input message="tns:selectByPrimaryKey_inputParameters"/>
+            <wsdl:output message="tns:ChecklistItemCollection_msg"/>
+        </wsdl:operation>
+    </wsdl:portType>
+</wsdl:definitions>

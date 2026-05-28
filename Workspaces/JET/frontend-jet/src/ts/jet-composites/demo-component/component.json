@@ -1,0 +1,19 @@
+{
+  "name": "demo-component",
+  "version": "1.0.0",
+  "jetVersion": "^16.0.0",
+  "displayName": "demo-component",
+  "description": "A translatable high-level description for the component.",
+  "properties": {
+    "card": {
+      "type": "Card",
+      "writeback": true
+    },
+    "mode": {
+      "type": "string"
+    }
+  },
+  "methods": {},
+  "events": {},
+  "slots": {}
+}

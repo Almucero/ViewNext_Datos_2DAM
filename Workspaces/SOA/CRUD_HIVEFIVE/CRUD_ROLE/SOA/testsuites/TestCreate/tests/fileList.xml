@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<properties>
+  <entry key="TestCreateRole.xml"/>
+  <entry key="TestDeleteRole.xml"/>
+  <entry key="TestUpdateRole.xml"/>
+  <entry key="testCreate_DuplicateRole.xml"/>
+  <entry key="TestCreateRole_NewRole.xml"/>
+</properties>

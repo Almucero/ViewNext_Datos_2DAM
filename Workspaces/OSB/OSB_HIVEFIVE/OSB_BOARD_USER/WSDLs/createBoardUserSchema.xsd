@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/dbUserBoard" xmlns="http://xmlns.oracle.com/pcbpel/adapter/db/top/dbUserBoard"
+     elementFormDefault="qualified" attributeFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="UserBoardCollection" type="UserBoardCollection"/>
+    <xs:element name="UserBoard" type="UserBoard"/>
+    <xs:complexType name="UserBoardCollection">
+        <xs:sequence>
+            <xs:element name="UserBoard" type="UserBoard" minOccurs="1" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="UserBoard">
+        <xs:sequence>
+            <xs:element name="boardId" type="xs:int"/>
+            <xs:element name="userId" type="xs:int"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:element name="dbUserBoardSelectInputParameters" type="dbUserBoardSelect"/>
+    <xs:complexType name="dbUserBoardSelect">
+        <xs:sequence/>
+    </xs:complexType>
+    <xs:element name="UserBoardPrimaryKey" type="UserBoardPrimaryKey"/>
+    <xs:complexType name="UserBoardPrimaryKey">
+        <xs:sequence>
+            <xs:element name="boardId" type="xs:int" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="userId" type="xs:int" minOccurs="1" maxOccurs="1"/>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>

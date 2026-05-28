@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpel:process name="ReceiveOrderSplitJoin"
+              targetNamespace="http://xmlns.oracle.com/ProcessOrder_SplitJoinServiceBusApp/ProcessOrder_SplitJoinService/"
+              xmlns:tns="http://xmlns.oracle.com/ProcessOrder_SplitJoinServiceBusApp/ProcessOrder_SplitJoinService/"
+              xmlns:bpel="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+              xmlns:rescon="http://www.bea.com/alsb/flow/resources/config"
+              xmlns:bea="http://www.bea.com/bpel/ui/extensions"
+              xmlns:ext="http://www.bea.com/bpel/extensions"
+              xmlns:expr="http://www.bea.com/wli/sb/stages/config"
+              xmlns:trf="http://www.bea.com/wli/sb/stages/transform/config"
+              xmlns:bind="http://www.oracle.com/ProcessOrder" 
+              bea:name="ReceiveOrderSplitJoin"
+              rescon:snippetVersion="1.0"
+              xmlns:ns0="http://www.bea.com/wli/sb/reference" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xmlns:ns1="http://www.oracle.com/ValidatePayment" xmlns:soas="http://www.oracle.com/soasample">
+    <rescon:importInfo>
+        <rescon:wsdl-import ref="ProcessOrder_SplitJoinService/WSDLs/ValidatePayment-concrete"/>
+    </rescon:importInfo>
+    <bpel:partnerLinks>
+        <bpel:partnerLink name="ReceiveOrderSplitJoin" partnerLinkType="tns:ReceiveOrderSplitJoin"
+                          myRole="ReceiveOrderSplitJoin">
+	       </bpel:partnerLink>
+        <bpel:partnerLink name="ProcessOrderBS" partnerLinkType="tns:ProcessOrderBS" partnerRole="ProcessOrderBS"/>
+        <bpel:partnerLink name="ValidateCreditCardBS" partnerLinkType="tns:ValidateCreditCardBS"
+                          partnerRole="ValidateCreditCardBS"/>
+    </bpel:partnerLinks>
+
+	   <bpel:variables>
+        <bpel:variable name="request"
+	                      messageType="bind:orderInput">
+	       </bpel:variable>
+	       <bpel:variable name="response"
+                       messageType="bind:orderOutput">
+	       </bpel:variable>
+        <bpel:variable name="ValidationStatus" messageType="ns1:validateOutput"/>
+    </bpel:variables>
+
+    <bpel:sequence>
+        <bpel:receive partnerLink="ReceiveOrderSplitJoin" operation="process" variable="request" createInstance="yes">
+	           <rescon:receiveInfo>
+                <rescon:wsdl ref="ProcessOrder_SplitJoinService/WSDLs/ProcessOrder-concrete" binding="bind:processOrderBinding"/>
+            </rescon:receiveInfo>
+        </bpel:receive>
+        <bpel:flow>
+            <bpel:scope bea:name="ProcessOrderScope">
+                <bpel:sequence>
+                    <bpel:invoke bea:name="Invoke ProcessOrder" partnerLink="ProcessOrderBS" operation="process"
+                                 inputVariable="request" outputVariable="response">
+                        <rescon:invokeInfo>
+                            <rescon:service ref="ProcessOrder_SplitJoinService/ProcessOrderBS"
+                                            xsi:type="ns0:BusinessServiceRef"/>
+                        </rescon:invokeInfo>
+                    </bpel:invoke>
+                </bpel:sequence>
+            </bpel:scope>
+            <bpel:scope bea:name="ValidateCreditCardScope">
+                <bpel:variables>
+                    <bpel:variable name="CreditCard" messageType="ns1:validateInput"/>
+                </bpel:variables>
+                <bpel:sequence>
+                    <bpel:assign>
+                        <bpel:extensionAssignOperation>
+                            <trf:assign varName="CreditCard.paymentInfo">
+                                <trf:expr>
+                                    <expr:xqueryText>$request.order/soas:Billing</expr:xqueryText>
+                                </trf:expr>
+                            </trf:assign>
+                        </bpel:extensionAssignOperation>
+                    </bpel:assign>
+                    <bpel:invoke partnerLink="ValidateCreditCardBS" operation="validate" inputVariable="CreditCard"
+                                 outputVariable="ValidationStatus" bea:name="Invoke ValidateCreditCard">
+                        <rescon:invokeInfo>
+                            <rescon:service ref="ProcessOrder_SplitJoinService/ValidateCreditCardBS"
+                                            xsi:type="ns0:BusinessServiceRef"/>
+                        </rescon:invokeInfo>
+                    </bpel:invoke>
+                </bpel:sequence>
+            </bpel:scope>
+        </bpel:flow>
+        <bpel:assign>
+            <bpel:extensionAssignOperation bea:name="Replace Response">
+                <trf:replace contents-only="false" varName="response.ack">
+                    <trf:expr>
+                        <expr:xqueryText>$ValidationStatus.status</expr:xqueryText>
+                    </trf:expr>
+                </trf:replace>
+            </bpel:extensionAssignOperation>
+        </bpel:assign>
+        <bpel:reply partnerLink="ReceiveOrderSplitJoin" operation="process" variable="response"></bpel:reply>
+    </bpel:sequence>
+</bpel:process>

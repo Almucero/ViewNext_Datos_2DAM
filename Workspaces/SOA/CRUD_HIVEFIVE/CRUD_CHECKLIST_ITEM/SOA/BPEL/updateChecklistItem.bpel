@@ -1,0 +1,84 @@
+<?xml version = "1.0" encoding = "UTF-8" ?>
+<!--
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  Oracle JDeveloper BPEL Designer 
+  
+  Created: Thu Mar 19 12:50:35 GMT 2026
+  Author:  oracle
+  Type: BPEL 2.0 Process
+  Purpose: Synchronous BPEL Process
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+-->
+<process name="updateChecklistItem"
+               targetNamespace="http://xmlns.oracle.com/CRUD_HIVEFIVE/CRUD_CHECKLIST_ITEM/updateChecklistItem"
+               xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+               xmlns:client="http://xmlns.oracle.com/CRUD_HIVEFIVE/CRUD_CHECKLIST_ITEM/updateChecklistItem"
+               xmlns:ora="http://schemas.oracle.com/xpath/extension"
+               xmlns:ui="http://xmlns.oracle.com/soa/designer"
+               xmlns:bpelx="http://schemas.oracle.com/bpel/extension"
+         xmlns:bpel="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+         xmlns:ns1="http://xmlns.oracle.com/pcbpel/adapter/db/CRUD_HIVEFIVE/CRUD_CHECKLIST_ITEM/dbChecklistItem">
+
+    <import ui:processWSDL="true" namespace="http://xmlns.oracle.com/CRUD_HIVEFIVE/CRUD_CHECKLIST_ITEM/updateChecklistItem" location="../WSDLs/updateChecklistItem.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <!-- 
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        PARTNERLINKS                                                      
+        List of services participating in this BPEL process               
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    --> 
+  <partnerLinks>
+    <!-- 
+      The 'client' role represents the requester of this service. It is 
+      used for callback. The location and correlation information associated
+      with the client role are automatically set using WS-Addressing.
+    -->
+    <partnerLink name="updatechecklistitem_client" partnerLinkType="client:updateChecklistItem" myRole="updateChecklistItemProvider"/>
+    <partnerLink name="dbChecklistItem" partnerLinkType="ns1:dbChecklistItem_plt" partnerRole="dbChecklistItem_role"/>
+  </partnerLinks>
+
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      VARIABLES                                                        
+      List of messages and XML documents used within this BPEL process 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+  <variables>
+    <!-- Reference to the message passed as input during initiation -->
+    <variable name="inputVariable" messageType="client:updateChecklistItemRequestMessage"/>
+
+    <!-- Reference to the message that will be returned to the requester-->
+    <variable name="outputVariable" messageType="client:updateChecklistItemResponseMessage"/>
+    <variable name="Invoke1_update_InputVariable" messageType="ns1:ChecklistItemCollection_msg"/>
+    <variable name="Invoke1_update_OutputVariable" messageType="ns1:ChecklistItemCollection_msg"/>
+  </variables>
+
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+     ORCHESTRATION LOGIC                                               
+     Set of activities coordinating the flow of messages across the    
+     services integrated within this business process                  
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+  <sequence name="main">
+
+    <!-- Receive input from requestor. (Note: This maps to operation defined in updateChecklistItem.wsdl) -->
+    <receive name="receiveInput" partnerLink="updatechecklistitem_client" portType="client:updateChecklistItem" operation="process" variable="inputVariable" createInstance="yes"/>
+    <assign name="Assign1">
+      <copy>
+        <from>$inputVariable.payload</from>
+        <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$Invoke1_update_InputVariable.ChecklistItemCollection</to>
+      </copy>
+    </assign>
+    <invoke name="Invoke1" partnerLink="dbChecklistItem" portType="ns1:dbChecklistItem_ptt"
+            operation="update" inputVariable="Invoke1_update_InputVariable"
+            outputVariable="Invoke1_update_OutputVariable" bpelx:invokeAsDetail="no"/>
+    <assign name="Assign2">
+      <copy>
+        <from>$inputVariable.payload</from>
+        <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$outputVariable.payload</to>
+      </copy>
+    </assign>
+    <!-- Generate reply to synchronous request -->
+    <reply name="replyOutput" partnerLink="updatechecklistitem_client" portType="client:updateChecklistItem" operation="process" variable="outputVariable"/>
+  </sequence>
+</process>

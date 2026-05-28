@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<StatusCollection xmlns="http://xmlns.oracle.com/pcbpel/adapter/db/top/dbStatus">
+   <Status>
+      <id>60</id>
+      <name>unitariaActualizar</name>
+   </Status>
+</StatusCollection>

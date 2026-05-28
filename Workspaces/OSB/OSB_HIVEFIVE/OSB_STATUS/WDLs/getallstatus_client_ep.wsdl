@@ -1,0 +1,42 @@
+<wsdl:definitions name="getAllStatus" targetNamespace="http://xmlns.oracle.com/CRUD_HIVEFIVE/CRUD_STATUS/getAllStatus" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:client="http://xmlns.oracle.com/CRUD_HIVEFIVE/CRUD_STATUS/getAllStatus" xmlns:ns1="http://xmlns.oracle.com/pcbpel/adapter/db/top/dbStatus" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+    <wsdl:documentation>
+        <abstractWSDL>http://GM0G9LHD.insags.com:7101/soa-infra/services/default/CRUD_STATUS!1.0/WSDLs/getAllStatus.wsdl</abstractWSDL>
+    </wsdl:documentation>
+    <plnk:partnerLinkType name="getAllStatus">
+        <plnk:role name="getAllStatusProvider" portType="client:getAllStatus"/>
+    </plnk:partnerLinkType>
+    <wsdl:types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema">
+            <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/dbStatus" schemaLocation="../Shemas/getAllStatusSchema.xsd"/>
+        </schema>
+    </wsdl:types>
+    <wsdl:message name="getAllStatusRequestMessage">
+        <wsdl:part name="payload" element="ns1:StatusCollection"/>
+    </wsdl:message>
+    <wsdl:message name="getAllStatusResponseMessage">
+        <wsdl:part name="payload" element="ns1:StatusCollection"/>
+    </wsdl:message>
+    <wsdl:portType name="getAllStatus">
+        <wsdl:operation name="process">
+            <wsdl:input message="client:getAllStatusRequestMessage"/>
+            <wsdl:output message="client:getAllStatusResponseMessage"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="getAllStatusBinding" type="client:getAllStatus">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="process">
+            <soap:operation style="document" soapAction="process"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="getallstatus_client_ep">
+        <wsdl:port name="getAllStatus_pt" binding="client:getAllStatusBinding">
+            <soap:address location="http://GM0G9LHD.insags.com:7101/soa-infra/services/default/CRUD_STATUS/getallstatus_client_ep"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,30 @@
+<application xmlns:soa="http://www.oracle.com/soa/rest" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://wadl.dev.java.net/2009/02">
+   <doc title="GetBoardByPrimaryKey_Experience">RestService</doc>
+   <grammars>
+      <xsd:schema>
+            <xsd:import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/dbBoard"
+                        schemaLocation="../Schemas/getBoardByPrimaryKey_Payload.xsd"/>
+        </xsd:schema>
+      <schema targetNamespace="http://xmlns.oracle.com/OSBHive5/OSB_BOARDS/GetBoardByPrimaryKey_Experience" elementFormDefault="qualified" xmlns="http://www.w3.org/2001/XMLSchema">
+            <element name="getBoardByPrimaryKey_params">
+                <complexType>
+                    <sequence>
+                        <element name="id" type="string"/>
+                    </sequence>
+                </complexType>
+            </element>
+        </schema>
+   </grammars>
+   <resources>
+      <resource path="/board/get/{id}">
+         <method name="GET" soa:wsdlOperation="getBoardByPrimaryKey">
+            <request soa:paramElement="pns:getBoardByPrimaryKey_params" xmlns:pns="http://xmlns.oracle.com/OSBHive5/OSB_BOARDS/GetBoardByPrimaryKey_Experience">
+               <param name="id" style="template" soa:expression="$msg.request/pns:id" type="xsd:string"/>
+            </request>
+            <response status="200">
+               <representation mediaType="application/json" element="cns:BoardCollection" xmlns:cns="http://xmlns.oracle.com/pcbpel/adapter/db/top/dbBoard"/>
+            </response>
+         </method>
+      </resource>
+   </resources>
+</application>

@@ -1,0 +1,26 @@
+/*
+ * Archivo: ts/jet-composites/demo-component/demo-component-styles.css
+ * Proposito: Estilos del composite, agrupados por contenedor y elementos internos reutilizables.
+ */
+/* This file is where css selectors for the component go.
+   There will be hard coded properties and properties controlled by variables, for example
+
+   demo-component .demo-component-value-text {
+   color: var(--demo-component-value-text-color);
+   display: inline-block;
+	 }
+*/
+
+demo-component:not(.oj-complete){
+  visibility: hidden;
+}
+
+demo-component{
+	min-height: 50px;
+	width: 50px;
+}
+
+demo-component[hidden]
+{
+  display: none;
+}

@@ -1,0 +1,10 @@
+<UserCollection xmlns="http://xmlns.oracle.com/pcbpel/adapter/db/top/dbReference">
+   <User>
+      <id>12</id>
+      <roleId>1</roleId>
+      <email>ejemplo@viewnext.com</email>
+      <firstName>Manuel</firstName>
+      <lastName>Castillo</lastName>
+      <password>password74</password>
+   </User>
+</UserCollection>

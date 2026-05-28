@@ -1,0 +1,41 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+   <entry key="root_descriptor_alias">card</entry>
+   <entry key="card.user_id:db_column_size">10</entry>
+   <entry key="card.title:db_column_not_null">false</entry>
+   <entry key="card.status_id:db_column_size">10</entry>
+   <entry key="card.start_date:db_column_type">DATE</entry>
+   <entry key="card.start_date:db_column_not_null">false</entry>
+   <entry key="card.user_id:db_column_not_null">false</entry>
+   <entry key="card.priority:db_column_not_null">true</entry>
+   <entry key="card.board_id:db_column_type">INT</entry>
+   <entry key="card.title:db_column_type">VARCHAR</entry>
+   <entry key="card.end_date:db_column_not_null">false</entry>
+   <entry key="card:db_column_8">title</entry>
+   <entry key="card.id:db_column_type">INT</entry>
+   <entry key="card:db_column_7">description</entry>
+   <entry key="card:db_column_6">user_id</entry>
+   <entry key="card:db_column_5">status_id</entry>
+   <entry key="return_single_result_set">false</entry>
+   <entry key="card:db_column_4">start_date</entry>
+   <entry key="card.description:db_column_type">VARCHAR</entry>
+   <entry key="card.board_id:db_column_size">10</entry>
+   <entry key="card:db_column_3">priority</entry>
+   <entry key="card:db_column_2">id</entry>
+   <entry key="card:db_column_1">end_date</entry>
+   <entry key="card:db_table_type">TABLE</entry>
+   <entry key="card:db_column_0">board_id</entry>
+   <entry key="card.end_date:db_column_type">DATE</entry>
+   <entry key="card.title:db_column_size">255</entry>
+   <entry key="card.status_id:db_column_not_null">false</entry>
+   <entry key="card.id:db_column_size">10</entry>
+   <entry key="card.board_id:db_column_not_null">false</entry>
+   <entry key="card.priority:db_column_type">INT</entry>
+   <entry key="card.id:db_column_not_null">true</entry>
+   <entry key="card.description:db_column_not_null">false</entry>
+   <entry key="card.description:db_column_size">255</entry>
+   <entry key="card.user_id:db_column_type">INT</entry>
+   <entry key="card.status_id:db_column_type">INT</entry>
+   <entry key="card.priority:db_column_size">10</entry>
+</properties>

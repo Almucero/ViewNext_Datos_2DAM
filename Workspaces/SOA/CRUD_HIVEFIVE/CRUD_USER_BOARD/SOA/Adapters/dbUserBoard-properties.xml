@@ -1,0 +1,15 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+   <entry key="user_board.user_id:db_column_type">INT</entry>
+   <entry key="user_board.user_id:db_column_size">10</entry>
+   <entry key="user_board.board_id:db_column_not_null">true</entry>
+   <entry key="user_board:db_column_1">user_id</entry>
+   <entry key="user_board.board_id:db_column_type">INT</entry>
+   <entry key="user_board:db_column_0">board_id</entry>
+   <entry key="return_single_result_set">false</entry>
+   <entry key="root_descriptor_alias">user_board</entry>
+   <entry key="user_board:db_table_type">TABLE</entry>
+   <entry key="user_board.board_id:db_column_size">10</entry>
+   <entry key="user_board.user_id:db_column_not_null">true</entry>
+</properties>

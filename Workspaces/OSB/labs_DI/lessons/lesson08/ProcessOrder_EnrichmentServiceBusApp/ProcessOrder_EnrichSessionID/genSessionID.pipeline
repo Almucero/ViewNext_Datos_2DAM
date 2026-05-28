@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:pipelineEntry xmlns:con="http://www.bea.com/wli/sb/pipeline/config" xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config" xmlns:con2="http://www.bea.com/wli/sb/stages/config">
+    <con:coreEntry>
+        <con:binding type="Any XML"/>
+        <con:xqConfiguration>
+            <con:snippetVersion>1.0</con:snippetVersion>
+        </con:xqConfiguration>
+    </con:coreEntry>
+    <con:router>
+        <con:pipeline type="request" name="request-N53e06fff.N6236bc1e.0.19cb2c471ca.N7f85">
+            <con:stage id="_StageId-N53e06fff.N6236bc1e.0.19cb2c471ca.N7f83" name="Stage1">
+                <con:context/>
+                <con:actions>
+                    <con1:assign varName="POsessionID">
+                        <con2:id>_ActionId-N53e06fff.N6236bc1e.0.19cb2c471ca.N7f7f</con2:id>
+                        <con1:expr>
+                            <con2:xqueryText>fn-bea:uuid()</con2:xqueryText>
+                        </con1:expr>
+                    </con1:assign>
+                    <con1:assign varName="POsessionID">
+                        <con2:id>_ActionId-N53e06fff.N6236bc1e.0.19cb2c471ca.N7f7c</con2:id>
+                        <con1:expr>
+                            <con2:xqueryText>fn:substring($POsessionID, 1, 18)</con2:xqueryText>
+                        </con1:expr>
+                    </con1:assign>
+                </con:actions>
+            </con:stage>
+        </con:pipeline>
+        <con:pipeline type="response" name="response-N53e06fff.N6236bc1e.0.19cb2c471ca.N7f84">
+            <con:stage id="_StageId-N53e06fff.N6236bc1e.0.19cb2c471ca.N7f82" name="Stage1">
+                <con:context/>
+                <con:actions/>
+            </con:stage>
+        </con:pipeline>
+        <con:flow>
+            <con:pipeline-node name="Pipeline Pair Node1">
+                <con:request>request-N53e06fff.N6236bc1e.0.19cb2c471ca.N7f85</con:request>
+                <con:response>response-N53e06fff.N6236bc1e.0.19cb2c471ca.N7f84</con:response>
+            </con:pipeline-node>
+        </con:flow>
+        <con:shared-variables>
+            <con:variable>POsessionID</con:variable>
+        </con:shared-variables>
+    </con:router>
+</con:pipelineEntry>

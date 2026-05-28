@@ -1,0 +1,51 @@
+<wsdl:definitions
+     name="dbCard"
+     targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/CRUD_HIVEFIVE/CRUD_CARD/dbCard"
+     xmlns:tns="http://xmlns.oracle.com/pcbpel/adapter/db/CRUD_HIVEFIVE/CRUD_CARD/dbCard"
+     xmlns:jca="http://xmlns.oracle.com/pcbpel/wsdl/jca/"
+     xmlns:plt="http://schemas.xmlsoap.org/ws/2003/05/partner-link/"
+     xmlns:top="http://xmlns.oracle.com/pcbpel/adapter/db/top/dbCard"
+     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    >
+  <plt:partnerLinkType name="dbCard_plt" >
+    <plt:role name="dbCard_role" >
+      <plt:portType name="tns:dbCard_ptt" />
+    </plt:role>
+  </plt:partnerLinkType>
+    <wsdl:types>
+      <schema xmlns="http://www.w3.org/2001/XMLSchema" >
+        <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/dbCard" schemaLocation="../Schemas/dbCard_table.xsd" />
+      </schema>
+    </wsdl:types>
+    <wsdl:message name="dbCardSelect_inputParameters">
+        <wsdl:part name="dbCardSelect_inputParameters" element="top:dbCardSelectInputParameters"/>
+    </wsdl:message>
+    <wsdl:message name="selectByPrimaryKey_inputParameters">
+        <wsdl:part name="selectByPrimaryKey_inputParameters" element="top:CardPrimaryKey"/>
+    </wsdl:message>
+    <wsdl:message name="CardCollection_msg">
+        <wsdl:part name="CardCollection" element="top:CardCollection"/>
+    </wsdl:message>
+    <wsdl:portType name="dbCard_ptt">
+        <wsdl:operation name="insert">
+            <wsdl:input message="tns:CardCollection_msg"/>
+            <wsdl:output message="tns:CardCollection_msg"/>
+        </wsdl:operation>
+        <wsdl:operation name="update">
+            <wsdl:input message="tns:CardCollection_msg"/>
+            <wsdl:output message="tns:CardCollection_msg"/>
+        </wsdl:operation>
+        <wsdl:operation name="delete">
+            <wsdl:input message="tns:CardCollection_msg"/>
+            <wsdl:output message="tns:CardCollection_msg"/>
+        </wsdl:operation>
+        <wsdl:operation name="dbCardSelect">
+            <wsdl:input message="tns:dbCardSelect_inputParameters"/>
+            <wsdl:output message="tns:CardCollection_msg"/>
+        </wsdl:operation>
+        <wsdl:operation name="selectByPrimaryKey">
+            <wsdl:input message="tns:selectByPrimaryKey_inputParameters"/>
+            <wsdl:output message="tns:CardCollection_msg"/>
+        </wsdl:operation>
+    </wsdl:portType>
+</wsdl:definitions>

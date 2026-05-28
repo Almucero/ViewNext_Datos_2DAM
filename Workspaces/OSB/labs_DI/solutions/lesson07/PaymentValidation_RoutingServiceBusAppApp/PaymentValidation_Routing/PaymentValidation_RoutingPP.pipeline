@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:pipelineEntry xmlns:con="http://www.bea.com/wli/sb/pipeline/config" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:con1="http://www.bea.com/wli/sb/stages/config" xmlns:con2="http://www.bea.com/wli/sb/stages/routing/config">
+    <con:coreEntry>
+        <con:binding type="SOAP" isSoap12="false" xsi:type="con:SoapBindingType">
+            <con:wsdl ref="PaymentValidation_Routing/WSDLs/ValidatePayment-concrete"/>
+            <con:binding>
+                <con:name>validatePaymentBinding</con:name>
+                <con:namespace>http://www.oracle.com/ValidatePayment</con:namespace>
+            </con:binding>
+        </con:binding>
+        <con:xqConfiguration>
+            <con:snippetVersion>1.0</con:snippetVersion>
+        </con:xqConfiguration>
+    </con:coreEntry>
+    <con:router>
+        <con:flow>
+            <con:branch-node type="condition" id="_FlowId-a962529.N556e362f.0.14dd8f87c37.N7f95" name="BranchNode1">
+                <con:context>
+                    <con1:userNsDecl prefix="soas" namespace="http://www.oracle.com/soasample"/>
+                </con:context>
+                <con:branch-table variable="body">
+                    <con:xpath>
+                        <con1:xpathText>./soas:PaymentInfo/soas:CardName</con1:xpathText>
+                    </con:xpath>
+                    <con:branch name="IsAmexCard">
+                        <con:operator>equals</con:operator>
+                        <con:value>"AMEX"</con:value>
+                        <con:flow>
+                            <con:route-node name="RouteNode1">
+                                <con:context/>
+                                <con:actions>
+                                    <con2:route>
+                                        <con1:id>_ActionId-a962529.N556e362f.0.14dd8f87c37.N7f91</con1:id>
+                                        <con2:service ref="PaymentValidation_Routing/AmexBS" xsi:type="ref:BusinessServiceRef" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
+                                        <con2:operation>validate</con2:operation>
+                                        <con2:outboundTransform/>
+                                        <con2:responseTransform/>
+                                    </con2:route>
+                                </con:actions>
+                            </con:route-node>
+                        </con:flow>
+                    </con:branch>
+                    <con:default-branch>
+                        <con:flow>
+                            <con:route-node name="RouteNode2">
+                                <con:context/>
+                                <con:actions>
+                                    <con2:route>
+                                        <con1:id>_ActionId-a962529.N556e362f.0.14dd8f87c37.N7f8d</con1:id>
+                                        <con2:service ref="PaymentValidation_Routing/VisaBS" xsi:type="ref:BusinessServiceRef" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
+                                        <con2:operation>validate</con2:operation>
+                                        <con2:outboundTransform/>
+                                        <con2:responseTransform/>
+                                    </con2:route>
+                                </con:actions>
+                            </con:route-node>
+                        </con:flow>
+                    </con:default-branch>
+                </con:branch-table>
+            </con:branch-node>
+        </con:flow>
+    </con:router>
+</con:pipelineEntry>

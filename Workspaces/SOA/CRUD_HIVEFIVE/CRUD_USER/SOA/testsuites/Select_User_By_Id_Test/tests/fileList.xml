@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<properties>
+  <entry key="test_Select_By_Id.xml"/>
+  <entry key="test_Select_By_Id_Not_Found.xml"/>
+  <entry key="test_Select_By_Id_Multiple.xml"/>
+</properties>

@@ -1,0 +1,31 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+   <entry key="user:db_table_type">TABLE</entry>
+   <entry key="user.last_name:db_column_size">255</entry>
+   <entry key="user.first_name:db_column_not_null">true</entry>
+   <entry key="user.email:db_column_size">255</entry>
+   <entry key="user.first_name:db_column_size">255</entry>
+   <entry key="user.password:db_column_not_null">false</entry>
+   <entry key="user.password:db_column_size">255</entry>
+   <entry key="user.role_id:db_column_type">INT</entry>
+   <entry key="user.id:db_column_type">INT</entry>
+   <entry key="return_single_result_set">false</entry>
+   <entry key="user.last_name:db_column_type">VARCHAR</entry>
+   <entry key="user.id:db_column_not_null">true</entry>
+   <entry key="user:db_column_5">password</entry>
+   <entry key="user:db_column_4">last_name</entry>
+   <entry key="root_descriptor_alias">user</entry>
+   <entry key="user.first_name:db_column_type">VARCHAR</entry>
+   <entry key="user.role_id:db_column_size">10</entry>
+   <entry key="user:db_column_3">first_name</entry>
+   <entry key="user.email:db_column_type">VARCHAR</entry>
+   <entry key="user:db_column_2">email</entry>
+   <entry key="user:db_column_1">role_id</entry>
+   <entry key="user.id:db_column_size">10</entry>
+   <entry key="user.password:db_column_type">VARCHAR</entry>
+   <entry key="user:db_column_0">id</entry>
+   <entry key="user.email:db_column_not_null">false</entry>
+   <entry key="user.role_id:db_column_not_null">false</entry>
+   <entry key="user.last_name:db_column_not_null">true</entry>
+</properties>

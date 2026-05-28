@@ -1,0 +1,21 @@
+<application xmlns:soa="http://www.oracle.com/soa/rest" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ns0="http://xmlns.oracle.com/pcbpel/adapter/db/top/dbStatus" xmlns="http://wadl.dev.java.net/2009/02">
+   <doc title="deleteStatus_Experience">RestService</doc>
+   <grammars>
+      <xsd:schema>
+            <xsd:import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/dbStatus" schemaLocation="../Shemas/deleteStatusSchema.xsd"/>
+        </xsd:schema>
+   </grammars>
+   <resources>
+      <resource path="/delete/status">
+         <method name="DELETE" soa:wsdlOperation="deletestatus">
+            <request soa:paramElement="pns:StatusCollection" xmlns:pns="http://xmlns.oracle.com/pcbpel/adapter/db/top/dbStatus">
+               <param name="id" style="query" soa:expression="$msg.request/ns0:Status/ns0:id" type="xsd:int"/>
+               <param name="name" style="query" soa:expression="$msg.request/ns0:Status/ns0:name" type="xsd:string"/>
+            </request>
+            <response status="200">
+               <representation mediaType="application/json" element="cns:StatusCollection" xmlns:cns="http://xmlns.oracle.com/pcbpel/adapter/db/top/dbStatus"/>
+            </response>
+         </method>
+      </resource>
+   </resources>
+</application>

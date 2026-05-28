@@ -1,0 +1,13 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Faults>
+   <Fault>
+      <severity>error</severity>
+      <loc/>
+      <line/>
+      <col/>
+      <file>C:\Users\6003547\Desktop\HiveFive2026\middleware\CRUD_HIVEFIVE\CRUD_BOARD\SOA\composite.xml</file>
+      <name>C:\Users\6003547\Desktop\HiveFive2026\middleware\CRUD_HIVEFIVE\CRUD_BOARD\SOA\composite.xml</name>
+      <fix/>
+      <msg>oracle.fabric.common.FabricException: oracle.mds.config.MDSConfigurationException: MDS-01333: falta el elemento "mds-config": MDS-01333: falta el elemento "mds-config": oracle.mds.config.MDSConfigurationException: MDS-01333: falta el elemento "mds-config": MDS-01333: falta el elemento "mds-config"</msg>
+   </Fault>
+</Faults>

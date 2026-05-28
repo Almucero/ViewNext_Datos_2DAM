@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ns:composite xmlns:ns="http://xmlns.oracle.com/sca/1.0">
+    <ns:reference>
+        <ns:interface src="BusinessService:ProcessOrder_EnrichStatusUpdate/ValidateCCardBS"/>
+    </ns:reference>
+    <ns:reference>
+        <ns:interface src="BusinessService:ProcessOrder_EnrichSessionID/ProcessOrder_EBS"/>
+    </ns:reference>
+</ns:composite>

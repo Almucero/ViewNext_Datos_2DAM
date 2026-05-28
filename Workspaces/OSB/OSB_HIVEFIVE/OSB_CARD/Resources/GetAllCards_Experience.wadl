@@ -1,0 +1,19 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<application xmlns:soa="http://www.oracle.com/soa/rest" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://wadl.dev.java.net/2009/02">
+   <doc title="GetAllCards_Experience">Servicio REST para obtener todas las tarjetas</doc>
+   <grammars>
+      <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+            <xsd:import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/dbCard" schemaLocation="../Schemas/GetAllCard_Payload.xsd"/>
+        </xsd:schema>
+   </grammars>
+   <resources>
+      <resource path="/cards/getAll">
+         <method name="GET" soa:wsdlOperation="getAllCards">
+            <request/>
+            <response status="200">
+               <representation mediaType="application/json" element="cns:CardCollection" xmlns:cns="http://xmlns.oracle.com/pcbpel/adapter/db/top/dbCard"/>
+            </response>
+         </method>
+      </resource>
+   </resources>
+</application>

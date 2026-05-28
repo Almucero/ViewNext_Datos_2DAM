@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<properties>
+  <entry key="test_Update_User_OK.xml"/>
+  <entry key="test_Update_User_Not_Found.xml"/>
+  <entry key="test_Update_User_Executable.xml"/>
+  <entry key="test_Update_User_Minimal.xml"/>
+</properties>

@@ -1,0 +1,258 @@
+<?xml version = "1.0" encoding = "UTF-8" ?>
+<!--
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  Oracle JDeveloper BPEL Designer 
+  
+  Created: Wed Mar 11 12:56:14 GMT 2026
+  Author:  oracle
+  Purpose: Synchronous BPEL Process
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+-->
+<process name="PruebaCRUD"
+               targetNamespace="http://xmlns.oracle.com/Pruebas/PruebaCRUD/PruebaCRUD"
+               xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+               xmlns:client="http://xmlns.oracle.com/Pruebas/PruebaCRUD/PruebaCRUD"
+               xmlns:ora="http://schemas.oracle.com/xpath/extension"
+               xmlns:bpelx="http://schemas.oracle.com/bpel/extension"
+               xmlns:ns1="http://ds.hive5.com/elements"
+               xmlns:bpel="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+         xmlns:ui="http://xmlns.oracle.com/soa/designer"
+         xmlns:ns2="http://xmlns.oracle.com/pcbpel/adapter/db/Pruebas/PruebaCRUD/UsersDB"
+         xmlns:ns3="http://xmlns.oracle.com/pcbpel/adapter/db/top/UsersDB"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:oraext="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.ExtFunc"
+         xmlns:bpm="http://xmlns.oracle.com/bpmn20/extensions"
+         xmlns:xp20="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.Xpath20"
+         xmlns:ess="http://xmlns.oracle.com/scheduler" xmlns:hwf="http://xmlns.oracle.com/bpel/workflow/xpath"
+         xmlns:xref="http://www.oracle.com/XSL/Transform/java/oracle.tip.xref.xpath.XRefXPathFunctions"
+         xmlns:dvm="http://www.oracle.com/XSL/Transform/java/oracle.tip.dvm.LookupValue"
+         xmlns:bpws="http://schemas.xmlsoap.org/ws/2003/03/business-process/"
+         xmlns:xdk="http://schemas.oracle.com/bpel/extension/xpath/function/xdk"
+         xmlns:ids="http://xmlns.oracle.com/bpel/services/IdentityService/xpath"
+         xmlns:ldap="http://schemas.oracle.com/xpath/extension/ldap">
+
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      PARTNERLINKS                                                      
+      List of services participating in this BPEL process               
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+  <import namespace="http://ds.hive5.com/elements" location="../WSDLs/UsersWrapper.wsdl"
+          importType="http://schemas.xmlsoap.org/wsdl/" ui:processWSDL="true"/>
+  <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/Pruebas/PruebaCRUD/UsersDB" location="../WSDLs/UsersDB.wsdl" 
+          importType="http://schemas.xmlsoap.org/wsdl/"/>
+  <partnerLinks>
+    <!-- 
+      The 'client' role represents the requester of this service. It is 
+      used for callback. The location and correlation information associated
+      with the client role are automatically set using WS-Addressing.
+    -->
+    <partnerLink name="pruebacrud_client" partnerLinkType="ns1:PruebaCRUD" myRole="UsersPort"/>
+    <partnerLink name="UsersDB" partnerLinkType="ns2:UsersDB_plt" partnerRole="UsersDB_role"/>
+  </partnerLinks>
+
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      VARIABLES                                                        
+      List of messages and XML documents used within this BPEL process 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+  <variables>
+    <!-- Reference to the message passed as input during initiation -->
+
+    <!-- Reference to the message that will be returned to the requester-->
+    <variable name="OnMessage_getUser_InputVariable" messageType="ns1:getUserRequest"/>
+    <variable name="OnMessage_updateUser_InputVariable" messageType="ns1:updateUserRequest"/>
+    <variable name="OnMessage_deleteUser_InputVariable" messageType="ns1:deleteUserRequest"/>
+    <variable name="OnMessage_createUser_InputVariable" messageType="ns1:createUserRequest"/>
+    <variable name="Reply1_getUser_OutputVariable" messageType="ns1:getUserResponse"/>
+    <variable name="Reply2_updateUser_OutputVariable" messageType="ns1:updateUserResponse"/>
+    <variable name="Reply3_deleteUser_OutputVariable" messageType="ns1:deleteUserResponse"/>
+    <variable name="Reply4_createUser_OutputVariable" messageType="ns1:createUserResponse"/>
+    <variable name="Invoke1_insert_InputVariable" messageType="ns2:UserCollection_msg"/>
+    <variable name="Invoke1_insert_OutputVariable" messageType="ns2:UserCollection_msg"/>
+    <variable name="Invoke2_delete_InputVariable" messageType="ns2:UserCollection_msg"/>
+    <variable name="Invoke3_update_InputVariable" messageType="ns2:UserCollection_msg"/>
+    <variable name="Invoke4_selectByPrimaryKey_InputVariable" messageType="ns2:selectByPrimaryKey_inputParameters"/>
+    <variable name="Invoke2_delete_OutputVariable" messageType="ns2:UserCollection_msg"/>
+    <variable name="Invoke3_update_OutputVariable" messageType="ns2:UserCollection_msg"/>
+    <variable name="Invoke4_selectByPrimaryKey_OutputVariable" messageType="ns2:UserCollection_msg"/>
+    <variable name="Invoke2_delete_OutputVariable_1" messageType="ns2:UserCollection_msg"/>
+  </variables>
+
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+     ORCHESTRATION LOGIC                                               
+     Set of activities coordinating the flow of messages across the    
+     services integrated within this business process                  
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+  <sequence name="main">
+
+    <!-- Receive input from requestor. (Note: This maps to operation defined in PruebaCRUD.wsdl) -->
+
+    <!-- Generate reply to synchronous request -->
+    <pick name="Pick1" createInstance="yes">
+      <onMessage partnerLink="pruebacrud_client" variable="OnMessage_getUser_InputVariable" portType="ns1:UsersPort"
+                 operation="getUser">
+        <sequence name="Sequence4">
+          <assign name="Assign7">
+            <copy>
+              <from>$OnMessage_getUser_InputVariable.getUserRequest/ns1:userId</from>
+              <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$Invoke4_selectByPrimaryKey_InputVariable.selectByPrimaryKey_inputParameters/ns3:id</to>
+            </copy>
+          </assign>
+          <invoke name="Invoke4" partnerLink="UsersDB" portType="ns2:UsersDB_ptt"
+                  operation="selectByPrimaryKey" inputVariable="Invoke4_selectByPrimaryKey_InputVariable"
+                  bpelx:invokeAsDetail="no" outputVariable="Invoke4_selectByPrimaryKey_OutputVariable"/>
+          <assign name="Assign8">
+            <copy>
+              <from>$Invoke4_selectByPrimaryKey_OutputVariable.UserCollection/ns3:User/ns3:id</from>
+              <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$Reply1_getUser_OutputVariable.getUserResponse/ns1:user/ns1:id</to>
+            </copy>
+            <copy>
+              <from>$Invoke4_selectByPrimaryKey_OutputVariable.UserCollection/ns3:User/ns3:firstName</from>
+              <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$Reply1_getUser_OutputVariable.getUserResponse/ns1:user/ns1:firstName</to>
+            </copy>
+            <copy>
+              <from>$Invoke4_selectByPrimaryKey_OutputVariable.UserCollection/ns3:User/ns3:lastName</from>
+              <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$Reply1_getUser_OutputVariable.getUserResponse/ns1:user/ns1:lastName</to>
+            </copy>
+            <copy>
+              <from>$Invoke4_selectByPrimaryKey_OutputVariable.UserCollection/ns3:User/ns3:email</from>
+              <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$Reply1_getUser_OutputVariable.getUserResponse/ns1:user/ns1:email</to>
+            </copy>
+          </assign>
+          <reply name="Reply1" partnerLink="pruebacrud_client" variable="Reply1_getUser_OutputVariable"
+                 portType="ns1:UsersPort" operation="getUser"/>
+        </sequence>
+      </onMessage>
+      <onMessage partnerLink="pruebacrud_client" variable="OnMessage_updateUser_InputVariable"
+                 portType="ns1:UsersPort" operation="updateUser">
+        <sequence name="Sequence3">
+          <assign name="Assign5">
+            <copy>
+              <from>$OnMessage_updateUser_InputVariable.updateUserRequest/ns1:firstName</from>
+              <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$Invoke3_update_InputVariable.UserCollection/ns3:User/ns3:firstName</to>
+            </copy>
+            <copy>
+              <from>$OnMessage_updateUser_InputVariable.updateUserRequest/ns1:lastName</from>
+              <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$Invoke3_update_InputVariable.UserCollection/ns3:User/ns3:lastName</to>
+            </copy>
+            <copy>
+              <from>$OnMessage_updateUser_InputVariable.updateUserRequest/ns1:email</from>
+              <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$Invoke3_update_InputVariable.UserCollection/ns3:User/ns3:email</to>
+            </copy>
+            <copy>
+              <from>$OnMessage_updateUser_InputVariable.updateUserRequest/ns1:userId</from>
+              <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$Invoke3_update_InputVariable.UserCollection/ns3:User/ns3:id</to>
+            </copy>
+          </assign>
+          <invoke name="Invoke3" partnerLink="UsersDB" portType="ns2:UsersDB_ptt"
+                  operation="update" inputVariable="Invoke3_update_InputVariable" bpelx:invokeAsDetail="no"
+                  outputVariable="Invoke3_update_OutputVariable"/>
+          <assign name="Assign6">
+            <copy>
+              <from>$OnMessage_updateUser_InputVariable.updateUserRequest/ns1:userId</from>
+              <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$Reply2_updateUser_OutputVariable.updateUserResponse/ns1:user/ns1:id</to>
+            </copy>
+            <copy>
+              <from>$OnMessage_updateUser_InputVariable.updateUserRequest/ns1:firstName</from>
+              <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$Reply2_updateUser_OutputVariable.updateUserResponse/ns1:user/ns1:firstName</to>
+            </copy>
+            <copy>
+              <from>$OnMessage_updateUser_InputVariable.updateUserRequest/ns1:lastName</from>
+              <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$Reply2_updateUser_OutputVariable.updateUserResponse/ns1:user/ns1:lastName</to>
+            </copy>
+            <copy>
+              <from>$OnMessage_updateUser_InputVariable.updateUserRequest/ns1:email</from>
+              <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$Reply2_updateUser_OutputVariable.updateUserResponse/ns1:user/ns1:email</to>
+            </copy>
+          </assign>
+          <reply name="Reply2" partnerLink="pruebacrud_client" variable="Reply2_updateUser_OutputVariable"
+                 portType="ns1:UsersPort" operation="updateUser"/>
+        </sequence>
+      </onMessage>
+      <onMessage partnerLink="pruebacrud_client" variable="OnMessage_deleteUser_InputVariable" portType="ns1:UsersPort"
+                 operation="deleteUser">
+        <sequence name="Sequence2">
+          <assign name="Assign3">
+            <copy>
+              <from>$OnMessage_deleteUser_InputVariable.deleteUserRequest/ns1:userId</from>
+              <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$Invoke2_delete_InputVariable.UserCollection/ns3:User/ns3:id</to>
+            </copy>
+          </assign>
+          <invoke name="Invoke2" partnerLink="UsersDB" portType="ns2:UsersDB_ptt"
+                  operation="delete" inputVariable="Invoke2_delete_InputVariable"
+                  outputVariable="Invoke2_delete_OutputVariable_1" bpelx:invokeAsDetail="no"/>
+          <assign name="Assign4">
+            <copy>
+              <from>'Usuario eliminado'</from>
+              <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$Reply3_deleteUser_OutputVariable.deleteUserResponse/ns1:message</to>
+            </copy>
+          </assign>
+          <reply name="Reply3" partnerLink="pruebacrud_client" variable="Reply3_deleteUser_OutputVariable"
+                 portType="ns1:UsersPort" operation="deleteUser"/>
+        </sequence>
+      </onMessage>
+      <onMessage partnerLink="pruebacrud_client" variable="OnMessage_createUser_InputVariable"
+                 portType="ns1:UsersPort" operation="createUser">
+        <sequence name="Sequence1">
+          <assign name="Assign1">
+            <copy>
+              <from>$OnMessage_createUser_InputVariable.createUserRequest/ns1:firstName</from>
+              <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$Invoke1_insert_InputVariable.UserCollection/ns3:User/ns3:firstName</to>
+            </copy>
+            <copy>
+              <from>$OnMessage_createUser_InputVariable.createUserRequest/ns1:lastName</from>
+              <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$Invoke1_insert_InputVariable.UserCollection/ns3:User/ns3:lastName</to>
+            </copy>
+            <copy>
+              <from>$OnMessage_createUser_InputVariable.createUserRequest/ns1:email</from>
+              <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$Invoke1_insert_InputVariable.UserCollection/ns3:User/ns3:email</to>
+            </copy>
+            <copy>
+              <from>$OnMessage_createUser_InputVariable.createUserRequest/ns1:password</from>
+              <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$Invoke1_insert_InputVariable.UserCollection/ns3:User/ns3:password</to>
+            </copy>
+            <copy>
+              <from>$OnMessage_createUser_InputVariable.createUserRequest/ns1:roleId</from>
+              <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$Invoke1_insert_InputVariable.UserCollection/ns3:User/ns3:roleId</to>
+            </copy>
+          </assign>
+          <invoke name="Invoke1" bpelx:invokeAsDetail="no" partnerLink="UsersDB" portType="ns2:UsersDB_ptt"
+                  operation="insert" inputVariable="Invoke1_insert_InputVariable"
+                  outputVariable="Invoke1_insert_OutputVariable"/>
+          <assign name="Assign2">
+            <copy>
+              <from>$OnMessage_createUser_InputVariable.createUserRequest/ns1:firstName</from>
+              <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$Reply4_createUser_OutputVariable.createUserResponse/ns1:user/ns1:firstName</to>
+            </copy>
+            <copy>
+              <from>$Invoke1_insert_OutputVariable.UserCollection/ns3:User/ns3:id</from>
+              <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$Reply4_createUser_OutputVariable.createUserResponse/ns1:user/ns1:id</to>
+            </copy>
+            <copy>
+              <from>$OnMessage_createUser_InputVariable.createUserRequest/ns1:lastName</from>
+              <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$Reply4_createUser_OutputVariable.createUserResponse/ns1:user/ns1:lastName</to>
+            </copy>
+            <copy>
+              <from>$OnMessage_createUser_InputVariable.createUserRequest/ns1:email</from>
+              <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$Reply4_createUser_OutputVariable.createUserResponse/ns1:user/ns1:email</to>
+            </copy>
+            <copy>
+              <from>$OnMessage_createUser_InputVariable.createUserRequest/ns1:password</from>
+              <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$Reply4_createUser_OutputVariable.createUserResponse/ns1:user/ns1:password</to>
+            </copy>
+            <copy>
+              <from>$OnMessage_createUser_InputVariable.createUserRequest/ns1:roleId</from>
+              <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$Reply4_createUser_OutputVariable.createUserResponse/ns1:user/ns1:roleId</to>
+            </copy>
+          </assign>
+          <reply name="Reply4" partnerLink="pruebacrud_client" variable="Reply4_createUser_OutputVariable"
+                 portType="ns1:UsersPort" operation="createUser"/>
+        </sequence>
+      </onMessage>
+    </pick>
+  </sequence>
+</process>

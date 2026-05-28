@@ -1,0 +1,42 @@
+<wsdl:definitions name="getAllChecklistItem" targetNamespace="http://xmlns.oracle.com/CRUD_HIVEFIVE/CRUD_CHECKLIST_ITEM/getAllChecklistItem" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:client="http://xmlns.oracle.com/CRUD_HIVEFIVE/CRUD_CHECKLIST_ITEM/getAllChecklistItem" xmlns:ns1="http://xmlns.oracle.com/pcbpel/adapter/db/top/dbChecklistItem" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+    <wsdl:documentation>
+        <abstractWSDL>http://localhost:7101/soa-infra/services/default/CRUD_CHECKLIST_ITEM!1.0/WSDLs/getAllChecklistItem.wsdl</abstractWSDL>
+    </wsdl:documentation>
+    <plnk:partnerLinkType name="getAllChecklistItem">
+        <plnk:role name="getAllChecklistItemProvider" portType="client:getAllChecklistItem"/>
+    </plnk:partnerLinkType>
+    <wsdl:types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema">
+            <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/dbChecklistItem" schemaLocation="../Schemas/getallchecklistitemSchema.xsd"/>
+        </schema>
+    </wsdl:types>
+    <wsdl:message name="getAllChecklistItemRequestMessage">
+        <wsdl:part name="payload" element="ns1:ChecklistItemCollection"/>
+    </wsdl:message>
+    <wsdl:message name="getAllChecklistItemResponseMessage">
+        <wsdl:part name="payload" element="ns1:ChecklistItemCollection"/>
+    </wsdl:message>
+    <wsdl:portType name="getAllChecklistItem">
+        <wsdl:operation name="process">
+            <wsdl:input message="client:getAllChecklistItemRequestMessage"/>
+            <wsdl:output message="client:getAllChecklistItemResponseMessage"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="getAllChecklistItemBinding" type="client:getAllChecklistItem">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="process">
+            <soap:operation style="document" soapAction="process"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="getallchecklistitem_client_ep">
+        <wsdl:port name="getAllChecklistItem_pt" binding="client:getAllChecklistItemBinding">
+            <soap:address location="http://localhost:7101/soa-infra/services/default/CRUD_CHECKLIST_ITEM/getallchecklistitem_client_ep"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

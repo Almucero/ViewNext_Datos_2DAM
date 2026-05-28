@@ -1,0 +1,42 @@
+<wsdl:definitions name="createStatus" targetNamespace="http://xmlns.oracle.com/CRUD_HIVEFIVE/CRUD_STATUS/createStatus" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:client="http://xmlns.oracle.com/CRUD_HIVEFIVE/CRUD_STATUS/createStatus" xmlns:ns1="http://xmlns.oracle.com/pcbpel/adapter/db/top/dbStatus" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+    <wsdl:documentation>
+        <abstractWSDL>http://localhost:7101/soa-infra/services/default/CRUD_STATUS!1.0/WSDLs/createStatus.wsdl</abstractWSDL>
+    </wsdl:documentation>
+    <plnk:partnerLinkType name="createStatus">
+        <plnk:role name="createStatusProvider" portType="client:createStatus"/>
+    </plnk:partnerLinkType>
+    <wsdl:types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema">
+            <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/dbStatus" schemaLocation="../Shemas/createstatusSchema.xsd"/>
+        </schema>
+    </wsdl:types>
+    <wsdl:message name="createStatusRequestMessage">
+        <wsdl:part name="payload" element="ns1:StatusCollection"/>
+    </wsdl:message>
+    <wsdl:message name="createStatusResponseMessage">
+        <wsdl:part name="payload" element="ns1:StatusCollection"/>
+    </wsdl:message>
+    <wsdl:portType name="createStatus">
+        <wsdl:operation name="process">
+            <wsdl:input message="client:createStatusRequestMessage"/>
+            <wsdl:output message="client:createStatusResponseMessage"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="createStatusBinding" type="client:createStatus">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="process">
+            <soap:operation style="document" soapAction="process"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="createstatus_client_ep">
+        <wsdl:port name="createStatus_pt" binding="client:createStatusBinding">
+            <soap:address location="http://localhost:7101/soa-infra/services/default/CRUD_STATUS/createstatus_client_ep"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

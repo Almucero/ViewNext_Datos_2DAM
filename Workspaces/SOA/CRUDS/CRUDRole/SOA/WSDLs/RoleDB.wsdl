@@ -1,0 +1,51 @@
+<wsdl:definitions
+     name="RoleDB"
+     targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/Pruebas/CRUDRole/RoleDB"
+     xmlns:tns="http://xmlns.oracle.com/pcbpel/adapter/db/Pruebas/CRUDRole/RoleDB"
+     xmlns:jca="http://xmlns.oracle.com/pcbpel/wsdl/jca/"
+     xmlns:plt="http://schemas.xmlsoap.org/ws/2003/05/partner-link/"
+     xmlns:top="http://xmlns.oracle.com/pcbpel/adapter/db/top/RoleDB"
+     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    >
+  <plt:partnerLinkType name="RoleDB_plt" >
+    <plt:role name="RoleDB_role" >
+      <plt:portType name="tns:RoleDB_ptt" />
+    </plt:role>
+  </plt:partnerLinkType>
+    <wsdl:types>
+      <schema xmlns="http://www.w3.org/2001/XMLSchema" >
+        <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/RoleDB" schemaLocation="../Schemas/RoleDB_table.xsd" />
+      </schema>
+    </wsdl:types>
+    <wsdl:message name="RoleDBSelect_inputParameters">
+        <wsdl:part name="RoleDBSelect_inputParameters" element="top:RoleDBSelectInputParameters"/>
+    </wsdl:message>
+    <wsdl:message name="selectByPrimaryKey_inputParameters">
+        <wsdl:part name="selectByPrimaryKey_inputParameters" element="top:RolePrimaryKey"/>
+    </wsdl:message>
+    <wsdl:message name="RoleCollection_msg">
+        <wsdl:part name="RoleCollection" element="top:RoleCollection"/>
+    </wsdl:message>
+    <wsdl:portType name="RoleDB_ptt">
+        <wsdl:operation name="insert">
+            <wsdl:input message="tns:RoleCollection_msg"/>
+            <wsdl:output message="tns:RoleCollection_msg"/>
+        </wsdl:operation>
+        <wsdl:operation name="update">
+            <wsdl:input message="tns:RoleCollection_msg"/>
+            <wsdl:output message="tns:RoleCollection_msg"/>
+        </wsdl:operation>
+        <wsdl:operation name="delete">
+            <wsdl:input message="tns:RoleCollection_msg"/>
+            <wsdl:output message="tns:RoleCollection_msg"/>
+        </wsdl:operation>
+        <wsdl:operation name="RoleDBSelect">
+            <wsdl:input message="tns:RoleDBSelect_inputParameters"/>
+            <wsdl:output message="tns:RoleCollection_msg"/>
+        </wsdl:operation>
+        <wsdl:operation name="selectByPrimaryKey">
+            <wsdl:input message="tns:selectByPrimaryKey_inputParameters"/>
+            <wsdl:output message="tns:RoleCollection_msg"/>
+        </wsdl:operation>
+    </wsdl:portType>
+</wsdl:definitions>

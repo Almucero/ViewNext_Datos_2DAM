@@ -1,0 +1,28 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<xs:schema targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/dbBoard" xmlns="http://xmlns.oracle.com/pcbpel/adapter/db/top/dbBoard" elementFormDefault="qualified" attributeFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+   <xs:element name="BoardCollection" type="BoardCollection"/>
+   <!-- Exponemos Board como elemento raíz para que los métodos CRUD no requieran
+        enviar un "array" (BoardCollection->Board). -->
+   <xs:element name="Board" type="Board"/>
+   <xs:complexType name="BoardCollection">
+      <xs:sequence>
+         <xs:element name="Board" type="Board" minOccurs="1" maxOccurs="unbounded"/>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="Board">
+      <xs:sequence>
+         <xs:element name="id" type="xs:int" nillable="true"/>
+         <xs:element name="name" type="xs:string" minOccurs="0" nillable="true"/>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:element name="dbBoardSelectInputParameters" type="dbBoardSelect"/>
+   <xs:complexType name="dbBoardSelect">
+      <xs:sequence/>
+   </xs:complexType>
+   <xs:element name="BoardPrimaryKey" type="BoardPrimaryKey"/>
+   <xs:complexType name="BoardPrimaryKey">
+      <xs:sequence>
+         <xs:element name="id" type="xs:int" minOccurs="1" maxOccurs="1"/>
+      </xs:sequence>
+   </xs:complexType>
+</xs:schema>

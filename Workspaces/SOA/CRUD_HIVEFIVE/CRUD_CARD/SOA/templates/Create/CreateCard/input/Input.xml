@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cli:createCard xmlns:cli="http://xmlns.oracle.com/CRUD_HIVEFIVE/CRUD_CARD/createCard">
+  <ns2:Card xmlns:ns2="http://xmlns.oracle.com/pcbpel/adapter/db/top/dbCard">
+    <ns2:boardId>5</ns2:boardId>
+    <ns2:endDate>2026-12-31</ns2:endDate>
+    <ns2:id>1000</ns2:id>
+    <ns2:priority>1</ns2:priority>
+    <ns2:startDate>2026-01-01</ns2:startDate>
+    <ns2:statusId>2</ns2:statusId>
+    <ns2:userId>2</ns2:userId>
+    <ns2:description>DescripciÃ³n de prueba</ns2:description>
+    <ns2:title>Tarjeta Nueva</ns2:title>
+  </ns2:Card>
+</cli:createCard>

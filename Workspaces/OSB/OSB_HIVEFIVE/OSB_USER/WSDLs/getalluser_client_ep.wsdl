@@ -1,0 +1,43 @@
+<wsdl:definitions name="getAllUser" targetNamespace="http://xmlns.oracle.com/CRUD_HIVEFIVE/CRUD_USER/getAllUser" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:client="http://xmlns.oracle.com/CRUD_HIVEFIVE/CRUD_USER/getAllUser" xmlns:ns1="http://xmlns.oracle.com/pcbpel/adapter/db/top/dbReference" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+    <wsdl:documentation>
+        <abstractWSDL>http://GM0G9LHD.insags.com:7101/soa-infra/services/default/CRUD_USER!1.0/WSDLs/getAllUser.wsdl</abstractWSDL>
+    </wsdl:documentation>
+    <plnk:partnerLinkType name="getAllUser">
+        <plnk:role name="getAllUserProvider" portType="client:getAllUser"/>
+    </plnk:partnerLinkType>
+    <wsdl:types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema">
+            <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/dbReference"
+                    schemaLocation="../Schemas/getalluser_payload.xsd"/>
+        </schema>
+    </wsdl:types>
+    <wsdl:message name="getAllUserRequestMessage">
+        <wsdl:part name="payload" element="ns1:UserCollection"/>
+    </wsdl:message>
+    <wsdl:message name="getAllUserResponseMessage">
+        <wsdl:part name="payload" element="ns1:UserCollection"/>
+    </wsdl:message>
+    <wsdl:portType name="getAllUser">
+        <wsdl:operation name="process">
+            <wsdl:input message="client:getAllUserRequestMessage"/>
+            <wsdl:output message="client:getAllUserResponseMessage"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="getAllUserBinding" type="client:getAllUser">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="process">
+            <soap:operation style="document" soapAction="process"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="getalluser_client_ep">
+        <wsdl:port name="getAllUser_pt" binding="client:getAllUserBinding">
+            <soap:address location="http://GM0G9LHD.insags.com:7101/soa-infra/services/default/CRUD_USER/getalluser_client_ep"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

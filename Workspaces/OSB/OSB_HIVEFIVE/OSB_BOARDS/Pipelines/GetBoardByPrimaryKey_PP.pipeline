@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:pipelineEntry xmlns:con="http://www.bea.com/wli/sb/pipeline/config" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <con:coreEntry>
+        <con:binding type="SOAP" isSoap12="false" xsi:type="con:SoapBindingType">
+            <con:wsdl ref="OSB_BOARDS/Resources/GetBoardByPrimaryKey_Experience"/>
+            <con:binding>
+                <con:name>GetBoardByPrimaryKey_Experience_ptt-binding</con:name>
+                <con:namespace>http://xmlns.oracle.com/OSBHive5/OSB_BOARDS/GetBoardByPrimaryKey_Experience</con:namespace>
+            </con:binding>
+        </con:binding>
+        <con:xqConfiguration>
+            <con:snippetVersion>1.0</con:snippetVersion>
+        </con:xqConfiguration>
+    </con:coreEntry>
+    <con:router>
+        <con:template-overrides>
+            <con:placeholder-override id="PlaceholderID_N53eefffe.N5094dfb5.0.19d1a0e6c75.N7d9f">
+                <con:stage id="_StageId-N53ef278a.7711d587.0.19d29f93bd2.N7f98" name="Stage2">
+                    <con:context>
+                        <con1:userNsDecl prefix="get" namespace="http://xmlns.oracle.com/OSBHive5/OSB_BOARDS/GetBoardByPrimaryKey_Experience" xmlns:con1="http://www.bea.com/wli/sb/stages/config"/>
+                    </con:context>
+                    <con:actions>
+                        <con1:assign varName="getBoardByPrimaryKeyRequest" xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config">
+                            <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-N53ef278a.7711d587.0.19d29f93bd2.N7f92</con2:id>
+                            <con1:expr>
+                                <con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">$body/get:getBoardByPrimaryKey_params</con2:xqueryText>
+                            </con1:expr>
+                        </con1:assign>
+                    </con:actions>
+                </con:stage>
+            </con:placeholder-override>
+            <con:placeholder-override id="PlaceholderID_N53eefffe.N5094dfb5.0.19d1a0e6c75.N7b27">
+                <con:actions>
+                    <con1:replace varName="body" contents-only="true" xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config">
+                        <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-N53ef278a.5af956fa.0.19d24ce67ee.N7f7c</con2:id>
+                        <con1:location>
+                            <con2:xpathText xmlns:con2="http://www.bea.com/wli/sb/stages/config">.</con2:xpathText>
+                        </con1:location>
+                        <con1:expr>
+                            <con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">&lt;ns2:Board xmlns:ns2="http://xmlns.oracle.com/pcbpel/adapter/db/top/dbBoard">
+&lt;ns2:id>{$body//*:id_board/text()}&lt;/ns2:id>
+&lt;/ns2:Board></con2:xqueryText>
+                        </con1:expr>
+                    </con1:replace>
+                </con:actions>
+            </con:placeholder-override>
+            <con:placeholder-override id="PlaceholderID_N53eefffe.N5094dfb5.0.19d1a0e6c75.N7d6c">
+                <con:stage id="_StageId-N53ef278a.7711d587.0.19d29f93bd2.N7f99" name="Stage2">
+                    <con:context>
+                        <con1:userNsDecl prefix="dbb" namespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/dbBoard" xmlns:con1="http://www.bea.com/wli/sb/stages/config"/>
+                    </con:context>
+                    <con:actions>
+                        <con1:assign varName="getBoardByPrimaryKeyReponse" xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config">
+                            <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-N53ef278a.7711d587.0.19d29f93bd2.N7f95</con2:id>
+                            <con1:expr>
+                                <con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">$body/dbb:BoardCollection</con2:xqueryText>
+                            </con1:expr>
+                        </con1:assign>
+                    </con:actions>
+                </con:stage>
+            </con:placeholder-override>
+            <con:placeholder-override id="PlaceholderID_N53eefffe.N5094dfb5.0.19d1a0e6c75.N7b26">
+                <con:actions>
+                    <con1:replace varName="body" contents-only="true" xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config">
+                        <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-N53ef278a.N50c16c35.0.19d2928218d.N7f80</con2:id>
+                        <con1:location>
+                            <con2:xpathText xmlns:con2="http://www.bea.com/wli/sb/stages/config">.</con2:xpathText>
+                        </con1:location>
+                        <con1:expr>
+                            <con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config"><![CDATA[<dbb:BoardCollection xmlns:dbb="http://xmlns.oracle.com/pcbpel/adapter/db/top/dbBoard">
+<dbb:Board>
+<dbb:id>{$body//*:id/text()}</dbb:id>
+<dbb:name>{$body//*:name/text()}</dbb:name>
+</dbb:Board>
+</dbb:BoardCollection>]]></con2:xqueryText>
+                        </con1:expr>
+                    </con1:replace>
+                    <con1:transport-headers xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config">
+                        <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-CORS-GetBoardById</con2:id>
+                        <con1:header-set>inbound-response</con1:header-set>
+                        <con1:header value="expression" name="Access-Control-Allow-Origin"><con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">'http://localhost:8000'</con2:xqueryText></con1:header>
+                        <con1:header value="expression" name="Access-Control-Allow-Methods"><con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">'GET, POST, PUT, DELETE, OPTIONS'</con2:xqueryText></con1:header>
+                        <con1:header value="expression" name="Access-Control-Allow-Headers"><con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">'Content-Type, Authorization, X-Requested-With'</con2:xqueryText></con1:header>
+                    </con1:transport-headers>
+                </con:actions>
+            </con:placeholder-override>
+            <con:placeholder-override id="PlaceholderID_N53eefffe.N5094dfb5.0.19d1a0e6c75.N7ab6">
+                <con:actions>
+                    <con1:route xmlns:con1="http://www.bea.com/wli/sb/stages/routing/config">
+                        <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-N53ef278a.5af956fa.0.19d24ce67ee.N7fa5</con2:id>
+                        <con1:service ref="OSB_BOARDS/BussinesServices/SelectBoardByPrimaryKey_BS" xsi:type="ref:BusinessServiceRef" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
+                        <con1:operation>process</con1:operation>
+                        <con1:outboundTransform/>
+                        <con1:responseTransform/>
+                    </con1:route>
+                </con:actions>
+            </con:placeholder-override>
+        </con:template-overrides>
+    </con:router>
+    <con:template ref="OSB_BOARDS/Pipelines/CardPipelineTemplate"/>
+</con:pipelineEntry>

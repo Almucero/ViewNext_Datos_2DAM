@@ -1,0 +1,15 @@
+<?xml version= '1.0' encoding= 'UTF-8' ?>
+<wsdl:definitions
+     name="Users"
+     targetNamespace="http://ds.hive5.com/elements"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+     xmlns:bpws="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+     xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype"
+     xmlns:sch="http://ds.hive5.com/elements"
+     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    >
+    <plnk:partnerLinkType name="PruebaCRUD">
+        <plnk:role name="UsersPort" portType="sch:UsersPort"/>
+    </plnk:partnerLinkType>
+    <wsdl:import namespace="http://ds.hive5.com/elements" location="Users.wsdl"/>
+</wsdl:definitions>

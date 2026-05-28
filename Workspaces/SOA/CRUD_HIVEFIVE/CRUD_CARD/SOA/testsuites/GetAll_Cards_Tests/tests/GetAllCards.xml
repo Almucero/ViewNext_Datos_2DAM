@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<compositeTest compositeDN="CRUD_CARD" xmlns="http://xmlns.oracle.com/sca/2006/test">
+  <about>Test Real a BD de Get All Cards (Validando por XPath)</about>
+
+  <initiate serviceName="getallcard_client_ep" operation="process" isAsync="false" delay="PT0S">
+    <message>
+      <part partName="payload">
+        <content>
+          <cli:getAllCard xmlns:cli="http://xmlns.oracle.com/CRUD_HIVEFIVE/CRUD_CARD/getAllCard"/>
+        </content>
+      </part>
+    </message>
+  </initiate>
+  
+  <wireActions wireSource="getallcard_client_ep" operation="process">
+    <assert comparisonMethod="string">
+      <description>Ignora el tamaño de la respuesta y solo verifica el ID de la primera tarjeta</description>
+      <expected>
+        <location key="output" partName="payload" xpath="/ns2:CardCollection/ns2:Card[1]/ns2:id" xmlns:ns2="http://xmlns.oracle.com/pcbpel/adapter/db/top/dbCard"/>
+        
+        <simple>1</simple>
+        
+      </expected>
+    </assert>
+  </wireActions>
+  
+</compositeTest>

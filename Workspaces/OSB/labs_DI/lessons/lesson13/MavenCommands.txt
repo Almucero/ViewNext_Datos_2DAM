@@ -1,0 +1,15 @@
+# Maven plugin install
+mvn install:install-file -DpomFile=oracle-maven-sync-12.1.3.pom -Dfile=oracle-maven-sync-12.1.3.jar -DoracleHome=$FMW_DEV_HOME
+
+# Maven populate libraries
+mvn com.oracle.maven:oracle-maven-sync:push -DoracleHome=$FMW_DEV_HOME
+
+# Maven validate
+mvn help:describe -DgroupId=com.oracle.servicebus.plugin -DartifactId=oracle-servicebus-plugin -Dversion=12.1.3-0-0
+
+# Maven help
+mvn help:describe -Ddetail=true -Dcmd=com.oracle.servicebus.plugin:oracle-servicebus-plugin:package
+
+# Maven archetype 
+mvn archetype:crawl -Dcatalog=$HOME/.m2/archetype-catalog.xml
+

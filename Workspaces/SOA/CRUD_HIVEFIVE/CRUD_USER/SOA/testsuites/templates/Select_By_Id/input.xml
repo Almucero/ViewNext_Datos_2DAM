@@ -1,0 +1,5 @@
+<process xmlns="http://xmlns.oracle.com/CRUD_HIVEFIVE/CRUD_USER/getUserByPrimaryKey">
+   <User xmlns="http://xmlns.oracle.com/pcbpel/adapter/db/top/dbReference">
+      <id>12</id>
+   </User>
+</process>

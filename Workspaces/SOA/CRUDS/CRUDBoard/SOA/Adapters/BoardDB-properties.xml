@@ -1,0 +1,15 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+   <entry key="board:db_table_type">TABLE</entry>
+   <entry key="board.id:db_column_type">INT</entry>
+   <entry key="board.id:db_column_not_null">true</entry>
+   <entry key="return_single_result_set">false</entry>
+   <entry key="board.name:db_column_type">VARCHAR</entry>
+   <entry key="board:db_column_1">name</entry>
+   <entry key="board.id:db_column_size">10</entry>
+   <entry key="root_descriptor_alias">board</entry>
+   <entry key="board:db_column_0">id</entry>
+   <entry key="board.name:db_column_not_null">false</entry>
+   <entry key="board.name:db_column_size">255</entry>
+</properties>

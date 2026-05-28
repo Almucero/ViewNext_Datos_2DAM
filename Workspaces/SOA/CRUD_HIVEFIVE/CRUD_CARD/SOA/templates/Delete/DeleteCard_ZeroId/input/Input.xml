@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cli:deleteCard xmlns:cli="http://xmlns.oracle.com/CRUD_HIVEFIVE/CRUD_CARD/deleteCard">
+  <ns2:Card xmlns:ns2="http://xmlns.oracle.com/pcbpel/adapter/db/top/dbCard">
+    <ns2:id>1001</ns2:id>
+    <ns2:title>Este titulo no debe salir en respuesta</ns2:title>
+    <ns2:description>Este campo debe ser ignorado en el output</ns2:description>
+  </ns2:Card>
+</cli:deleteCard>

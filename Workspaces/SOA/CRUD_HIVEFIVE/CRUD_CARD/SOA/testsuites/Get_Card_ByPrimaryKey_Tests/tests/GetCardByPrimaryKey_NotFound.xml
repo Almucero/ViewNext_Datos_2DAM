@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<compositeTest compositeDN="CRUD_CARD" xmlns="http://xmlns.oracle.com/sca/2006/test">
+  <about>Test Not Found para GetCardByPrimaryKey atrapando el Fault Summary</about>
+  
+  <initiate serviceName="getcardbyprimarykey_client_ep" operation="process" isAsync="false" delay="PT0S">
+    <message>
+      <part partName="payload">
+        <content>
+          <cli:getCardByPrimaryKey xmlns:cli="http://xmlns.oracle.com/CRUD_HIVEFIVE/CRUD_CARD/getCardByPrimaryKey">
+            <ns2:Card xmlns:ns2="http://xmlns.oracle.com/pcbpel/adapter/db/top/dbCard">
+              <ns2:id>9999999</ns2:id>
+            </ns2:Card>
+          </cli:getCardByPrimaryKey>
+        </content>
+      </part>
+    </message>
+  </initiate>
+  
+  <wireActions wireSource="getcardbyprimarykey_client_ep" operation="process">
+    <assert comparisonMethod="string">
+      <expected>
+        <location key="fault" partName="summary" xpath="/summary"/>
+        <simple>selectionFailure</simple>
+      </expected>
+    </assert>
+  </wireActions>
+  
+</compositeTest>

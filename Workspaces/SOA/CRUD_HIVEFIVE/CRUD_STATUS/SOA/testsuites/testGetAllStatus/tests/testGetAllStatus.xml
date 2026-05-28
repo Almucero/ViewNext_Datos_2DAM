@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<compositeTest compositeDN="CRUD_STATUS" xmlns="http://xmlns.oracle.com/sca/2006/test">
+  <about>Obtener todos los registros de la tabla Status</about>
+  
+  <initiate serviceName="getallstatus_client_ep" operation="process" isAsync="false" delay="PT0S">
+    <message>
+      <part partName="payload">
+        <content>
+          <StatusCollection xmlns="http://xmlns.oracle.com/pcbpel/adapter/db/top/dbStatus"/>
+        </content>
+      </part>
+    </message>
+  </initiate>
+
+  <wireActions wireSource="getallstatus_client_ep" operation="process">
+    <assert comparisonMethod="xml-similar">
+      <description/>
+      <expected>
+        <location key="output"/>
+        <message>
+          <part partName="payload">
+            <content>
+              <StatusCollection xmlns="http://xmlns.oracle.com/pcbpel/adapter/db/top/dbStatus">
+                <Status>
+                  <id>2</id>
+                  <name>todo</name>
+                </Status>
+                <Status>
+                  <id>3</id>
+                  <name>doing</name>
+                </Status>
+                <Status>
+                  <id>4</id>
+                  <name>blocked</name>
+                </Status>
+                <Status>
+                  <id>5</id>
+                  <name>done</name>
+                </Status>
+                <Status>
+                  <id>6</id>
+                  <name>rejected</name>
+                </Status>
+                <Status>
+                  <id>60</id>
+                  <name>unitariaActualizar</name>
+                </Status>
+              </StatusCollection>
+            </content>
+          </part>
+        </message>
+      </expected>
+    </assert>
+  </wireActions>
+</compositeTest>

@@ -1,0 +1,42 @@
+<wsdl:definitions name="getAllRole" targetNamespace="http://xmlns.oracle.com/CRUD_HIVEFIVE/CRUD_ROLE/getAllRole" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:client="http://xmlns.oracle.com/CRUD_HIVEFIVE/CRUD_ROLE/getAllRole" xmlns:ns1="http://xmlns.oracle.com/pcbpel/adapter/db/top/dbReference" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+    <wsdl:documentation>
+        <abstractWSDL>http://localhost:7101/soa-infra/services/default/CRUD_ROLE!1.0/WSDLs/getAllRole.wsdl</abstractWSDL>
+    </wsdl:documentation>
+    <plnk:partnerLinkType name="getAllRole">
+        <plnk:role name="getAllRoleProvider" portType="client:getAllRole"/>
+    </plnk:partnerLinkType>
+    <wsdl:types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema">
+            <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/dbReference" schemaLocation="../Squemas/GetAllRole_Payload.xsd"/>
+        </schema>
+    </wsdl:types>
+    <wsdl:message name="getAllRoleRequestMessage">
+        <wsdl:part name="payload" element="ns1:RoleCollection"/>
+    </wsdl:message>
+    <wsdl:message name="getAllRoleResponseMessage">
+        <wsdl:part name="payload" element="ns1:RoleCollection"/>
+    </wsdl:message>
+    <wsdl:portType name="getAllRole">
+        <wsdl:operation name="process">
+            <wsdl:input message="client:getAllRoleRequestMessage"/>
+            <wsdl:output message="client:getAllRoleResponseMessage"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="getAllRoleBinding" type="client:getAllRole">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="process">
+            <soap:operation style="document" soapAction="process"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="getallrole_client_ep">
+        <wsdl:port name="getAllRole_pt" binding="client:getAllRoleBinding">
+            <soap:address location="http://localhost:7101/soa-infra/services/default/CRUD_ROLE/getallrole_client_ep"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

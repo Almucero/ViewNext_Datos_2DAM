@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:pipelineEntry xmlns:con="http://www.bea.com/wli/sb/pipeline/config" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <con:coreEntry>
+        <con:binding type="SOAP" isSoap12="false" xsi:type="con:SoapBindingType">
+            <con:wsdl ref="PaymentValidation_Log/WSDLs/ValidatePayment-concrete"/>
+            <con:binding>
+                <con:name>validatePaymentBinding</con:name>
+                <con:namespace>http://www.oracle.com/ValidatePayment</con:namespace>
+            </con:binding>
+        </con:binding>
+        <con:xqConfiguration>
+            <con:snippetVersion>1.0</con:snippetVersion>
+        </con:xqConfiguration>
+    </con:coreEntry>
+    <con:router>
+        <con:template-overrides>
+            <con:placeholder-override id="PlaceholderID_a962529.5de47ca6.0.14d6c08209f.N7f09">
+                <con:stage id="_StageId-a962529.5de47ca6.0.14d6c08209f.N7f05" name="Stage2">
+                    <con:context>
+                        <con1:userNsDecl prefix="soas" namespace="http://www.oracle.com/soasample" xmlns:con1="http://www.bea.com/wli/sb/stages/config"/>
+                    </con:context>
+                    <con:actions>
+                        <con1:assign varName="AuthAmount" xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config">
+                            <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-a962529.5de47ca6.0.14d6c08209f.N7f02</con2:id>
+                            <con1:expr>
+                                <con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">$body/soas:PaymentInfo/soas:AuthorizationAmount</con2:xqueryText>
+                            </con1:expr>
+                        </con1:assign>
+                    </con:actions>
+                </con:stage>
+            </con:placeholder-override>
+            <con:action-override id="_ActionId-a962529.N15bcbae4.0.14d68cabc7f.N7ff8">
+                <con1:log xmlns:con1="http://www.bea.com/wli/sb/stages/logging/config">
+                    <con1:logLevel>warning</con1:logLevel>
+                    <con1:expr>
+                        <con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">$body</con2:xqueryText>
+                    </con1:expr>
+                </con1:log>
+            </con:action-override>
+            <con:placeholder-override id="PlaceholderID_a962529.5de47ca6.0.14d6c08209f.N7f08"/>
+            <con:placeholder-override id="PlaceholderID_a962529.N15bcbae4.0.14d68cabc7f.N7fc2">
+                <con:actions>
+                    <con1:route xmlns:con1="http://www.bea.com/wli/sb/stages/routing/config">
+                        <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-a962529.5de47ca6.0.14d6c08209f.N7eff</con2:id>
+                        <con1:service ref="PaymentValidation_Log/PaymentValidation_LogBS" xsi:type="ref:BusinessServiceRef" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
+                        <con1:operation>validate</con1:operation>
+                        <con1:outboundTransform/>
+                        <con1:responseTransform/>
+                    </con1:route>
+                </con:actions>
+            </con:placeholder-override>
+        </con:template-overrides>
+    </con:router>
+    <con:template ref="PaymentValidation_Log/Pipelines/LogPipelineTemplate"/>
+</con:pipelineEntry>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<compositeTest compositeDN="CRUD_BOARD" xmlns="http://xmlns.oracle.com/sca/2006/test">
+  <about>Test Real BD de getAllBoards sin emulacion</about>
+
+  <initiate serviceName="getallboards_client_ep" operation="process" isAsync="false" delay="PT0S">
+    <message>
+      <part partName="payload">
+        <content>
+          <dbBoardSelectInputParameters xmlns="http://xmlns.oracle.com/pcbpel/adapter/db/top/dbBoard"/>
+        </content>
+      </part>
+    </message>
+  </initiate>
+
+  <wireActions wireSource="getAllBoards/dbBoard" operation="dbBoardSelect"/>
+
+  <wireActions wireSource="getallboards_client_ep" operation="process">
+    <assert comparisonMethod="pattern-match">
+      <description>Verifica que la consulta real devuelve al menos un Board con ID numerico</description>
+      <expected>
+        <location key="output" partName="payload" xpath="//*[local-name()='id'][1]"/>
+        <simple>[0-9]+</simple>
+      </expected>
+    </assert>
+  </wireActions>
+</compositeTest>

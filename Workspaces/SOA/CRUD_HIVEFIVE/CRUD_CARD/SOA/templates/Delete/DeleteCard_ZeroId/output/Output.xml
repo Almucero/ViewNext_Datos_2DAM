@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ns2:CardCollection xmlns:ns2="http://xmlns.oracle.com/pcbpel/adapter/db/top/dbCard">
+  <ns2:Card>
+    <ns2:id>1001</ns2:id>
+  </ns2:Card>
+</ns2:CardCollection>

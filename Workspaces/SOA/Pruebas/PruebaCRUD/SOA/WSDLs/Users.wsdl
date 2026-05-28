@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions
+     name="Users"
+     targetNamespace="http://ds.hive5.com/elements"
+     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+     xmlns:sch="http://ds.hive5.com/elements"
+     xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+     xmlns:tns="http://ds.hive5.com/elements">
+
+    <wsdl:types>
+        <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+            <xs:import namespace="http://ds.hive5.com/elements" schemaLocation="../Schemas/Users.xsd"/>
+        </xs:schema>
+    </wsdl:types>
+
+    <wsdl:message name="getUserRequest"><wsdl:part name="getUserRequest" element="sch:getUserRequest"/></wsdl:message>
+    <wsdl:message name="getUserResponse"><wsdl:part name="getUserResponse" element="sch:getUserResponse"/></wsdl:message>
+    
+    <wsdl:message name="createUserRequest"><wsdl:part name="createUserRequest" element="sch:createUserRequest"/></wsdl:message>
+    <wsdl:message name="createUserResponse"><wsdl:part name="createUserResponse" element="sch:createUserResponse"/></wsdl:message>
+    
+    <wsdl:message name="updateUserRequest"><wsdl:part name="updateUserRequest" element="sch:updateUserRequest"/></wsdl:message>
+    <wsdl:message name="updateUserResponse"><wsdl:part name="updateUserResponse" element="sch:updateUserResponse"/></wsdl:message>
+    
+    <wsdl:message name="deleteUserRequest"><wsdl:part name="deleteUserRequest" element="sch:deleteUserRequest"/></wsdl:message>
+    <wsdl:message name="deleteUserResponse"><wsdl:part name="deleteUserResponse" element="sch:deleteUserResponse"/></wsdl:message>
+
+    <wsdl:portType name="UsersPort">
+        <wsdl:operation name="getUser">
+            <wsdl:input name="getUserRequest" message="sch:getUserRequest"/>
+            <wsdl:output name="getUserResponse" message="sch:getUserResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="createUser">
+            <wsdl:input name="createUserRequest" message="sch:createUserRequest"/>
+            <wsdl:output name="createUserResponse" message="sch:createUserResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="updateUser">
+            <wsdl:input name="updateUserRequest" message="sch:updateUserRequest"/>
+            <wsdl:output name="updateUserResponse" message="sch:updateUserResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="deleteUser">
+            <wsdl:input name="deleteUserRequest" message="sch:deleteUserRequest"/>
+            <wsdl:output name="deleteUserResponse" message="sch:deleteUserResponse"/>
+        </wsdl:operation>
+    </wsdl:portType>
+
+    <wsdl:binding name="UsersPortSoap11" type="sch:UsersPort">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="getUser">
+            <soap:operation soapAction=""/>
+            <wsdl:input name="getUserRequest"><soap:body use="literal"/></wsdl:input>
+            <wsdl:output name="getUserResponse"><soap:body use="literal"/></wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="createUser">
+            <soap:operation soapAction=""/>
+            <wsdl:input name="createUserRequest"><soap:body use="literal"/></wsdl:input>
+            <wsdl:output name="createUserResponse"><soap:body use="literal"/></wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="updateUser">
+            <soap:operation soapAction=""/>
+            <wsdl:input name="updateUserRequest"><soap:body use="literal"/></wsdl:input>
+            <wsdl:output name="updateUserResponse"><soap:body use="literal"/></wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="deleteUser">
+            <soap:operation soapAction=""/>
+            <wsdl:input name="deleteUserRequest"><soap:body use="literal"/></wsdl:input>
+            <wsdl:output name="deleteUserResponse"><soap:body use="literal"/></wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+</wsdl:definitions>

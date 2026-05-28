@@ -1,0 +1,51 @@
+<wsdl:definitions
+     name="UserDB"
+     targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/CRUDS/CRUDUser/UserDB"
+     xmlns:tns="http://xmlns.oracle.com/pcbpel/adapter/db/CRUDS/CRUDUser/UserDB"
+     xmlns:jca="http://xmlns.oracle.com/pcbpel/wsdl/jca/"
+     xmlns:plt="http://schemas.xmlsoap.org/ws/2003/05/partner-link/"
+     xmlns:top="http://xmlns.oracle.com/pcbpel/adapter/db/top/UserDB"
+     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    >
+  <plt:partnerLinkType name="UserDB_plt" >
+    <plt:role name="UserDB_role" >
+      <plt:portType name="tns:UserDB_ptt" />
+    </plt:role>
+  </plt:partnerLinkType>
+    <wsdl:types>
+      <schema xmlns="http://www.w3.org/2001/XMLSchema" >
+        <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/UserDB" schemaLocation="../Schemas/UserDB_table.xsd" />
+      </schema>
+    </wsdl:types>
+    <wsdl:message name="UserDBSelect_inputParameters">
+        <wsdl:part name="UserDBSelect_inputParameters" element="top:UserDBSelectInputParameters"/>
+    </wsdl:message>
+    <wsdl:message name="selectByPrimaryKey_inputParameters">
+        <wsdl:part name="selectByPrimaryKey_inputParameters" element="top:UserPrimaryKey"/>
+    </wsdl:message>
+    <wsdl:message name="UserCollection_msg">
+        <wsdl:part name="UserCollection" element="top:UserCollection"/>
+    </wsdl:message>
+    <wsdl:portType name="UserDB_ptt">
+        <wsdl:operation name="insert">
+            <wsdl:input message="tns:UserCollection_msg"/>
+            <wsdl:output message="tns:UserCollection_msg"/>
+        </wsdl:operation>
+        <wsdl:operation name="update">
+            <wsdl:input message="tns:UserCollection_msg"/>
+            <wsdl:output message="tns:UserCollection_msg"/>
+        </wsdl:operation>
+        <wsdl:operation name="delete">
+            <wsdl:input message="tns:UserCollection_msg"/>
+            <wsdl:output message="tns:UserCollection_msg"/>
+        </wsdl:operation>
+        <wsdl:operation name="UserDBSelect">
+            <wsdl:input message="tns:UserDBSelect_inputParameters"/>
+            <wsdl:output message="tns:UserCollection_msg"/>
+        </wsdl:operation>
+        <wsdl:operation name="selectByPrimaryKey">
+            <wsdl:input message="tns:selectByPrimaryKey_inputParameters"/>
+            <wsdl:output message="tns:UserCollection_msg"/>
+        </wsdl:operation>
+    </wsdl:portType>
+</wsdl:definitions>

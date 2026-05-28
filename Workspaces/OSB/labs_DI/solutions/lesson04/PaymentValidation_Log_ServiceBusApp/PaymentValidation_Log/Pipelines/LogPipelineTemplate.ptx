@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:templateEntry xmlns:con="http://www.bea.com/wli/sb/pipeline/config" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:con1="http://www.bea.com/wli/sb/stages/logging/config" xmlns:con2="http://www.bea.com/wli/sb/stages/config">
+    <con:coreEntry>
+        <con:binding type="SOAP" xsi:type="con:AnyWsdlSoapBindingType"/>
+    </con:coreEntry>
+    <con:router>
+        <con:pipeline type="request" name="request-a962529.N15bcbae4.0.14d68cabc7f.N8000">
+            <con:placeholder-node id="PlaceholderID_a962529.5de47ca6.0.14d6c08209f.N7f09" name="Your Request Stages"/>
+            <con:stage id="_StageId-a962529.N15bcbae4.0.14d68cabc7f.N7ffe" name="Stage1">
+                <con:context/>
+                <con:actions>
+                    <con1:log>
+                        <con2:id>_ActionId-a962529.N15bcbae4.0.14d68cabc7f.N7ff8</con2:id>
+                        <con1:logLevel>debug</con1:logLevel>
+                    </con1:log>
+                </con:actions>
+            </con:stage>
+        </con:pipeline>
+        <con:pipeline type="response" name="response-a962529.N15bcbae4.0.14d68cabc7f.N7fff">
+            <con:placeholder-node id="PlaceholderID_a962529.5de47ca6.0.14d6c08209f.N7f08" name="Your Reponse Stages"/>
+            <con:stage id="_StageId-a962529.N15bcbae4.0.14d68cabc7f.N7ffd" name="Stage1">
+                <con:context/>
+                <con:actions/>
+            </con:stage>
+        </con:pipeline>
+        <con:flow>
+            <con:pipeline-node name="PipelinePairNode1">
+                <con:request>request-a962529.N15bcbae4.0.14d68cabc7f.N8000</con:request>
+                <con:response>response-a962529.N15bcbae4.0.14d68cabc7f.N7fff</con:response>
+            </con:pipeline-node>
+            <con:route-node id="_RouteId-a962529.N15bcbae4.0.14d68cabc7f.N7fc3" name="RouteNode1">
+                <con:context/>
+                <con:actions>
+                    <con:placeholder-node id="PlaceholderID_a962529.N15bcbae4.0.14d68cabc7f.N7fc2"/>
+                </con:actions>
+            </con:route-node>
+        </con:flow>
+    </con:router>
+</con:templateEntry>

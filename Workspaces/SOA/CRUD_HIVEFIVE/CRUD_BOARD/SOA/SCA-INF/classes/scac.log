@@ -1,0 +1,35 @@
+SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+SLF4J: Defaulting to no-operation (NOP) logger implementation
+SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+may 12, 2026 9:33:21 AM oracle.mds
+ERROR: MDS-01334: falta el elemento "mds-config" en el documento "file:/C:/Users/6003547/Desktop/HiveFive2026/middleware/CRUD_HIVEFIVE/.adf/META-INF/adf-config.xml"
+oracle.fabric.common.FabricException: oracle.mds.config.MDSConfigurationException: MDS-01333: falta el elemento "mds-config": MDS-01333: falta el elemento "mds-config": oracle.mds.config.MDSConfigurationException: MDS-01333: falta el elemento "mds-config": MDS-01333: falta el elemento "mds-config"
+oracle.fabric.common.FabricException: oracle.fabric.common.FabricException: oracle.mds.config.MDSConfigurationException: MDS-01333: falta el elemento "mds-config": MDS-01333: falta el elemento "mds-config": oracle.mds.config.MDSConfigurationException: MDS-01333: falta el elemento "mds-config": MDS-01333: falta el elemento "mds-config"
+	at oracle.fabric.common.FabricMetadataManagerFactory.createMetadataManager(FabricMetadataManagerFactory.java:219)
+	at oracle.fabric.common.FabricMetadataManagerFactory.createMetadataManager(FabricMetadataManagerFactory.java:185)
+	at oracle.fabric.composite.model.ModuleConfigModel.initializeMetadataManager(ModuleConfigModel.java:116)
+	at oracle.fabric.composite.model.CompositeModel.getClientMetadataManager(CompositeModel.java:302)
+	at oracle.soa.scac.ValidateComposite.loadComposite(ValidateComposite.java:912)
+	at oracle.soa.scac.ValidateComposite.doValidation(ValidateComposite.java:577)
+	at oracle.soa.scac.ValidateComposite.run0(ValidateComposite.java:234)
+	at oracle.soa.scac.ValidateComposite.run(ValidateComposite.java:215)
+	at oracle.soa.scac.ValidateComposite.main(ValidateComposite.java:207)
+Caused by: oracle.fabric.common.FabricException: oracle.mds.config.MDSConfigurationException: MDS-01333: falta el elemento "mds-config": MDS-01333: falta el elemento "mds-config"
+	at oracle.integration.platform.common.MDSMetadataManagerImpl.init(MDSMetadataManagerImpl.java:467)
+	at oracle.integration.platform.common.MDSMetadataManagerImpl.<init>(MDSMetadataManagerImpl.java:281)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+	at oracle.fabric.common.FabricMetadataManagerFactory.createMetadataManager(FabricMetadataManagerFactory.java:215)
+	... 8 more
+Caused by: oracle.mds.config.MDSConfigurationException: MDS-01333: falta el elemento "mds-config"
+	at oracle.mds.config.MDSConfig.<init>(MDSConfig.java:1032)
+	at oracle.mds.config.MDSConfig.<init>(MDSConfig.java:951)
+	at oracle.integration.platform.common.MDSUtil.getMDSConfig(MDSUtil.java:104)
+	at oracle.integration.platform.common.MDSUtil.getMDSInstance(MDSUtil.java:201)
+	at oracle.integration.platform.common.MDSMetadataManagerImpl.getMDSInstance(MDSMetadataManagerImpl.java:1072)
+	at oracle.integration.platform.common.MDSMetadataManagerImpl.init(MDSMetadataManagerImpl.java:422)
+	... 14 more
+Java HotSpot(TM) 64-Bit Server VM warning: ignoring option PermSize=32m; support was removed in 8.0
+Java HotSpot(TM) 64-Bit Server VM warning: ignoring option MaxPermSize=256m; support was removed in 8.0

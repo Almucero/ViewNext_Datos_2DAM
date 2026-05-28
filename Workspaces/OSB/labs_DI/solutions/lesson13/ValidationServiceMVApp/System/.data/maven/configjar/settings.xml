@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<p:configjarSettings xmlns:p="http://www.bea.com/alsb/tools/configjar/config">
+    <p:source>
+        <p:system dir="/home/oracle/labs_DI/lessons/lesson03/ValidationServiceMVApp/System"/>
+        <p:fileset>
+            <p:exclude name="*/pom.xml"/>
+            <p:exclude name="*/.data/**"/>
+        </p:fileset>
+    </p:source>
+    <p:configjar jar="/home/oracle/labs_DI/lessons/lesson03/ValidationServiceMVApp/System/.data/maven/sbconfig.sbar">
+        <p:resourceLevel includeDependencies="false"/>
+    </p:configjar>
+</p:configjarSettings>

@@ -1,0 +1,6 @@
+<view_states>
+   <function arity="1" name="transPayment">
+      <source_tree_view last.visible.row="14" last.visible.path="/sourceRoot[[0]]/NO_NAME[[0]]/AuthorizationAmount[[6]]" expanded.paths="/sourceRoot[[0]]/NO_NAME[[0]]&#xA;/sourceRoot[[0]]/NO_NAME[[0]]/BillingAddress[[4]]" selected.paths="/sourceRoot[[0]]/NO_NAME[[0]]/AuthorizationAmount[[6]]" first.visible.path="/sourceRoot[[0]]/NO_NAME[[0]]" first.visible.row="0"/>
+      <target_tree_view last.visible.row="18" last.visible.path="/TargetRoot[[0]]/PaymentType[[0]]/Conditional[[6]]/empty-sequence[[1]]" expanded.paths="/TargetRoot[[0]]/PaymentType[[0]]&#xA;/TargetRoot[[0]]/PaymentType[[0]]/BillingAddress[[4]]&#xA;/TargetRoot[[0]]/PaymentType[[0]]/Conditional[[5]]&#xA;/TargetRoot[[0]]/PaymentType[[0]]/Conditional[[6]]" selected.paths="/TargetRoot[[0]]/PaymentType[[0]]/BillingAddress[[4]]/AddressLine[[2]]" first.visible.path="/TargetRoot[[0]]/PaymentType[[0]]" first.visible.row="0"/>
+   </function>
+</view_states>

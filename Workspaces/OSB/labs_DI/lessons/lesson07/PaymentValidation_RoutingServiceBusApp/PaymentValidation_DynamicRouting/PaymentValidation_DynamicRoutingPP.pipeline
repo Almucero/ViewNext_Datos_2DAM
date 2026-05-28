@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:pipelineEntry xmlns:con="http://www.bea.com/wli/sb/pipeline/config" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:con1="http://www.bea.com/wli/sb/stages/config" xmlns:con2="http://www.bea.com/wli/sb/stages/transform/config" xmlns:con3="http://www.bea.com/wli/sb/stages/routing/config">
+    <con:coreEntry>
+        <con:binding type="SOAP" isSoap12="false" xsi:type="con:SoapBindingType">
+            <con:wsdl ref="PaymentValidation_Routing/WSDLs/ValidatePayment-concrete"/>
+            <con:binding>
+                <con:name>validatePaymentBinding</con:name>
+                <con:namespace>http://www.oracle.com/ValidatePayment</con:namespace>
+            </con:binding>
+        </con:binding>
+        <con:xqConfiguration>
+            <con:snippetVersion>1.0</con:snippetVersion>
+        </con:xqConfiguration>
+    </con:coreEntry>
+    <con:router>
+        <con:pipeline type="request" name="request-N53e06fff.N6236bc1e.0.19cb2c471ca.N7fc4">
+            <con:stage id="_StageId-N53e06fff.N6236bc1e.0.19cb2c471ca.N7fc2" name="Stage1">
+                <con:context>
+                    <con1:userNsDecl prefix="soas" namespace="http://www.oracle.com/soasample"/>
+                </con:context>
+                <con:actions>
+                    <con2:assign varName="varConfig">
+                        <con1:id>_ActionId-N53e06fff.N6236bc1e.0.19cb2c471ca.N7fbe</con1:id>
+                        <con2:expr>
+                            <con1:xqueryTransform>
+                                <con1:resource ref="PaymentValidation_DynamicRouting/XQuery/selectCCard"/>
+                            </con1:xqueryTransform>
+                        </con2:expr>
+                    </con2:assign>
+                    <con2:assign varName="varCardName">
+                        <con1:id>_ActionId-N53e06fff.N6236bc1e.0.19cb2c471ca.N7fbb</con1:id>
+                        <con2:expr>
+                            <con1:xqueryText>$body/soas:PaymentInfo/soas:CardName/text()</con1:xqueryText>
+                        </con2:expr>
+                    </con2:assign>
+                </con:actions>
+            </con:stage>
+        </con:pipeline>
+        <con:pipeline type="response" name="response-N53e06fff.N6236bc1e.0.19cb2c471ca.N7fc3">
+            <con:stage id="_StageId-N53e06fff.N6236bc1e.0.19cb2c471ca.N7fc1" name="Stage1">
+                <con:context/>
+                <con:actions/>
+            </con:stage>
+        </con:pipeline>
+        <con:flow>
+            <con:pipeline-node name="Pipeline Pair Node1">
+                <con:request>request-N53e06fff.N6236bc1e.0.19cb2c471ca.N7fc4</con:request>
+                <con:response>response-N53e06fff.N6236bc1e.0.19cb2c471ca.N7fc3</con:response>
+            </con:pipeline-node>
+            <con:route-node name="RouteNode1">
+                <con:context/>
+                <con:actions>
+                    <con3:dynamic-route>
+                        <con1:id>_ActionId-N53e06fff.N6236bc1e.0.19cb2c471ca.N7fb7</con1:id>
+                        <con3:service>
+                            <con1:xqueryText><![CDATA[<ctx:route>
+    <ctx:service isProxy='false'>{$varConfig/CardName[@value=$varCardName]/Service/text()}</ctx:service>
+    <ctx:operation>{$operation}</ctx:operation>
+</ctx:route>]]></con1:xqueryText>
+                        </con3:service>
+                        <con3:outboundTransform/>
+                        <con3:responseTransform/>
+                    </con3:dynamic-route>
+                </con:actions>
+            </con:route-node>
+        </con:flow>
+    </con:router>
+</con:pipelineEntry>

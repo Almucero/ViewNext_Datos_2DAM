@@ -1,0 +1,4 @@
+<Board xmlns="http://xmlns.oracle.com/pcbpel/adapter/db/top/dbBoard">
+  <id>1</id>
+  <name>Nuevo Board</name>
+</Board>

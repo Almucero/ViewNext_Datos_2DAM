@@ -1,0 +1,13 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Faults>
+   <Fault>
+      <severity>error</severity>
+      <loc/>
+      <line/>
+      <col/>
+      <file>/home/oracle/proyectos/Pruebas/PruebaCRUD/SOA/composite.xml</file>
+      <name>/home/oracle/proyectos/Pruebas/PruebaCRUD/SOA/composite.xml</name>
+      <fix/>
+      <msg>oracle.fabric.common.FabricException: oracle.mds.config.MDSConfigurationException: MDS-01333: missing element "mds-config": MDS-01333: missing element "mds-config": oracle.mds.config.MDSConfigurationException: MDS-01333: missing element "mds-config": MDS-01333: missing element "mds-config"</msg>
+   </Fault>
+</Faults>

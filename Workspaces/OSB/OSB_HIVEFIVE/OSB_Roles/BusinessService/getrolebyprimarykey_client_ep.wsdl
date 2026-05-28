@@ -1,0 +1,42 @@
+<wsdl:definitions name="getRoleByPrimaryKey" targetNamespace="http://xmlns.oracle.com/CRUD_HIVEFIVE/CRUD_ROLE/getRoleByPrimaryKey" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:client="http://xmlns.oracle.com/CRUD_HIVEFIVE/CRUD_ROLE/getRoleByPrimaryKey" xmlns:ns1="http://xmlns.oracle.com/pcbpel/adapter/db/top/dbReference" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+    <wsdl:documentation>
+        <abstractWSDL>http://localhost:7101/soa-infra/services/default/CRUD_ROLE!1.0/WSDLs/getRoleByPrimaryKey.wsdl</abstractWSDL>
+    </wsdl:documentation>
+    <plnk:partnerLinkType name="getRoleByPrimaryKey">
+        <plnk:role name="getRoleByPrimaryKeyProvider" portType="client:getRoleByPrimaryKey"/>
+    </plnk:partnerLinkType>
+    <wsdl:types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema">
+            <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/dbReference" schemaLocation="../Squemas/GetRoleByPrimaryKey_Payload.xsd"/>
+        </schema>
+    </wsdl:types>
+    <wsdl:message name="getRoleByPrimaryKeyRequestMessage">
+        <wsdl:part name="payload" element="ns1:RoleCollection"/>
+    </wsdl:message>
+    <wsdl:message name="getRoleByPrimaryKeyResponseMessage">
+        <wsdl:part name="payload" element="ns1:RoleCollection"/>
+    </wsdl:message>
+    <wsdl:portType name="getRoleByPrimaryKey">
+        <wsdl:operation name="process">
+            <wsdl:input message="client:getRoleByPrimaryKeyRequestMessage"/>
+            <wsdl:output message="client:getRoleByPrimaryKeyResponseMessage"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="getRoleByPrimaryKeyBinding" type="client:getRoleByPrimaryKey">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="process">
+            <soap:operation style="document" soapAction="process"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="getrolebyprimarykey_client_ep">
+        <wsdl:port name="getRoleByPrimaryKey_pt" binding="client:getRoleByPrimaryKeyBinding">
+            <soap:address location="http://localhost:7101/soa-infra/services/default/CRUD_ROLE/getrolebyprimarykey_client_ep"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

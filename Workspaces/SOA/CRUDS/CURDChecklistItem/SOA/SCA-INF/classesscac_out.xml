@@ -1,0 +1,13 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Faults>
+   <Fault>
+      <severity>warning</severity>
+      <loc>/ns:composite/ns:component[@name='Mediator/Mediator']</loc>
+      <line/>
+      <col/>
+      <file>/home/oracle/proyectos/CRUDS/CURDChecklistItem/SOA/composite.xml</file>
+      <name>/home/oracle/proyectos/CRUDS/CURDChecklistItem/SOA/composite.xml</name>
+      <fix/>
+      <msg>The service "Mediator" exposed by component "Mediator" is not wired to/used by any other component.</msg>
+   </Fault>
+</Faults>

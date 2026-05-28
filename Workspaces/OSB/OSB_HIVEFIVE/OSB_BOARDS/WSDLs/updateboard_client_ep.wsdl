@@ -1,0 +1,43 @@
+<wsdl:definitions name="updateBoard" targetNamespace="http://xmlns.oracle.com/CRUDHiveFive/CRUD_BOARD/updateBoard" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:client="http://xmlns.oracle.com/CRUDHiveFive/CRUD_BOARD/updateBoard" xmlns:ns1="http://xmlns.oracle.com/pcbpel/adapter/db/top/dbBoard" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+    <wsdl:documentation>
+        <abstractWSDL>http://GM0G9LHD.insags.com:7101/soa-infra/services/default/CRUD_BOARD!1.0/WSDLs/updateBoard.wsdl</abstractWSDL>
+    </wsdl:documentation>
+    <plnk:partnerLinkType name="updateBoard">
+        <plnk:role name="updateBoardProvider" portType="client:updateBoard"/>
+    </plnk:partnerLinkType>
+    <wsdl:types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema">
+            <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/dbBoard"
+                    schemaLocation="../Schemas/UpdateBoardSchema.xsd"/>
+        </schema>
+    </wsdl:types>
+    <wsdl:message name="updateBoardRequestMessage">
+        <wsdl:part name="payload" element="ns1:Board"/>
+    </wsdl:message>
+    <wsdl:message name="updateBoardResponseMessage">
+        <wsdl:part name="payload" element="ns1:Board"/>
+    </wsdl:message>
+    <wsdl:portType name="updateBoard">
+        <wsdl:operation name="process">
+            <wsdl:input message="client:updateBoardRequestMessage"/>
+            <wsdl:output message="client:updateBoardResponseMessage"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="updateBoardBinding" type="client:updateBoard">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="process">
+            <soap:operation style="document" soapAction="process"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="updateboard_client_ep">
+        <wsdl:port name="updateBoard_pt" binding="client:updateBoardBinding">
+            <soap:address location="http://GM0G9LHD.insags.com:7101/soa-infra/services/default/CRUD_BOARD/updateboard_client_ep"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

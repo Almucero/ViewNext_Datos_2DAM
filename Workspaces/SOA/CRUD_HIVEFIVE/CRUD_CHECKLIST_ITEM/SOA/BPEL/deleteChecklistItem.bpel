@@ -1,0 +1,86 @@
+<?xml version = "1.0" encoding = "UTF-8" ?>
+<!--
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  Oracle JDeveloper BPEL Designer 
+  
+  Created: Thu Mar 19 12:54:45 GMT 2026
+  Author:  oracle
+  Type: BPEL 2.0 Process
+  Purpose: Synchronous BPEL Process
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+-->
+<process name="deleteChecklistItem"
+               targetNamespace="http://xmlns.oracle.com/CRUD_HIVEFIVE/CRUD_CHECKLIST_ITEM/deleteChecklistItem"
+               xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+               xmlns:client="http://xmlns.oracle.com/CRUD_HIVEFIVE/CRUD_CHECKLIST_ITEM/deleteChecklistItem"
+               xmlns:ora="http://schemas.oracle.com/xpath/extension"
+               xmlns:ui="http://xmlns.oracle.com/soa/designer"
+               xmlns:bpelx="http://schemas.oracle.com/bpel/extension"
+         xmlns:bpel="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+         xmlns:ns1="http://xmlns.oracle.com/pcbpel/adapter/db/CRUD_HIVEFIVE/CRUD_CHECKLIST_ITEM/dbChecklistItem"
+         xmlns:ns2="http://xmlns.oracle.com/pcbpel/adapter/db/top/dbChecklistItem"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+    <import ui:processWSDL="true" namespace="http://xmlns.oracle.com/CRUD_HIVEFIVE/CRUD_CHECKLIST_ITEM/deleteChecklistItem" location="../WSDLs/deleteChecklistItem.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <!-- 
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        PARTNERLINKS                                                      
+        List of services participating in this BPEL process               
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    --> 
+  <partnerLinks>
+    <!-- 
+      The 'client' role represents the requester of this service. It is 
+      used for callback. The location and correlation information associated
+      with the client role are automatically set using WS-Addressing.
+    -->
+    <partnerLink name="deletechecklistitem_client" partnerLinkType="client:deleteChecklistItem" myRole="deleteChecklistItemProvider"/>
+    <partnerLink name="dbChecklistItem" partnerLinkType="ns1:dbChecklistItem_plt" partnerRole="dbChecklistItem_role"/>
+  </partnerLinks>
+
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      VARIABLES                                                        
+      List of messages and XML documents used within this BPEL process 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+  <variables>
+    <!-- Reference to the message passed as input during initiation -->
+    <variable name="inputVariable" messageType="client:deleteChecklistItemRequestMessage"/>
+
+    <!-- Reference to the message that will be returned to the requester-->
+    <variable name="outputVariable" messageType="client:deleteChecklistItemResponseMessage"/>
+    <variable name="Invoke1_delete_InputVariable" messageType="ns1:ChecklistItemCollection_msg"/>
+    <variable name="Invoke1_delete_OutputVariable" messageType="ns1:ChecklistItemCollection_msg"/>
+  </variables>
+
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+     ORCHESTRATION LOGIC                                               
+     Set of activities coordinating the flow of messages across the    
+     services integrated within this business process                  
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+  <sequence name="main">
+
+    <!-- Receive input from requestor. (Note: This maps to operation defined in deleteChecklistItem.wsdl) -->
+    <receive name="receiveInput" partnerLink="deletechecklistitem_client" portType="client:deleteChecklistItem" operation="process" variable="inputVariable" createInstance="yes"/>
+    <assign name="Assign1">
+      <copy>
+        <from>$inputVariable.payload/ns2:ChecklistItem</from>
+        <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$Invoke1_delete_InputVariable.ChecklistItemCollection/ns2:ChecklistItem</to>
+      </copy>
+    </assign>
+    <invoke name="Invoke1" partnerLink="dbChecklistItem" portType="ns1:dbChecklistItem_ptt"
+            operation="delete" inputVariable="Invoke1_delete_InputVariable"
+            outputVariable="Invoke1_delete_OutputVariable" bpelx:invokeAsDetail="no"/>
+    <assign name="Assign2">
+      <copy>
+        <from>$inputVariable.payload/ns2:ChecklistItem/ns2:id</from>
+        <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$outputVariable.payload/ns2:ChecklistItem/ns2:id</to>
+      </copy>
+    </assign>
+    <!-- Generate reply to synchronous request -->
+    <reply name="replyOutput" partnerLink="deletechecklistitem_client" portType="client:deleteChecklistItem" operation="process" variable="outputVariable"/>
+  </sequence>
+</process>

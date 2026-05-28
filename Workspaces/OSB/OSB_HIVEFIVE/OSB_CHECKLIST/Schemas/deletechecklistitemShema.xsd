@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/dbChecklistItem" xmlns="http://xmlns.oracle.com/pcbpel/adapter/db/top/dbChecklistItem"
+     elementFormDefault="qualified" attributeFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="ChecklistItemCollection" type="ChecklistItemCollection"/>
+    <xs:complexType name="ChecklistItemCollection">
+        <xs:sequence>
+            <xs:element name="ChecklistItem" type="ChecklistItem" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="ChecklistItem">
+        <xs:sequence>
+            <xs:element name="cardId" type="xs:int" minOccurs="0" nillable="true"/>
+            <xs:element name="completed" type="xs:short" minOccurs="0" nillable="true"/>
+            <xs:element name="id" type="xs:int" nillable="true"/>
+            <xs:element name="taskId" type="xs:int" minOccurs="0"/>
+            <xs:element name="name" type="xs:string" minOccurs="0" nillable="true"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:element name="dbChecklistItemSelectInputParameters" type="dbChecklistItemSelect"/>
+    <xs:complexType name="dbChecklistItemSelect">
+        <xs:sequence/>
+    </xs:complexType>
+    <xs:element name="ChecklistItemPrimaryKey" type="ChecklistItemPrimaryKey"/>
+    <xs:complexType name="ChecklistItemPrimaryKey">
+        <xs:sequence>
+            <xs:element name="id" type="xs:int" minOccurs="1" maxOccurs="1"/>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>

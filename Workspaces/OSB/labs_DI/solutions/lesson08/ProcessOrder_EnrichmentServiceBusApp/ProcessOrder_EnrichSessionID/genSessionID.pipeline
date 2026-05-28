@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:pipelineEntry xmlns:con="http://www.bea.com/wli/sb/pipeline/config" xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config" xmlns:con2="http://www.bea.com/wli/sb/stages/config">
+    <con:coreEntry>
+        <con:binding type="Any XML"/>
+        <con:xqConfiguration>
+            <con:snippetVersion>1.0</con:snippetVersion>
+        </con:xqConfiguration>
+    </con:coreEntry>
+    <con:router>
+        <con:pipeline type="request" name="request-a962529.511dca6a.0.14de1ec6a1a.N7fce">
+            <con:stage id="_StageId-a962529.511dca6a.0.14de1ec6a1a.N7fcc" name="Stage1">
+                <con:context/>
+                <con:actions>
+                    <con1:assign varName="POsessionID">
+                        <con2:id>_ActionId-a962529.511dca6a.0.14de1ec6a1a.N7fc8</con2:id>
+                        <con1:expr>
+                            <con2:xqueryText>fn-bea:uuid()</con2:xqueryText>
+                        </con1:expr>
+                    </con1:assign>
+                    <con1:assign varName="POsessionID">
+                        <con2:id>_ActionId-a962529.511dca6a.0.14de1ec6a1a.N7fc5</con2:id>
+                        <con1:expr>
+                            <con2:xqueryText>fn:substring($POsessionID, 1, 18)</con2:xqueryText>
+                        </con1:expr>
+                    </con1:assign>
+                </con:actions>
+            </con:stage>
+        </con:pipeline>
+        <con:pipeline type="response" name="response-a962529.511dca6a.0.14de1ec6a1a.N7fcd">
+            <con:stage id="_StageId-a962529.511dca6a.0.14de1ec6a1a.N7fcb" name="Stage1">
+                <con:context/>
+                <con:actions/>
+            </con:stage>
+        </con:pipeline>
+        <con:flow>
+            <con:pipeline-node name="PipelinePairNode1">
+                <con:request>request-a962529.511dca6a.0.14de1ec6a1a.N7fce</con:request>
+                <con:response>response-a962529.511dca6a.0.14de1ec6a1a.N7fcd</con:response>
+            </con:pipeline-node>
+        </con:flow>
+        <con:shared-variables>
+            <con:variable>POsessionID</con:variable>
+        </con:shared-variables>
+    </con:router>
+</con:pipelineEntry>

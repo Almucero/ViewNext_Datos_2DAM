@@ -1,0 +1,21 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<application xmlns:soa="http://www.oracle.com/soa/rest" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ns1="http://xmlns.oracle.com/pcbpel/adapter/db/top/dbUserBoard" xmlns="http://wadl.dev.java.net/2009/02">
+   <doc title="createRest">createRest</doc>
+   <grammars>
+      <schema xmlns="http://www.w3.org/2001/XMLSchema">
+            <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/dbUserBoard" schemaLocation="../WSDLs/createBoardUserSchema.xsd"/>
+        </schema>
+   </grammars>
+   <resources>
+      <resource path="/boardUser">
+         <method name="POST" soa:wsdlOperation="process">
+            <request>
+               <representation mediaType="application/json" element="cns:UserBoard" xmlns:cns="http://xmlns.oracle.com/pcbpel/adapter/db/top/dbUserBoard"/>
+            </request>
+            <response status="200">
+               <representation mediaType="application/json" element="cns:UserBoard" xmlns:cns="http://xmlns.oracle.com/pcbpel/adapter/db/top/dbUserBoard"/>
+            </response>
+         </method>
+      </resource>
+   </resources>
+</application>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<properties>
+  <entry key="test_Select_OK.xml"/>
+  <entry key="test_Select_Board_Not_Exist.xml"/>
+  <entry key="test_Select_Board_Multiple.xml"/>
+  <entry key="test_Select_Board_Real_DB.xml"/>
+</properties>

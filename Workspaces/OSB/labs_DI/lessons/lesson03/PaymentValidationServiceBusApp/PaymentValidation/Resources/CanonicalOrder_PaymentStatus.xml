@@ -1,0 +1,3 @@
+<PaymentStatus xmlns="http://www.oracle.com/soasample">
+   <Status>Status2</Status>
+</PaymentStatus>

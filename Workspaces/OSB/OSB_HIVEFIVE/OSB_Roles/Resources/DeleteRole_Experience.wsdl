@@ -1,0 +1,34 @@
+<wsdl:definitions name="DeleteRole_Experience" targetNamespace="http://xmlns.oracle.com/OSB_Roles/OSB_Roles/DeleteRole_Experience" xmlns:tns="http://xmlns.oracle.com/OSB_Roles/OSB_Roles/DeleteRole_Experience" xmlns:inp1="http://xmlns.oracle.com/pcbpel/adapter/db/top/dbReference" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+    <plnk:partnerLinkType name="DeleteRole_Experience">
+        <plnk:role name="DeleteRole_ExperienceProvider" portType="tns:DeleteRole_Experience_ptt"/>
+    </plnk:partnerLinkType>
+    <wsdl:types>
+        <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+            <xsd:import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/dbReference" schemaLocation="../Squemas/DeleteRole_Payload.xsd"/>
+        </xsd:schema>
+    </wsdl:types>
+    <wsdl:message name="DeleteRole_inputMessage">
+        <wsdl:part name="request" element="inp1:RoleCollection"/>
+    </wsdl:message>
+    <wsdl:message name="DeleteRole_outputMessage">
+        <wsdl:part name="reply" element="inp1:RoleCollection"/>
+    </wsdl:message>
+    <wsdl:portType name="DeleteRole_Experience_ptt">
+        <wsdl:operation name="DeleteRole">
+            <wsdl:input message="tns:DeleteRole_inputMessage"/>
+            <wsdl:output message="tns:DeleteRole_outputMessage"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="DeleteRole_Experience_ptt-binding" type="tns:DeleteRole_Experience_ptt">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="DeleteRole">
+            <soap:operation soapAction="DeleteRole"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+</wsdl:definitions>

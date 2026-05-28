@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<properties>
+  <entry key="testCreateStatus.xml"/>
+  <entry key="testCreateStatus_Fail.xml"/>
+  <entry key="testCreateStatus_EmptyCollection.xml"/>
+  <entry key="testCreate_NullID.xml"/>
+  <entry key="testCreateStatus_NewStatus.xml"/>
+</properties>

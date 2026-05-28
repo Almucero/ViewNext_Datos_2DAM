@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- Nueva variante de prueba: obtener el status con ID 2 (todo) -->
+<compositeTest compositeDN="CRUD_STATUS" xmlns="http://xmlns.oracle.com/sca/2006/test">
+  <about>Obtener status por clave primaria para ID 2</about>
+  <initiate serviceName="getstatusbyprimarykey_client_ep" operation="process" isAsync="false" delay="PT0S">
+    <message>
+      <part partName="payload">
+        <content>
+          <StatusCollection xmlns="http://xmlns.oracle.com/pcbpel/adapter/db/top/dbStatus">
+            <Status>
+              <id>2</id>
+            </Status>
+          </StatusCollection>
+        </content>
+      </part>
+    </message>
+  </initiate>
+  <wireActions wireSource="getstatusbyprimarykey_client_ep" operation="process">
+    <assert comparisonMethod="xml-similar">
+      <description/>
+      <expected>
+        <location key="output"/>
+        <message>
+          <part partName="payload">
+            <content>
+              <StatusCollection xmlns="http://xmlns.oracle.com/pcbpel/adapter/db/top/dbStatus">
+                <Status>
+                  <id>2</id>
+                  <name>todo</name>
+                </Status>
+              </StatusCollection>
+            </content>
+          </part>
+        </message>
+      </expected>
+    </assert>
+  </wireActions>
+</compositeTest>

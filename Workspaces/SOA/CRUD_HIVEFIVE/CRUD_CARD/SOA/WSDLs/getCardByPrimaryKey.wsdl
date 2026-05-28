@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="getCardByPrimaryKey"
+             targetNamespace="http://xmlns.oracle.com/CRUD_HIVEFIVE/CRUD_CARD/getCardByPrimaryKey"
+             xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+             xmlns:client="http://xmlns.oracle.com/CRUD_HIVEFIVE/CRUD_CARD/getCardByPrimaryKey"
+             xmlns:ns1="http://xmlns.oracle.com/pcbpel/adapter/db/top/dbCard"
+             xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype">
+
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	TYPE DEFINITION - List of services participating in this BPEL process
+	The default output of the BPEL designer uses strings as input and 
+	output to the BPEL Process. But you can define or import any XML 
+	Schema type and use them as part of the message types.
+	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->   
+	<wsdl:types>
+		<schema xmlns="http://www.w3.org/2001/XMLSchema">
+			<import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/dbCard" schemaLocation="../Schemas/dbCard_table.xsd" />
+		</schema>
+	</wsdl:types>
+
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	MESSAGE TYPE DEFINITION - Definition of the message types used as 
+	part of the port type defintions
+	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->      
+	<wsdl:message name="getCardByPrimaryKeyRequestMessage">
+		<wsdl:part name="payload" element="ns1:CardCollection" />
+	</wsdl:message>
+	<wsdl:message name="getCardByPrimaryKeyResponseMessage">
+		<wsdl:part name="payload" element="ns1:CardCollection" />
+	</wsdl:message>
+
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	PORT TYPE DEFINITION - A port type groups a set of operations into
+	a logical service unit.
+	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+	<!-- portType implemented by the getCardByPrimaryKey BPEL process -->
+	<wsdl:portType name="getCardByPrimaryKey">
+		<wsdl:operation name="process">
+			<wsdl:input  message="client:getCardByPrimaryKeyRequestMessage" />
+			<wsdl:output message="client:getCardByPrimaryKeyResponseMessage"/>
+		</wsdl:operation>
+	</wsdl:portType>
+
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	PARTNER LINK TYPE DEFINITION
+	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ --> 
+	<plnk:partnerLinkType name="getCardByPrimaryKey">
+		<plnk:role name="getCardByPrimaryKeyProvider" portType="client:getCardByPrimaryKey"/>
+	</plnk:partnerLinkType>
+</wsdl:definitions>

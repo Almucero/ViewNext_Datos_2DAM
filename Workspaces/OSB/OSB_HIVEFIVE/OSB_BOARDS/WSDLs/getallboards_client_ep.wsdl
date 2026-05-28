@@ -1,0 +1,43 @@
+<wsdl:definitions name="getAllBoards" targetNamespace="http://xmlns.oracle.com/CRUDHiveFive/CRUD_BOARD/getAllBoards" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:client="http://xmlns.oracle.com/CRUDHiveFive/CRUD_BOARD/getAllBoards" xmlns:ns1="http://xmlns.oracle.com/pcbpel/adapter/db/top/dbBoard" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+    <wsdl:documentation>
+        <abstractWSDL>http://localhost:7101/soa-infra/services/default/CRUD_BOARD!1.0/WSDLs/getAllBoards.wsdl</abstractWSDL>
+    </wsdl:documentation>
+    <plnk:partnerLinkType name="getAllBoards">
+        <plnk:role name="getAllBoardsProvider" portType="client:getAllBoards"/>
+    </plnk:partnerLinkType>
+    <wsdl:types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema">
+            <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/dbBoard"
+                    schemaLocation="../Schemas/getAllBoards_Payload.xsd"/>
+        </schema>
+    </wsdl:types>
+    <wsdl:message name="getAllBoardsRequestMessage">
+        <wsdl:part name="payload" element="ns1:BoardCollection"/>
+    </wsdl:message>
+    <wsdl:message name="getAllBoardsResponseMessage">
+        <wsdl:part name="payload" element="ns1:BoardCollection"/>
+    </wsdl:message>
+    <wsdl:portType name="getAllBoards">
+        <wsdl:operation name="process">
+            <wsdl:input message="client:getAllBoardsRequestMessage"/>
+            <wsdl:output message="client:getAllBoardsResponseMessage"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="getAllBoardsBinding" type="client:getAllBoards">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="process">
+            <soap:operation style="document" soapAction="process"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="getallboards_client_ep">
+        <wsdl:port name="getAllBoards_pt" binding="client:getAllBoardsBinding">
+            <soap:address location="http://localhost:7101/soa-infra/services/default/CRUD_BOARD/getallboards_client_ep"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

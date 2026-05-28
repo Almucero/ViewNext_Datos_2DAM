@@ -1,0 +1,43 @@
+<wsdl:definitions name="deleteBoard" targetNamespace="http://xmlns.oracle.com/CRUDHiveFive/CRUD_BOARD/deleteBoard" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:client="http://xmlns.oracle.com/CRUDHiveFive/CRUD_BOARD/deleteBoard" xmlns:ns1="http://xmlns.oracle.com/pcbpel/adapter/db/top/dbBoard" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+    <wsdl:documentation>
+        <abstractWSDL>http://localhost:7101/soa-infra/services/default/CRUD_BOARD!1.0/WSDLs/deleteBoard.wsdl</abstractWSDL>
+    </wsdl:documentation>
+    <plnk:partnerLinkType name="deleteBoard">
+        <plnk:role name="deleteBoardProvider" portType="client:deleteBoard"/>
+    </plnk:partnerLinkType>
+    <wsdl:types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema">
+            <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/dbBoard"
+                    schemaLocation="../Schemas/DeleteBoard_Payload.xsd"/>
+        </schema>
+    </wsdl:types>
+    <wsdl:message name="deleteBoardRequestMessage">
+        <wsdl:part name="payload" element="ns1:BoardCollection"/>
+    </wsdl:message>
+    <wsdl:message name="deleteBoardResponseMessage">
+        <wsdl:part name="payload" element="ns1:BoardCollection"/>
+    </wsdl:message>
+    <wsdl:portType name="deleteBoard">
+        <wsdl:operation name="process">
+            <wsdl:input message="client:deleteBoardRequestMessage"/>
+            <wsdl:output message="client:deleteBoardResponseMessage"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="deleteBoardBinding" type="client:deleteBoard">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="process">
+            <soap:operation style="document" soapAction="process"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="deleteboard_client_ep">
+        <wsdl:port name="deleteBoard_pt" binding="client:deleteBoardBinding">
+            <soap:address location="http://localhost:7101/soa-infra/services/default/CRUD_BOARD/deleteboard_client_ep"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

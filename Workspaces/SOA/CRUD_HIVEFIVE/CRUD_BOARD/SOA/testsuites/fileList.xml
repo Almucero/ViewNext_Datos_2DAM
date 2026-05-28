@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<properties>
+  <entry key="CreateBoardSuite" value="CreateBoardSuite/fileList.xml"/>
+  <entry key="Create_Board_Tests"/>
+  <entry key="Delete_Board_Test"/>
+  <entry key="Update_Board"/>
+  <entry key="Test_Select_By_Id"/>
+  <entry key="Select_All_Boards_Test"/>
+</properties>

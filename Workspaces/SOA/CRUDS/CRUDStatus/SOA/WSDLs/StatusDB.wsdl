@@ -1,0 +1,51 @@
+<wsdl:definitions
+     name="StatusDB"
+     targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/CRUDS/CRUDStatus/StatusDB"
+     xmlns:tns="http://xmlns.oracle.com/pcbpel/adapter/db/CRUDS/CRUDStatus/StatusDB"
+     xmlns:jca="http://xmlns.oracle.com/pcbpel/wsdl/jca/"
+     xmlns:plt="http://schemas.xmlsoap.org/ws/2003/05/partner-link/"
+     xmlns:top="http://xmlns.oracle.com/pcbpel/adapter/db/top/StatusDB"
+     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    >
+  <plt:partnerLinkType name="StatusDB_plt" >
+    <plt:role name="StatusDB_role" >
+      <plt:portType name="tns:StatusDB_ptt" />
+    </plt:role>
+  </plt:partnerLinkType>
+    <wsdl:types>
+      <schema xmlns="http://www.w3.org/2001/XMLSchema" >
+        <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/StatusDB" schemaLocation="../Schemas/StatusDB_table.xsd" />
+      </schema>
+    </wsdl:types>
+    <wsdl:message name="StatusDBSelect_inputParameters">
+        <wsdl:part name="StatusDBSelect_inputParameters" element="top:StatusDBSelectInputParameters"/>
+    </wsdl:message>
+    <wsdl:message name="selectByPrimaryKey_inputParameters">
+        <wsdl:part name="selectByPrimaryKey_inputParameters" element="top:StatusPrimaryKey"/>
+    </wsdl:message>
+    <wsdl:message name="StatusCollection_msg">
+        <wsdl:part name="StatusCollection" element="top:StatusCollection"/>
+    </wsdl:message>
+    <wsdl:portType name="StatusDB_ptt">
+        <wsdl:operation name="insert">
+            <wsdl:input message="tns:StatusCollection_msg"/>
+            <wsdl:output message="tns:StatusCollection_msg"/>
+        </wsdl:operation>
+        <wsdl:operation name="update">
+            <wsdl:input message="tns:StatusCollection_msg"/>
+            <wsdl:output message="tns:StatusCollection_msg"/>
+        </wsdl:operation>
+        <wsdl:operation name="delete">
+            <wsdl:input message="tns:StatusCollection_msg"/>
+            <wsdl:output message="tns:StatusCollection_msg"/>
+        </wsdl:operation>
+        <wsdl:operation name="StatusDBSelect">
+            <wsdl:input message="tns:StatusDBSelect_inputParameters"/>
+            <wsdl:output message="tns:StatusCollection_msg"/>
+        </wsdl:operation>
+        <wsdl:operation name="selectByPrimaryKey">
+            <wsdl:input message="tns:selectByPrimaryKey_inputParameters"/>
+            <wsdl:output message="tns:StatusCollection_msg"/>
+        </wsdl:operation>
+    </wsdl:portType>
+</wsdl:definitions>

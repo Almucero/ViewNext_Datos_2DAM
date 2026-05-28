@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:pipelineEntry xmlns:con="http://www.bea.com/wli/sb/pipeline/config" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:con1="http://www.bea.com/wli/sb/stages/config" xmlns:con2="http://www.bea.com/wli/sb/stages/transform/config">
+    <con:coreEntry>
+        <con:binding type="SOAP" isSoap12="false" xsi:type="con:SoapBindingType">
+            <con:wsdl ref="PaymentValidation_XQueryTransform/WSDLs/partnerValidatePayment"/>
+            <con:binding>
+                <con:name>validatePaymentBinding</con:name>
+                <con:namespace>http://osb.training.org/partnerPaymentValidate</con:namespace>
+            </con:binding>
+        </con:binding>
+        <con:xqConfiguration>
+            <con:snippetVersion>1.0</con:snippetVersion>
+        </con:xqConfiguration>
+    </con:coreEntry>
+    <con:router>
+        <con:pipeline type="request" name="request-a962529.448d390e.0.14d859b8b64.N7ffe">
+            <con:stage id="_StageId-a962529.448d390e.0.14d859b8b64.N7ffc" name="Stage1">
+                <con:context>
+                    <con1:userNsDecl prefix="typ" namespace="http://osb.training.org/types"/>
+                </con:context>
+                <con:actions>
+                    <con2:replace varName="body">
+                        <con1:id>_ActionId-a962529.448d390e.0.14d859b8b64.N7ff8</con1:id>
+                        <con2:location>
+                            <con1:xpathText>./typ:PaymentInfo</con1:xpathText>
+                        </con2:location>
+                        <con2:expr>
+                            <con1:xqueryTransform>
+                                <con1:resource ref="PaymentValidation_XQueryTransform/XQuery/partnerPayment2mainPayment"/>
+                                <con1:param name="partnerPayment">
+                                    <con1:path>$body/typ:PaymentInfo</con1:path>
+                                </con1:param>
+                            </con1:xqueryTransform>
+                        </con2:expr>
+                    </con2:replace>
+                </con:actions>
+            </con:stage>
+        </con:pipeline>
+        <con:pipeline type="response" name="response-a962529.448d390e.0.14d859b8b64.N7ffd">
+            <con:stage id="_StageId-a962529.448d390e.0.14d859b8b64.N7ffb" name="Stage1">
+                <con:context>
+                    <con1:userNsDecl prefix="typ" namespace="http://osb.training.org/types"/>
+                </con:context>
+                <con:actions/>
+            </con:stage>
+        </con:pipeline>
+        <con:flow>
+            <con:pipeline-node name="PipelinePairNode1">
+                <con:request>request-a962529.448d390e.0.14d859b8b64.N7ffe</con:request>
+                <con:response>response-a962529.448d390e.0.14d859b8b64.N7ffd</con:response>
+            </con:pipeline-node>
+            <con:route-node name="RouteNode1" xmlns:con1="http://www.bea.com/wli/sb/stages/routing/config" xmlns:con2="http://www.bea.com/wli/sb/stages/config">
+                <con:context/>
+                <con:actions>
+                    <con1:route>
+                        <con2:id>_ActionId-a962529.448d390e.0.14d859b8b64.N7fff</con2:id>
+                        <con1:service ref="PaymentValidation_XQueryTransform/PaymentValidation_XQueryBS" xsi:type="ref:BusinessServiceRef" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
+                        <con1:operation passThrough="true"/>
+                        <con1:outboundTransform/>
+                        <con1:responseTransform/>
+                    </con1:route>
+                </con:actions>
+            </con:route-node>
+        </con:flow>
+    </con:router>
+</con:pipelineEntry>
