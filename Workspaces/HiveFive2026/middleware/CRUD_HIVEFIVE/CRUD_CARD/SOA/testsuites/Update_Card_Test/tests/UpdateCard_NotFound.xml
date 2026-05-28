@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<compositeTest compositeDN="CRUD_CARD" xmlns="http://xmlns.oracle.com/sca/2006/test">
+  <about></about>
+  
+  <initiate serviceName="updatecard_client_ep" operation="process" isAsync="false" delay="PT0S">
+    <message>
+      <part partName="payload">
+        <content>
+          <ns2:CardCollection xmlns:ns2="http://xmlns.oracle.com/pcbpel/adapter/db/top/dbCard">
+            <ns2:Card>
+              <ns2:id>9999999</ns2:id>
+              <ns2:boardId>5</ns2:boardId>
+              <ns2:priority>2</ns2:priority>
+              <ns2:statusId>2</ns2:statusId>
+              <ns2:description>Descripción de un Update que no existe</ns2:description>
+              <ns2:title>Tarjeta Fantasma</ns2:title>
+            </ns2:Card>
+          </ns2:CardCollection>
+        </content>
+      </part>
+    </message>
+  </initiate>
+  
+  <wireActions wireSource="updatecard_client_ep" operation="process">
+    <assert comparisonMethod="xml-similar">
+      <description>El sistema devuelve éxito aunque el ID no exista en BBDD</description>
+      <expected>
+        <location key="output"/>
+        <message>
+          <part partName="payload">
+            <content>
+              <ns2:CardCollection xmlns:ns2="http://xmlns.oracle.com/pcbpel/adapter/db/top/dbCard">
+                <ns2:Card>
+                  <ns2:id>9999999</ns2:id>
+                  <ns2:boardId>5</ns2:boardId>
+                  <ns2:priority>2</ns2:priority>
+                  <ns2:statusId>2</ns2:statusId>
+                  <ns2:description>Descripción de un Update que no existe</ns2:description>
+                  <ns2:title>Tarjeta Fantasma</ns2:title>
+                </ns2:Card>
+              </ns2:CardCollection>
+            </content>
+          </part>
+        </message>
+      </expected>
+    </assert>
+  </wireActions>
+  
+</compositeTest>

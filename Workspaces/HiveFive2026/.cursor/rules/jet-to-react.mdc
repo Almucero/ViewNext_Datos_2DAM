@@ -1,0 +1,123 @@
+---
+description: Reglas y patrones aplicados en la migración de Oracle JET (Knockout/ViewModels) a React (Vite + TypeScript) en HiveFive: componentes funcionales, hooks, servicios API con Axios, routing y UX/UI corporativa azul marino-azul-blanco.
+globs:
+  - frontend/src/**/*.{ts,tsx}
+---
+
+# Contexto
+
+Este repositorio convive con un frontend legacy Oracle JET (carpeta `frontend-jet/`) basado en **Knockout + ViewModels** y un frontend moderno en `frontend/` basado en **React (Vite + TypeScript)**.
+
+Durante esta sesión se consolidó el patrón del frontend React:
+
+- **Componentes funcionales** (no se usan class components).
+- **Custom hooks** para encapsular lógica de pantallas complejas (ej. `frontend/src/hooks/useBoard.ts`).
+- **Capa de servicios** para acceso a API usando **Axios** (`frontend/src/config/api.ts` + `frontend/src/services/*`).
+- **Routing** con `react-router-dom` y protección simple basada en `localStorage` (`frontend/src/App.tsx`).
+- **UI corporativa user-friendly** (paleta azul marino, azul y blanco) centralizada en CSS global (`frontend/src/index.css`).
+
+# Reglas de Arquitectura
+
+## 1) Traducción mental: JET ViewModel → React Component + Hook + Service
+
+- En Oracle JET el estado y los efectos suelen vivir en el **ViewModel** (observables, lifecycle del módulo).
+- En React el equivalente se divide de forma explícita:
+  - **Componente funcional**: render + composición visual.
+  - **Custom hook**: estado + efectos + handlers (eventos, validaciones, side-effects).
+  - **Service (API)**: llamadas HTTP y normalización de payloads.
+
+Regla: si una pantalla tiene lógica no trivial, crear/usar un hook en `frontend/src/hooks/` (p.ej. `useBoard`) y dejar la página enfocada en UI.
+
+## 2) Componentes funcionales estrictos
+
+- Usar `function ComponentName()` o `const ComponentName = () => {}`.
+- Estado local con `useState`.
+- Derivaciones/agrupaciones con `useMemo`.
+- Side effects y carga inicial con `useEffect`.
+
+## 3) Custom Hooks: contrato claro y “UI-friendly”
+
+En hooks como `useBoard`:
+
+- Exponer un objeto con:
+  - **state** (p.ej. `statuses`, `cards`, `isLoading`, `error`)
+  - **selectors/derivados** (p.ej. `cardsByStatus`)
+  - **handlers** (p.ej. `handleCreateCard`, `handleDragDrop`, `handleUpdateCard`)
+- Mantener validaciones y saneo de datos en el hook antes de golpear backend (ej. longitudes, fechas, prioridad, usuario autenticado).
+- Gestionar estados transitorios para UX (p.ej. `creatingStatusId`, `savingCardId`, `draggingCardId`).
+
+## 4) API Layer: Axios centralizado y servicios por dominio
+
+- Toda llamada HTTP debe pasar por `apiClient` (`frontend/src/config/api.ts`) con:
+  - `baseURL` a `http://localhost:8080/api`
+  - header `Content-Type: application/json`
+- Agrupar endpoints por dominio en `frontend/src/services/`:
+  - `boardService.ts`, `cardService.ts`, `authService.ts`, etc.
+- Normalizar respuestas “compatibility-style” del backend (ej. `Board`, `UserBoard`, `Card` como arrays dentro de objetos) y tolerar nombres legacy (`snake_case`) cuando aparezcan.
+
+## 5) Routing con `react-router-dom` y “auth” mínima
+
+- El ruteo se define en `frontend/src/App.tsx` usando `Routes`/`Route`.
+- La protección se implementa con un wrapper tipo `ProtectedRoute` que mira `localStorage.getItem('user')`.
+- Alcance actual de navegación autenticada: `boards`, `board detail` y `profile` (sin pestaña/vista `admin` en esta fase).
+
+Regla: no introducir complejidad de auth en componentes; la navegación protegida se mantiene declarativa en el router.
+
+## 6) Sistema visual corporativo (azul/azul oscuro/blanco)
+
+- Mantener el sistema visual en CSS global (`frontend/src/index.css`) usando variables semánticas:
+  - `--brand-primary` (azul),
+  - `--brand-primary-dark` (azul oscuro),
+  - `--brand-surface` y `--brand-text` (blanco y texto legible).
+- Priorizar contraste AA para accesibilidad: texto oscuro sobre fondos claros y texto blanco sobre fondos de marca.
+- Reutilizar clases utilitarias (`.container`, `.panel`, `.btn-primary`, `.btn-secondary`, `.input`, `.section-header`) para no fragmentar estilos por pantalla.
+- Evitar fondos recargados o gradients agresivos que reduzcan legibilidad; la experiencia debe sentirse limpia, profesional y estable.
+
+## 7) UX orientada a tareas (muy user-friendly)
+
+- Mantener jerarquía visual clara:
+  - encabezado con navegación estable,
+  - títulos y subtítulos descriptivos por pantalla,
+  - acciones primarias siempre visibles.
+- Formularios:
+  - labels/placeholder claros,
+  - mensajes de error cercanos al campo o bloque,
+  - estados hover/focus/disabled consistentes.
+- Listados/tableros:
+  - tarjetas con espaciado amplio y acciones evidentes,
+  - columnas y bloques con títulos y contadores cuando aplique,
+  - feedback de carga/error amigable (sin texto técnico).
+
+## 8) CRUD funcional completo en entidades clave
+
+- En la migración React, **Boards** y **Cards** deben mantener paridad funcional mínima con JET:
+  - crear,
+  - editar/actualizar,
+  - eliminar.
+- Regla: no cerrar una pantalla como "migrada" si solo implementa creación/listado sin edición.
+- Los handlers de actualización deben estar desacoplados:
+  - UI en `pages/*`,
+  - lógica de estado en hooks (`useBoard`),
+  - persistencia en servicios (`boardService`, `cardService`).
+
+## 9) i18n obligatorio en toda la UI
+
+- Todo texto visible en frontend debe salir de `i18n` vía `t(key)`, sin excepciones:
+  - títulos, subtítulos, labels, placeholders y `aria-label`,
+  - botones, enlaces y mensajes de estado/error,
+  - textos de estados vacíos y opciones de select.
+- Prohibido dejar strings literales en JSX para contenido de UI.
+- Si un servicio necesita comunicar un error de negocio al UI, debe devolver una clave i18n (ej. `errors.userExists`) y no texto hardcodeado.
+
+# Antipatrones a Evitar
+
+- **Recrear Knockout en React**: evitar “ViewModels” monolíticos con estado global implícito. Preferir hook + services.
+- **Class components**: no introducirlos; el patrón del proyecto es funcional + hooks.
+- **Llamadas `fetch`/URLs hardcodeadas dispersas**: centralizar en `apiClient` y servicios.
+- **Mezclar UI con side-effects**: si la pantalla crece, mover lógica a un custom hook (como se hizo con `useBoard`).
+- **Estilos ad-hoc por componente**: no romper el sistema corporativo; reutilizar tokens/clases globales.
+- **Bajo contraste o mezcla de paletas**: evitar colores fuera de la identidad azul/azul oscuro/blanco.
+- **Acciones ambiguas**: no usar CTAs sin contexto (ej. botones “Crear” sin indicar objeto si hay varias entidades en pantalla).
+- **CRUD parcial sin aviso**: evitar entregar pantallas sin update/delete cuando la entidad lo requiere funcionalmente.
+- **Rutas fuera de alcance**: evitar reintroducir pestaña/ruta `admin` sin requerimiento explícito.
+- **Texto estático en componentes**: evitar cualquier literal UI en `tsx`; agregar clave en `i18n` y consumir con `t(key)`.

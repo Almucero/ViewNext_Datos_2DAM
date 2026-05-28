@@ -1,0 +1,43 @@
+<wsdl:definitions name="getUserByPrimaryKey" targetNamespace="http://xmlns.oracle.com/CRUD_HIVEFIVE/CRUD_USER/getUserByPrimaryKey" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:client="http://xmlns.oracle.com/CRUD_HIVEFIVE/CRUD_USER/getUserByPrimaryKey" xmlns:ns1="http://xmlns.oracle.com/pcbpel/adapter/db/top/dbReference" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+    <wsdl:documentation>
+        <abstractWSDL>http://pf2wp216.mshome.net:7101/soa-infra/services/default/CRUD_USER!1.0/WSDLs/getUserByPrimaryKey.wsdl</abstractWSDL>
+    </wsdl:documentation>
+    <plnk:partnerLinkType name="getUserByPrimaryKey">
+        <plnk:role name="getUserByPrimaryKeyProvider" portType="client:getUserByPrimaryKey"/>
+    </plnk:partnerLinkType>
+    <wsdl:types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema">
+            <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/dbReference"
+                    schemaLocation="../Schemas/GetUserByPrimaryKey_Payload.xsd"/>
+        </schema>
+    </wsdl:types>
+    <wsdl:message name="getUserByPrimaryKeyRequestMessage">
+        <wsdl:part name="payload" element="ns1:UserCollection"/>
+    </wsdl:message>
+    <wsdl:message name="getUserByPrimaryKeyResponseMessage">
+        <wsdl:part name="payload" element="ns1:UserCollection"/>
+    </wsdl:message>
+    <wsdl:portType name="getUserByPrimaryKey">
+        <wsdl:operation name="process">
+            <wsdl:input message="client:getUserByPrimaryKeyRequestMessage"/>
+            <wsdl:output message="client:getUserByPrimaryKeyResponseMessage"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="getUserByPrimaryKeyBinding" type="client:getUserByPrimaryKey">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="process">
+            <soap:operation style="document" soapAction="process"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="getuserbyprimarykey_client_ep">
+        <wsdl:port name="getUserByPrimaryKey_pt" binding="client:getUserByPrimaryKeyBinding">
+            <soap:address location="http://pf2wp216.mshome.net:7101/soa-infra/services/default/CRUD_USER/getuserbyprimarykey_client_ep"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

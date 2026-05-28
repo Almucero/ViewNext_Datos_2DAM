@@ -1,0 +1,19 @@
+meta {
+  name: Get card by id
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{baseUrl}}/api/v1/cards/get/{{cardId}}
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}
+
+vars:pre-request {
+  cardId: 1
+}

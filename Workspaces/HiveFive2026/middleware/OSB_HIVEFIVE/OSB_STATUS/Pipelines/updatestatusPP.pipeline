@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:pipelineEntry xmlns:con="http://www.bea.com/wli/sb/pipeline/config" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <con:coreEntry>
+        <con:binding type="SOAP" isSoap12="false" xsi:type="con:SoapBindingType">
+            <con:wsdl ref="OSB_STATUS/Pipelines/UpdateStatus_Experience"/>
+            <con:binding>
+                <con:name>UpdateStatus_Experience_ptt-binding</con:name>
+                <con:namespace>http://xmlns.oracle.com/OSBhive5/OSB_STATUS/UpdateStatus_Experience</con:namespace>
+            </con:binding>
+        </con:binding>
+        <con:xqConfiguration>
+            <con:snippetVersion>1.0</con:snippetVersion>
+        </con:xqConfiguration>
+    </con:coreEntry>
+    <con:router>
+        <con:template-overrides>
+            <con:placeholder-override id="PlaceholderID_N53eefffe.N5094dfb5.0.19d1a0e6c75.N7d9f"/>
+            <con:placeholder-override id="PlaceholderID_N53eefffe.N5094dfb5.0.19d1a0e6c75.N7b27">
+                <con:actions/>
+            </con:placeholder-override>
+            <con:placeholder-override id="PlaceholderID_N53eefffe.N5094dfb5.0.19d1a0e6c75.N7d6c"/>
+            <con:placeholder-override id="PlaceholderID_N53eefffe.N5094dfb5.0.19d1a0e6c75.N7b26">
+                <con:actions>
+                    <con1:transport-headers xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config">
+                        <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-CORS-UpdateStatus</con2:id>
+                        <con1:header-set>inbound-response</con1:header-set>
+                        <con1:header value="expression" name="Access-Control-Allow-Origin"><con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">'http://localhost:8000'</con2:xqueryText></con1:header>
+                        <con1:header value="expression" name="Access-Control-Allow-Methods"><con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">'GET, POST, PUT, DELETE, OPTIONS'</con2:xqueryText></con1:header>
+                        <con1:header value="expression" name="Access-Control-Allow-Headers"><con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">'Content-Type, Authorization, X-Requested-With'</con2:xqueryText></con1:header>
+                    </con1:transport-headers>
+                </con:actions>
+            </con:placeholder-override>
+            <con:placeholder-override id="PlaceholderID_N53eefffe.N5094dfb5.0.19d1a0e6c75.N7ab6">
+                <con:actions>
+                    <con1:route xmlns:con1="http://www.bea.com/wli/sb/stages/routing/config">
+                        <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-N53ef27f5.451d54d1.0.19d1fcd2c74.N7f24</con2:id>
+                        <con1:service ref="OSB_STATUS/BusinessServices/UpdateStatus_BS" xsi:type="ref:BusinessServiceRef" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
+                        <con1:operation>process</con1:operation>
+                        <con1:outboundTransform/>
+                        <con1:responseTransform/>
+                    </con1:route>
+                </con:actions>
+            </con:placeholder-override>
+        </con:template-overrides>
+    </con:router>
+    <con:template ref="OSB_STATUS/Pipelines/CardPipelineTemplate"/>
+</con:pipelineEntry>

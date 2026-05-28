@@ -1,0 +1,86 @@
+<?xml version = "1.0" encoding = "UTF-8" ?>
+<!--
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  Oracle JDeveloper BPEL Designer 
+  
+  Created: Thu Mar 19 12:13:20 GMT 2026
+  Author:  oracle
+  Type: BPEL 2.0 Process
+  Purpose: Synchronous BPEL Process
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+-->
+<process name="getCardByPrimaryKey"
+               targetNamespace="http://xmlns.oracle.com/CRUD_HIVEFIVE/CRUD_CARD/getCardByPrimaryKey"
+               xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+               xmlns:client="http://xmlns.oracle.com/CRUD_HIVEFIVE/CRUD_CARD/getCardByPrimaryKey"
+               xmlns:ora="http://schemas.oracle.com/xpath/extension"
+               xmlns:ui="http://xmlns.oracle.com/soa/designer"
+               xmlns:bpelx="http://schemas.oracle.com/bpel/extension"
+         xmlns:bpel="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+         xmlns:ns1="http://xmlns.oracle.com/pcbpel/adapter/db/CRUD_HIVEFIVE/CRUD_CARD/dbCard"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:ns2="http://xmlns.oracle.com/pcbpel/adapter/db/top/dbCard">
+
+    <import ui:processWSDL="true" namespace="http://xmlns.oracle.com/CRUD_HIVEFIVE/CRUD_CARD/getCardByPrimaryKey" location="../WSDLs/getCardByPrimaryKey.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <!-- 
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        PARTNERLINKS                                                      
+        List of services participating in this BPEL process               
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    --> 
+  <partnerLinks>
+    <!-- 
+      The 'client' role represents the requester of this service. It is 
+      used for callback. The location and correlation information associated
+      with the client role are automatically set using WS-Addressing.
+    -->
+    <partnerLink name="getcardbyprimarykey_client" partnerLinkType="client:getCardByPrimaryKey" myRole="getCardByPrimaryKeyProvider"/>
+    <partnerLink name="dbCard" partnerLinkType="ns1:dbCard_plt" partnerRole="dbCard_role"/>
+  </partnerLinks>
+
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      VARIABLES                                                        
+      List of messages and XML documents used within this BPEL process 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+  <variables>
+    <!-- Reference to the message passed as input during initiation -->
+    <variable name="inputVariable" messageType="client:getCardByPrimaryKeyRequestMessage"/>
+
+    <!-- Reference to the message that will be returned to the requester-->
+    <variable name="outputVariable" messageType="client:getCardByPrimaryKeyResponseMessage"/>
+    <variable name="Invoke1_selectByPrimaryKey_InputVariable" messageType="ns1:selectByPrimaryKey_inputParameters"/>
+    <variable name="Invoke1_selectByPrimaryKey_OutputVariable" messageType="ns1:CardCollection_msg"/>
+  </variables>
+
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+     ORCHESTRATION LOGIC                                               
+     Set of activities coordinating the flow of messages across the    
+     services integrated within this business process                  
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+  <sequence name="main">
+
+    <!-- Receive input from requestor. (Note: This maps to operation defined in getCardByPrimaryKey.wsdl) -->
+    <receive name="receiveInput" partnerLink="getcardbyprimarykey_client" portType="client:getCardByPrimaryKey" operation="process" variable="inputVariable" createInstance="yes"/>
+    <assign name="Assign1">
+      <copy>
+        <from>$inputVariable.payload/ns2:Card/ns2:id</from>
+        <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$Invoke1_selectByPrimaryKey_InputVariable.selectByPrimaryKey_inputParameters/ns2:id</to>
+      </copy>
+    </assign>
+    <invoke name="Invoke1" partnerLink="dbCard" portType="ns1:dbCard_ptt"
+            operation="selectByPrimaryKey" inputVariable="Invoke1_selectByPrimaryKey_InputVariable"
+            outputVariable="Invoke1_selectByPrimaryKey_OutputVariable" bpelx:invokeAsDetail="no"/>
+    <assign name="Assign2">
+      <copy>
+        <from>$Invoke1_selectByPrimaryKey_OutputVariable.CardCollection/ns2:Card</from>
+        <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$outputVariable.payload/ns2:Card</to>
+      </copy>
+    </assign>
+    <!-- Generate reply to synchronous request -->
+    <reply name="replyOutput" partnerLink="getcardbyprimarykey_client" portType="client:getCardByPrimaryKey" operation="process" variable="outputVariable"/>
+  </sequence>
+</process>

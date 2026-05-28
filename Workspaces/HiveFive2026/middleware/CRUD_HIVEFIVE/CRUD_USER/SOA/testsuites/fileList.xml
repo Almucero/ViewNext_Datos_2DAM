@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<properties>
+  <entry key="Create_User_Test"/>
+  <entry key="Update_User_Test"/>
+  <entry key="Select_User_By_Id_Test"/>
+  <entry key="Get_All_User_Test"/>
+  <entry key="Delete_User_Test"/>
+</properties>

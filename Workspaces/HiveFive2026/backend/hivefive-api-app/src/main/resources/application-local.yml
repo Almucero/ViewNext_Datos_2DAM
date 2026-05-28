@@ -1,0 +1,13 @@
+hivefive:
+  ai:
+    api-key: sgr-dev-ZsqWDwkgTAQaACr2iVjfmABbbqGyNxrp
+    base-url: https://ia-research-dev.dev-codingbuddy-4282826dce7d155229a320302e775459-0000.eu-de.containers.appdomain.cloud/research/llm/wx/clients
+    chat-path: ""
+    api-style: research
+    model: meta-llama/llama-4-maverick-17b-128e-instruct-fp8
+    temperature: 0.05
+    language: es
+    user: sgonzalez_Research@research.com
+    auth-type: api-key
+    api-key-header: x-api-key
+    enabled: true

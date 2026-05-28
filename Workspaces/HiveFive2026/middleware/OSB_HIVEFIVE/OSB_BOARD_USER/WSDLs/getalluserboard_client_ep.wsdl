@@ -1,0 +1,51 @@
+<?xml version= '1.0' encoding= 'UTF-8' ?>
+<wsdl:definitions
+     name="getAlluserBoard"
+     targetNamespace="http://xmlns.oracle.com/CRUD_HIVEFIVE/CRUD_USER_BOARD/getAlluserBoard"
+     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+     xmlns:client="http://xmlns.oracle.com/CRUD_HIVEFIVE/CRUD_USER_BOARD/getAlluserBoard"
+     xmlns:ns1="http://xmlns.oracle.com/pcbpel/adapter/db/top/dbUserBoard"
+     xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype"
+     xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+    >
+    <wsdl:documentation>
+        <abstractWSDL>http://GM15ASKN.insags.com:7101/soa-infra/services/default/CRUD_USER_BOARD!1.0/WSDLs/getAlluserBoard.wsdl</abstractWSDL>
+    </wsdl:documentation>
+    <plnk:partnerLinkType name="getAlluserBoard">
+        <plnk:role name="getAlluserBoardProvider" portType="client:getAlluserBoard"/>
+    </plnk:partnerLinkType>
+    <wsdl:types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema">
+            <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/dbUserBoard" schemaLocation="XMLSchema_1134546974.xsd"/>
+        </schema>
+    </wsdl:types>
+    <wsdl:message name="getAlluserBoardRequestMessage">
+        <wsdl:part name="payload" element="ns1:dbUserBoardSelectInputParameters"/>
+    </wsdl:message>
+    <wsdl:message name="getAlluserBoardResponseMessage">
+        <wsdl:part name="payload" element="ns1:UserBoardCollection"/>
+    </wsdl:message>
+    <wsdl:portType name="getAlluserBoard">
+        <wsdl:operation name="process">
+            <wsdl:input message="client:getAlluserBoardRequestMessage"/>
+            <wsdl:output message="client:getAlluserBoardResponseMessage"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="getAlluserBoardBinding" type="client:getAlluserBoard">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="process">
+            <soap:operation style="document" soapAction="process"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="getalluserboard_client_ep">
+        <wsdl:port name="getAlluserBoard_pt" binding="client:getAlluserBoardBinding">
+            <soap:address location="http://GM15ASKN.insags.com:7101/soa-infra/services/default/CRUD_USER_BOARD/getalluserboard_client_ep"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

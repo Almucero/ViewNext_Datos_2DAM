@@ -1,0 +1,2 @@
+define(['exports'], (function(r){"use strict";const o={border:({border:r})=>void 0===r?{}:{border:r},borderBlockStart:({borderBlockStart:r})=>void 0===r?{}:{borderBlockStart:r},borderBlockEnd:({borderBlockEnd:r})=>void 0===r?{}:{borderBlockEnd:r},borderInlineStart:({borderInlineStart:r})=>void 0===r?{}:{borderInlineStart:r},borderInlineEnd:({borderInlineEnd:r})=>void 0===r?{}:{borderInlineEnd:r},borderRadius:({borderRadius:r})=>void 0===r?{}:{borderRadius:r}};r.borderInterpolations=o}));
+//# sourceMappingURL=borders-3b8e0ff0.js.map

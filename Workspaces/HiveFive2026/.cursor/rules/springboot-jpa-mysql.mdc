@@ -1,0 +1,94 @@
+---
+description: Reglas críticas aprendidas en esta sesión para Spring Boot + JPA sobre MySQL en HiveFive: nombres exactos de tablas, singular obligatorio (sin pluralizar), caso especial de `user`, ddl-auto=none y CORS para Vite (5173/5174).
+globs:
+  - backend/hivefive-api-app/src/main/java/**/*.java
+  - backend/hivefive-api-app/src/main/resources/**/*.yml
+---
+
+# Contexto
+
+El backend `backend/hivefive-api-app` es un Spring Boot con Spring Web + Spring Data JPA apuntando a MySQL (multi-modulo Maven: parent `backend/pom.xml`).
+Durante esta sesión se estabilizaron problemas de integración frontend↔backend relacionados con:
+
+- **CORS** para frontends locales (Vite/React).
+- **Nomenclatura exacta de tablas** en MySQL con JPA (y el caso especial de tabla reservada `user`).
+- Política estricta de **no tocar el esquema desde Hibernate** en runtime.
+- Arranque local **con MySQL directo** (sin `docker-compose`).
+
+# Reglas de Arquitectura
+
+## 1) `@Table(name="...")` es obligatorio y el nombre debe ser EXACTO
+
+Regla: todas las entidades deben declarar `@Table(name = "...")` con el **nombre real** de la tabla.
+
+- Los nombres de tabla se mantienen en **singular** (ej. `board`, `card`, `role`, `status`, `user_board`, `checklist_item`).
+- No confiar en naming strategies implícitas si ya existe un esquema en MySQL.
+
+## 2) Prohibido pluralizar tablas
+
+Regla: **no pluralizar** nombres en `@Table`, repositorios ni SQL (p.ej. evitar `users`, `boards`, `cards`).
+
+Motivo: el esquema MySQL y el mapping JPA de este proyecto están definidos en singular; pluralizar rompe el mapping y genera errores difíciles de rastrear.
+
+## 3) Tabla reservada `user`: escapar cuando se use SQL nativo
+
+En este proyecto existe la entidad con `@Table(name = "user")`.
+
+Regla:
+
+- Si se usa **SQL nativo** (queries a mano, scripts, migraciones), el identificador debe escaparse como **tabla** `\`user\``.
+- Evitar introducir SQL nativo innecesario; preferir JPA/Repositories cuando sea posible.
+
+## 4) Hibernate no debe crear/alterar el esquema en runtime
+
+Regla: mantener `ddl-auto: none` en configuración principal.
+
+- En `application.yml` el proyecto está configurado con `spring.jpa.hibernate.ddl-auto: none`.
+- Además, se mantiene la política de schema-generation como `none` para impedir creación/alteración accidental.
+
+## 5) Identificadores citados globalmente
+
+Regla: conservar `hibernate.globally_quoted_identifiers: true`.
+
+Esto reduce problemas con keywords/reservas y hace el mapping más robusto en MySQL.
+
+## 6) CORS explícito para desarrollo local (Vite)
+
+Regla: la configuración CORS debe permitir explícitamente los orígenes locales usados por el frontend:
+
+- `http://localhost:5173`
+- `http://localhost:5174`
+
+Y mantener también el origen legacy usado en desarrollo:
+
+- `http://localhost:8000`
+
+La política CORS se aplica globalmente (`/**`) y limita métodos/cabeceras a los necesarios.
+
+## 7) Arranque local: no depender de MySQL por defecto
+
+Regla: `mvn spring-boot:run` debe levantar **conectando a MySQL real** “del tirón”, sin depender de `docker-compose`.
+
+Convención obligatoria en este repo:
+
+- **No usar `docker-compose`** como parte del flujo estándar de arranque (ni pedirlo en guías/pasos).
+- `application.yml` define `spring.profiles.default: realdb`.
+- Perfil `realdb`: usa MySQL vía variables de entorno:
+  - `HIVEFIVE_DB_URL` (ej. `jdbc:mysql://localhost:3306/hivefive`)
+  - `HIVEFIVE_DB_USER`
+  - `HIVEFIVE_DB_PASS`
+
+Ejemplos:
+
+- MySQL real (por defecto): `mvn spring-boot:run`
+- MySQL real (PowerShell): establecer env vars y ejecutar `mvn spring-boot:run`
+
+# Antipatrones a Evitar
+
+- **Dejar que Hibernate “adivine” el nombre de la tabla**: no omitir `@Table` si el esquema ya existe.
+- **Pluralizar por “estilo”**: en este proyecto rompe el contrato DB↔JPA.
+- **SQL nativo sin escapar `user`**: produce errores en MySQL al tratarse de un identificador reservado.
+- **Cambiar `ddl-auto` a `update/create` en runtime**: puede alterar el esquema real y causar daños; el contrato es `none`.
+- **Abrir CORS con `*`** en entornos de desarrollo de navegador: mantener orígenes concretos (5173/5174) para evitar exposición innecesaria.
+- **Introducir `docker-compose` en el flujo**: la regla del repo es conectar a MySQL directamente desde Spring Boot.
+- **Hardcodear credenciales MySQL**: siempre usar variables de entorno en el perfil `realdb`.

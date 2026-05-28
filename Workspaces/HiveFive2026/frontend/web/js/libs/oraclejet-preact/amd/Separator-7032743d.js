@@ -1,0 +1,2 @@
+define(['exports', 'preact/jsx-runtime', './classNames-ced76c8f', './UNSAFE_Separator/themes/SeparatorStyles.css'], (function(a,s,e,t){"use strict";a.Separator=function({orientation:a="horizontal"}){const r=t.multiVariantStyles({orientation:a}),i=e.classNames([r,t.styles.separatorBase]),o=e.classNames(["vertical"===a&&t.styles.separatorVerticalWrapper]);return s.jsx("div",{role:"separator","aria-orientation":a,class:o,children:s.jsx("div",{class:i})})}}));
+//# sourceMappingURL=Separator-7032743d.js.map

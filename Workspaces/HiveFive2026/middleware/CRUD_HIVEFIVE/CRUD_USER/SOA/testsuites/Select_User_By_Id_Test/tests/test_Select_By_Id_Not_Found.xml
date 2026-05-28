@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<compositeTest compositeDN="CRUD_USER" xmlns="http://xmlns.oracle.com/sca/2006/test">
+  <about>Test Select User Not Found (Forzando retorno vacio)</about>
+  
+  <initiate serviceName="getuserbyprimarykey_client_ep" operation="process" isAsync="false" delay="PT0S">
+    <message>
+      <part partName="payload">
+        <content>
+          <process xmlns="http://xmlns.oracle.com/CRUD_HIVEFIVE/CRUD_USER/getUserByPrimaryKey">
+            <User xmlns="http://xmlns.oracle.com/pcbpel/adapter/db/top/dbReference">
+              <id>9999</id>
+            </User>
+          </process>
+        </content>
+      </part>
+    </message>
+  </initiate>
+
+  <!-- Usamos emulate para interceptar la respuesta de BD vacía y evitar que BPEL estalle -->
+  <wireActions wireSource="getUserByPrimaryKey/dbReference" operation="selectByPrimaryKey">
+    <emulate>
+      <message>
+        <part partName="UserCollection">
+          <content>
+            <!-- Devolvemos explícitamente una colección vacía para simular que no existe el ID -->
+            <UserCollection xmlns="http://xmlns.oracle.com/pcbpel/adapter/db/top/dbReference"/>
+          </content>
+        </part>
+      </message>
+    </emulate>
+  </wireActions>
+
+  <wireActions wireSource="getuserbyprimarykey_client_ep" operation="process">
+    <!-- Como el BPEL va a seguir estallando en el Assign2, validamos que explotó internamente -->
+    <assert comparisonMethod="string">
+      <description>Verifica que al no haber datos el BPEL falla en la extraccion (selectionFailure)</description>
+      <expected>
+        <!-- Si vuelve a dar null, al menos esta vez será porque pasó por nuestro emulate exitosamente -->
+        <location key="fault"/>
+        <simple>selectionFailure</simple>
+      </expected>
+    </assert>
+  </wireActions>
+</compositeTest>

@@ -1,0 +1,34 @@
+meta {
+  name: Update card
+  type: http
+  seq: 4
+}
+
+put {
+  url: {{baseUrl}}/api/v1/cards/update
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "Card": [
+      {
+        "id": {{cardId}},
+        "title": "Tarjeta actualizada Bruno",
+        "description": "Otra descripcion con mas de diez caracteres aqui.",
+        "startDate": "2026-02-01",
+        "endDate": "2026-02-28",
+        "priority": 5,
+        "boardId": {{boardId}},
+        "statusId": {{statusId}},
+        "userId": {{userId}}
+      }
+    ]
+  }
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}

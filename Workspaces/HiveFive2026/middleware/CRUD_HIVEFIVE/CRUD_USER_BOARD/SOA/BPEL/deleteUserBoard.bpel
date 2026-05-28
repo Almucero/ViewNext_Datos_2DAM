@@ -1,0 +1,89 @@
+<?xml version = "1.0" encoding = "UTF-8" ?>
+<!--
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  Oracle JDeveloper BPEL Designer 
+  
+  Created: Wed Apr 22 08:28:03 CEST 2026
+  Author:  6003545
+  Type: BPEL 2.0 Process
+  Purpose: Synchronous BPEL Process
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+-->
+<process name="deleteUserBoard"
+               targetNamespace="http://xmlns.oracle.com/CRUD_HIVEFIVE/CRUD_USER_BOARD/deleteUserBoard"
+               xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+               xmlns:client="http://xmlns.oracle.com/CRUD_HIVEFIVE/CRUD_USER_BOARD/deleteUserBoard"
+               xmlns:ora="http://schemas.oracle.com/xpath/extension"
+               xmlns:ui="http://xmlns.oracle.com/soa/designer"
+               xmlns:bpelx="http://schemas.oracle.com/bpel/extension"
+         xmlns:bpel="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+         xmlns:ns1="http://xmlns.oracle.com/pcbpel/adapter/db/CRUD_HIVEFIVE/CRUD_USER_BOARD/dbUserBoard"
+         xmlns:ns2="http://xmlns.oracle.com/pcbpel/adapter/db/top/dbUserBoard">
+
+    <import ui:processWSDL="true" namespace="http://xmlns.oracle.com/CRUD_HIVEFIVE/CRUD_USER_BOARD/deleteUserBoard" location="../WSDLs/deleteUserBoard.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <!-- 
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        PARTNERLINKS                                                      
+        List of services participating in this BPEL process               
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    --> 
+  <partnerLinks>
+    <!-- 
+      The 'client' role represents the requester of this service. It is 
+      used for callback. The location and correlation information associated
+      with the client role are automatically set using WS-Addressing.
+    -->
+    <partnerLink name="deleteuserboard_client" partnerLinkType="client:deleteUserBoard" myRole="deleteUserBoardProvider"/>
+    <partnerLink name="dbUserBoard" partnerLinkType="ns1:dbUserBoard_plt" partnerRole="dbUserBoard_role"/>
+  </partnerLinks>
+
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      VARIABLES                                                        
+      List of messages and XML documents used within this BPEL process 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+  <variables>
+    <!-- Reference to the message passed as input during initiation -->
+    <variable name="inputVariable" messageType="client:deleteUserBoardRequestMessage"/>
+
+    <!-- Reference to the message that will be returned to the requester-->
+    <variable name="outputVariable" messageType="client:deleteUserBoardResponseMessage"/>
+    <variable name="Invoke1_delete_InputVariable" messageType="ns1:UserBoardCollection_msg"/>
+  </variables>
+
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+     ORCHESTRATION LOGIC                                               
+     Set of activities coordinating the flow of messages across the    
+     services integrated within this business process                  
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+  <sequence name="main">
+
+    <!-- Receive input from requestor. (Note: This maps to operation defined in deleteUserBoard.wsdl) -->
+    <receive name="receiveInput" partnerLink="deleteuserboard_client" portType="client:deleteUserBoard" operation="process" variable="inputVariable" createInstance="yes"/>
+    <assign name="Assign1">
+      <copy>
+        <from>$inputVariable.payload/ns2:boardId[1]</from>
+        <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$Invoke1_delete_InputVariable.UserBoardCollection/ns2:UserBoard/ns2:boardId</to>
+      </copy>
+    </assign>
+    <assign name="Assign1b">
+      <copy>
+        <from>$inputVariable.payload/ns2:userId[1]</from>
+        <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$Invoke1_delete_InputVariable.UserBoardCollection/ns2:UserBoard/ns2:userId</to>
+      </copy>
+    </assign>
+    <invoke name="Invoke1" partnerLink="dbUserBoard" portType="ns1:dbUserBoard_ptt"
+            operation="delete" inputVariable="Invoke1_delete_InputVariable" bpelx:invokeAsDetail="no"/>
+    <assign name="Assign2">
+      <copy>
+        <from>$inputVariable.payload</from>
+        <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$outputVariable.payload</to>
+      </copy>
+    </assign>
+    <!-- Generate reply to synchronous request -->
+    <reply name="replyOutput" partnerLink="deleteuserboard_client" portType="client:deleteUserBoard" operation="process" variable="outputVariable"/>
+  </sequence>
+</process>

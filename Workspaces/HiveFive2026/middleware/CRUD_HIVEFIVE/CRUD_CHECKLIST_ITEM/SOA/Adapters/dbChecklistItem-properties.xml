@@ -1,0 +1,27 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+   <entry key="checklist_item:db_column_1">completed</entry>
+   <entry key="checklist_item:db_column_0">card_id</entry>
+   <entry key="checklist_item.id:db_column_not_null">true</entry>
+   <entry key="checklist_item.card_id:db_column_type">INT</entry>
+   <entry key="checklist_item.task_id:db_column_not_null">true</entry>
+   <entry key="checklist_item.task_id:db_column_size">10</entry>
+   <entry key="checklist_item.id:db_column_size">10</entry>
+   <entry key="checklist_item.completed:db_column_type">SMALLINT</entry>
+   <entry key="return_single_result_set">false</entry>
+   <entry key="checklist_item.name:db_column_type">VARCHAR</entry>
+   <entry key="checklist_item:db_table_type">TABLE</entry>
+   <entry key="checklist_item.card_id:db_column_size">10</entry>
+   <entry key="checklist_item.card_id:db_column_not_null">false</entry>
+   <entry key="root_descriptor_alias">checklist_item</entry>
+   <entry key="checklist_item.name:db_column_not_null">false</entry>
+   <entry key="checklist_item.completed:db_column_not_null">false</entry>
+   <entry key="checklist_item.completed:db_column_size">5</entry>
+   <entry key="checklist_item.task_id:db_column_type">INT</entry>
+   <entry key="checklist_item.id:db_column_type">INT</entry>
+   <entry key="checklist_item.name:db_column_size">255</entry>
+   <entry key="checklist_item:db_column_4">name</entry>
+   <entry key="checklist_item:db_column_3">task_id</entry>
+   <entry key="checklist_item:db_column_2">id</entry>
+</properties>

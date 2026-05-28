@@ -1,0 +1,43 @@
+<!--
+  Archivo: ts/views/profile.html
+  Proposito: Plantilla de vista con bloques semanticos y enlaces de datos del viewModel.
+-->
+<!--
+ Copyright (c) 2014, 2024, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+ <!-- Bloque de interfaz: agrupacion de controles y contenido visible. -->
+<div class="oj-hybrid-padding">
+  <div style="display: flex; justify-content: center;">
+    <div id="tittle" class="tittle" style="display: flex; align-items: center;">
+      <h1 id="wrapperH1" style="margin: 0;"><oj-bind-text value="[[t('profile.title')]]"></oj-bind-text></h1>
+    </div>
+  </div>
+
+
+  
+  <oj-form-layout id="form-container"  class="oj-flex-item my-form-style">
+    <oj-input-text
+      id="inputProfile"
+      label-hint="[[t('auth.firstName')]]"
+      value="{{user().firstName}}"
+    ></oj-input-text>
+    <oj-input-text
+      id="inputProfile"
+      label-hint="[[t('auth.lastName')]]"
+      value="{{user().lastName}}"
+    ></oj-input-text>
+    <oj-input-text
+      id="inputProfile"
+      label-hint="[[t('auth.email')]]"
+      value="{{user().email}}"
+    ></oj-input-text>
+    <!-- Bloque de interfaz: agrupacion de controles y contenido visible. -->
+<div class="profileButtonDiv">
+    <oj-button id="update" on-oj-action="[[submit]]" ><span data-bind="text: t('profile.update')"></span></oj-button>
+    </div>
+  </form> 
+
+
+</div>

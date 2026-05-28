@@ -1,0 +1,19 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:hivefive_test;MODE=MySQL;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: false
+    open-in-view: false
+    properties:
+      hibernate:
+        globally_quoted_identifiers: true
+      # Sobrescribe application.yml (none) para que Hibernate genere el esquema en H2 antes del DataInitializer.
+      jakarta.persistence.schema-generation.database.action: create
+  h2:
+    console:
+      enabled: false

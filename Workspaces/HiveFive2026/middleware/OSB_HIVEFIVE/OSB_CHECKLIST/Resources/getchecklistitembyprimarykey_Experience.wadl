@@ -1,0 +1,24 @@
+<application xmlns:soa="http://www.oracle.com/soa/rest" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ns0="http://xmlns.oracle.com/pcbpel/adapter/db/top/dbChecklistItem" xmlns="http://wadl.dev.java.net/2009/02">
+   <doc title="getchecklistitembyprimarykey_Experience">RestService</doc>
+   <grammars>
+      <xsd:schema>
+            <xsd:import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/dbChecklistItem" schemaLocation="../Schemas/getchecklistitembyprimarykeySchema.xsd"/>
+        </xsd:schema>
+   </grammars>
+   <resources>
+      <resource path="/getchecklistitembyprimarykey/checklist">
+         <method name="GET" soa:wsdlOperation="getchecklistitembyprimarykey">
+            <request soa:paramElement="pns:ChecklistItemCollection" xmlns:pns="http://xmlns.oracle.com/pcbpel/adapter/db/top/dbChecklistItem">
+               <param name="cardId" style="query" soa:expression="$msg.request/ns0:ChecklistItem/ns0:cardId" type="xsd:int"/>
+               <param name="completed" style="query" soa:expression="$msg.request/ns0:ChecklistItem/ns0:completed" type="xsd:short"/>
+               <param name="id" style="query" soa:expression="$msg.request/ns0:ChecklistItem/ns0:id" type="xsd:int"/>
+               <param name="taskId" style="query" soa:expression="$msg.request/ns0:ChecklistItem/ns0:taskId" type="xsd:int"/>
+               <param name="name" style="query" soa:expression="$msg.request/ns0:ChecklistItem/ns0:name" type="xsd:string"/>
+            </request>
+            <response status="200">
+               <representation mediaType="application/json" element="cns:ChecklistItemCollection" xmlns:cns="http://xmlns.oracle.com/pcbpel/adapter/db/top/dbChecklistItem"/>
+            </response>
+         </method>
+      </resource>
+   </resources>
+</application>

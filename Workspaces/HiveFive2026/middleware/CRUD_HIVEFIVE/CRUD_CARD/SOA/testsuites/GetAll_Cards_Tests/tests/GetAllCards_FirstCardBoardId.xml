@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<compositeTest compositeDN="CRUD_CARD" xmlns="http://xmlns.oracle.com/sca/2006/test">
+  <about>Valida por XPath el boardId de la primera Card</about>
+  <initiate serviceName="getallcard_client_ep" operation="process" isAsync="false" delay="PT0S">
+    <message>
+      <part partName="payload">
+        <content>
+          <cli:getAllCard xmlns:cli="http://xmlns.oracle.com/CRUD_HIVEFIVE/CRUD_CARD/getAllCard"/>
+        </content>
+      </part>
+    </message>
+  </initiate>
+  <wireActions wireSource="getallcard_client_ep" operation="process">
+    <assert comparisonMethod="string">
+      <expected>
+        <location key="output" partName="payload" xpath="/ns2:CardCollection/ns2:Card[1]/ns2:boardId" xmlns:ns2="http://xmlns.oracle.com/pcbpel/adapter/db/top/dbCard"/>
+        <simple>5</simple>
+      </expected>
+    </assert>
+  </wireActions>
+</compositeTest>

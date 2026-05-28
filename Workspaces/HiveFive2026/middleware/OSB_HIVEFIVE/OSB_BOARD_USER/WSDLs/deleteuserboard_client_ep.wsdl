@@ -1,0 +1,51 @@
+<?xml version= '1.0' encoding= 'UTF-8' ?>
+<wsdl:definitions
+     name="deleteUserBoard"
+     targetNamespace="http://xmlns.oracle.com/CRUD_HIVEFIVE/CRUD_USER_BOARD/deleteUserBoard"
+     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+     xmlns:client="http://xmlns.oracle.com/CRUD_HIVEFIVE/CRUD_USER_BOARD/deleteUserBoard"
+     xmlns:ns1="http://xmlns.oracle.com/pcbpel/adapter/db/top/dbUserBoard"
+     xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype"
+     xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+    >
+    <wsdl:documentation>
+        <abstractWSDL>http://GM15ASKN.insags.com:7101/soa-infra/services/default/CRUD_USER_BOARD!1.0/WSDLs/deleteUserBoard.wsdl</abstractWSDL>
+    </wsdl:documentation>
+    <plnk:partnerLinkType name="deleteUserBoard">
+        <plnk:role name="deleteUserBoardProvider" portType="client:deleteUserBoard"/>
+    </plnk:partnerLinkType>
+    <wsdl:types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema">
+            <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/dbUserBoard" schemaLocation="XMLSchema_-1737829122.xsd"/>
+        </schema>
+    </wsdl:types>
+    <wsdl:message name="deleteUserBoardRequestMessage">
+        <wsdl:part name="payload" element="ns1:UserBoard"/>
+    </wsdl:message>
+    <wsdl:message name="deleteUserBoardResponseMessage">
+        <wsdl:part name="payload" element="ns1:UserBoard"/>
+    </wsdl:message>
+    <wsdl:portType name="deleteUserBoard">
+        <wsdl:operation name="process">
+            <wsdl:input message="client:deleteUserBoardRequestMessage"/>
+            <wsdl:output message="client:deleteUserBoardResponseMessage"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="deleteUserBoardBinding" type="client:deleteUserBoard">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="process">
+            <soap:operation style="document" soapAction="process"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="deleteuserboard_client_ep">
+        <wsdl:port name="deleteUserBoard_pt" binding="client:deleteUserBoardBinding">
+            <soap:address location="http://GM15ASKN.insags.com:7101/soa-infra/services/default/CRUD_USER_BOARD/deleteuserboard_client_ep"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

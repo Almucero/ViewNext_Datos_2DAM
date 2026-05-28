@@ -1,0 +1,164 @@
+# ------------------------------------------------------------
+# HiveFive2026 - root gitignore
+# Focus: ignore generated artifacts and local state
+# ------------------------------------------------------------
+ frontend-jet/node_modules/
+
+### Oracle JET (frontend-jet) generated artifacts
+# oraclejetconfig.json defines these as staging outputs:
+# - paths.staging.web: "web"
+# - paths.staging.themes: "staged-themes"
+frontend-jet/web/
+frontend-jet/staged-themes/
+frontend-jet/coverage/
+
+# Optional local tooling outputs (safe to ignore if present)
+frontend-jet/.ojet/
+frontend-jet/.cache/
+frontend-jet/.temp/
+frontend-jet/tmp/
+frontend-jet/logs/
+
+### OS / Editor noise
+.DS_Store
+Thumbs.db
+Desktop.ini
+ 
+### Cursor/VSCode/IDE common
+.vscode/
+.idea/
+.classpath
+.project
+.settings/
+*.iml
+ 
+### Node (repo has frontend/ but it already has its own .gitignore;
+### keep these as safety nets in case paths differ)
+**/node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+ 
+### Local env / secrets (never commit)
+.env
+.env.*
+!.env.example
+!.env.sample
+!.env.template
+ 
+### Maven/Gradle outputs (backend services have their own .gitignore too)
+**/target/
+**/build/
+.gradle/
+ 
+### Test/coverage outputs
+**/coverage/
+**/.nyc_output/
+**/.eslintcache
+**/.parcel-cache/
+**/reports/
+**/test-results/
+**/jacoco*.exec
+ 
+### Temporary / backup files
+**/*.tmp
+**/*.bak
+**/*.swp
+**/*.swo
+**/*~
+.frontend/staged-themes/
+.frontend/web/
+### JVM crash dumps / profiling
+hs_err_pid*.log
+**/*.hprof
+ 
+# Generic Java/IDE artifacts
+**/system*/
+**/.jdeveloper/
+**/.adf/
+**/.data/
+**/.jbo/
+**/*.jdb
+**/*.jdb-lck
+**/*.lck
+**/je.lck
+**/classes/
+**/tmp/
+**/temp/
+**/logs/
+**/deploy/
+**/*.sbar
+**/*.jpr.user
+**/*.jws.user
+**/*.jpx.user
+
+.history/
+
+# JDeveloper system cache folders (commonly "system12.*")
+middleware/**/system*/
+middleware/**/.jdeveloper/
+middleware/**/.adf/
+ 
+# JDeveloper/SOA local data / workspace state
+middleware/**/.data/
+middleware/**/.data/**/00000000/
+middleware/**/.data/**/00000000/**
+middleware/**/*.jdb
+middleware/**/*.jdb-lck
+middleware/**/*.lck
+middleware/**/je.lck
+middleware/**/.jbo/
+middleware/**/.jdeveloper/
+middleware/**/.jsch/
+middleware/**/.cache/
+middleware/**/.metadata/
+middleware/**/.run/
+middleware/**/.tmp/
+middleware/**/classes/
+middleware/**/tmp/
+middleware/**/temp/
+middleware/**/logs/
+ 
+# SOA composite build outputs and logs
+middleware/**/deploy/
+middleware/**/deploy/**/*.jar
+middleware/**/SOA/**/SCA-INF/**/classes/
+middleware/**/SOA/**/SCA-INF/**/classes/**/*.log
+middleware/**/SOA/**/SCA-INF/**/classes/**/*.xml
+middleware/**/SOA/**/SCA-INF/**/scac.log
+middleware/**/SOA/**/scac.log
+middleware/**/SOA/**/*.log
+middleware/**/SOA/**/scac_out.xml
+middleware/**/SOA/**/*scac_out.xml
+ 
+# CRUD_HIVEFIVE generated artifacts (explicit block)
+middleware/CRUD_HIVEFIVE/**/.data/
+middleware/CRUD_HIVEFIVE/**/*.jdb
+middleware/CRUD_HIVEFIVE/**/deploy/
+middleware/CRUD_HIVEFIVE/**/deploy/**/*.jar
+middleware/CRUD_HIVEFIVE/**/SOA/SCA-INF/**/*.diagram.*
+middleware/CRUD_HIVEFIVE/**/SOA/SCA-INF/**/classes/
+middleware/CRUD_HIVEFIVE/**/SOA/SCA-INF/**/classes/**/*.log
+middleware/CRUD_HIVEFIVE/**/SOA/SCA-INF/**/classes/**/*.xml
+middleware/CRUD_HIVEFIVE/**/SOA/SCA-INF/**/scac.log
+middleware/CRUD_HIVEFIVE/**/SOA/**/scac.log
+middleware/CRUD_HIVEFIVE/**/SOA/**/scac_out.xml
+ 
+# Generated diagrams / IDE artifacts (binary)
+middleware/**/SOA/SCA-INF/**/*.diagram.*
+middleware/**/OSB_HIVEFIVE/**/.data/scainf/
+middleware/**/OSB_HIVEFIVE/**/.data/**/*.diagram.*
+middleware/**/OSB_HIVEFIVE/**/.data/**/classes/
+middleware/**/OSB_HIVEFIVE/**/.data/**/*.log
+middleware/**/OSB_HIVEFIVE/**/deploy/
+middleware/**/OSB_HIVEFIVE/**/*.sbar
+middleware/**/OSB_HIVEFIVE/**/*.jar
+ 
+# OSB build artifacts (if present)
+middleware/**/*.sbar
+ 
+# JDeveloper per-user artifacts
+middleware/**/*.jpr.user
+middleware/**/*.jws.user
+middleware/**/*.jpx.user

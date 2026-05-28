@@ -1,0 +1,2 @@
+define(['exports', '../MenuItemStyles.css', './MenuItemBaseTheme.css', './MenuItemVariants.css', 'css!./../../../MenuItemStyles.styles.css', 'module', 'css!./../../../MenuItemVariants.styles.css', '../../../vanilla-extract-recipes-createRuntimeFn.esm-59c9ccd7'], (function(e,s,t,a,n,c,m,i){"use strict";const l={baseTheme:t.baseTheme,multiVariantStyles:a.multiVariantStyles,variants:s.variants,styles:s.styles};e.MenuItemRedwoodTheme=l,Object.defineProperty(e,"__esModule",{value:!0})}));
+//# sourceMappingURL=MenuItemTheme.js.map

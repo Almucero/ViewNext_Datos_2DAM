@@ -1,0 +1,42 @@
+<wsdl:definitions name="getStatusByPrimaryKey" targetNamespace="http://xmlns.oracle.com/CRUD_HIVEFIVE/CRUD_STATUS/getStatusByPrimaryKey" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:client="http://xmlns.oracle.com/CRUD_HIVEFIVE/CRUD_STATUS/getStatusByPrimaryKey" xmlns:ns1="http://xmlns.oracle.com/pcbpel/adapter/db/top/dbStatus" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+    <wsdl:documentation>
+        <abstractWSDL>http://localhost:7101/soa-infra/services/default/CRUD_STATUS!1.0/WSDLs/getStatusByPrimaryKey.wsdl</abstractWSDL>
+    </wsdl:documentation>
+    <plnk:partnerLinkType name="getStatusByPrimaryKey">
+        <plnk:role name="getStatusByPrimaryKeyProvider" portType="client:getStatusByPrimaryKey"/>
+    </plnk:partnerLinkType>
+    <wsdl:types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema">
+            <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/dbStatus" schemaLocation="../Shemas/getstatusbyprimarykeySchema.xsd"/>
+        </schema>
+    </wsdl:types>
+    <wsdl:message name="getStatusByPrimaryKeyRequestMessage">
+        <wsdl:part name="payload" element="ns1:StatusCollection"/>
+    </wsdl:message>
+    <wsdl:message name="getStatusByPrimaryKeyResponseMessage">
+        <wsdl:part name="payload" element="ns1:StatusCollection"/>
+    </wsdl:message>
+    <wsdl:portType name="getStatusByPrimaryKey">
+        <wsdl:operation name="process">
+            <wsdl:input message="client:getStatusByPrimaryKeyRequestMessage"/>
+            <wsdl:output message="client:getStatusByPrimaryKeyResponseMessage"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="getStatusByPrimaryKeyBinding" type="client:getStatusByPrimaryKey">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="process">
+            <soap:operation style="document" soapAction="process"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="getstatusbyprimarykey_client_ep">
+        <wsdl:port name="getStatusByPrimaryKey_pt" binding="client:getStatusByPrimaryKeyBinding">
+            <soap:address location="http://localhost:7101/soa-infra/services/default/CRUD_STATUS/getstatusbyprimarykey_client_ep"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

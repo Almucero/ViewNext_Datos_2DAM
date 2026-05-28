@@ -1,0 +1,29 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    url: jdbc:mysql://${DB_HOST:hivefive-joseantdominguezgonzalez-1f2d.k.aivencloud.com}:${DB_PORT:10835}/${DB_NAME:defaultdb}?useSSL=true&requireSSL=true&sslMode=REQUIRED&allowPublicKeyRetrieval=true&serverTimezone=UTC
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: ${DB_USER:avnadmin}
+    password: ${DB_PASSWORD:AVNS_Drbgl6s0b9yvpdiRZlO}
+  jpa:
+    generate-ddl: false
+    hibernate:
+      ddl-auto: none
+    show-sql: false
+    open-in-view: false
+    properties:
+      hibernate:
+        globally_quoted_identifiers: true
+      jakarta:
+        persistence:
+          schema-generation:
+            database:
+              action: none
+  sql:
+    init:
+      mode: never
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false

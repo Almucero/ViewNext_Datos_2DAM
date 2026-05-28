@@ -1,0 +1,58 @@
+meta {
+  name: HiveFive API
+  type: collection
+}
+
+auth {
+  mode: none
+}
+
+vars:pre-request {
+  baseUrl: http://localhost:8080
+  userId: 1
+  boardId: 1
+  cardId: 1
+  statusId: 2
+  checklistItemId: 1
+  newUserId: 9001
+  newBoardId: 9001
+  newCardId: 9001
+  newChecklistItemId: 9001
+}
+
+docs {
+  # HiveFive API (Bruno)
+
+  Coleccion alineada con la **SPA React** del repo: mismas rutas que usa `frontend/src/services/*` contra el backend Spring Boot (`*CompatibilityController` en `hivefive-api-app`).
+
+  ## Antes de probar
+
+  1. Arranca la API: `mvn -f backend/pom.xml -pl hivefive-api-app spring-boot:run` (puerto **8080** por defecto).
+  2. Arriba a la derecha elige el entorno **local** (archivo `environments/local.bru`). Si no aparece, cierra y vuelve a abrir la coleccion.
+  3. Edita IDs en **Collection / Vars** (son `vars:pre-request` en `collection.bru`) o `baseUrl` en el entorno **local**.
+
+  ## Base URL y prefijo
+
+  - `baseUrl` por defecto: `http://localhost:8080`
+  - Peticiones: `baseUrl` + `/api/v1/...` (igual que `frontend/src/config/api.ts`).
+
+  ## Variables (Vars / pre-request)
+
+  Tras los **Get all** del dominio, ajusta IDs en la pestana Vars de la coleccion (o en este archivo, bloque `vars:pre-request`):
+
+  - `userId`, `boardId`, `cardId`, `statusId`, `checklistItemId`
+  - `newUserId`, `newBoardId`, `newCardId`, `newChecklistItemId` para altas (el backend exige id no nulo; por ejemplo max id + 1 tras un get-all).
+
+  ## Cuerpos JSON
+
+  DTO del backend: claves con mayuscula inicial (`User`, `Board`, `Card`, `ChecklistItem`) en **array** de un elemento. **UserBoard**: `{"boardId": ..., "userId": ...}`.
+
+  ## Orden recomendado
+
+  Usuarios y tableros con IDs nuevos, enlazar user-board, tarjetas (`boardId`, `statusId`, `userId`), checklist ligado a `cardId`.
+
+  ## Codigo de referencia
+
+  - `backend/hivefive-api-app/src/main/java/com/hivefive/api/web/*CompatibilityController.java`
+  - `frontend/src/services/*.ts`
+}

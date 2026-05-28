@@ -1,0 +1,27 @@
+meta {
+  name: Create board
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{baseUrl}}/api/v1/boards/create
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "Board": [
+      {
+        "id": {{newBoardId}},
+        "name": "Tablero desde Bruno"
+      }
+    ]
+  }
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}

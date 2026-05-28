@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<properties>
+  <entry key="Update_Card_Test"/>
+  <entry key="Delete_Card_Tests"/>
+  <entry key="Get_Card_ByPrimaryKey_Tests"/>
+  <entry key="GetAll_Cards_Tests"/>
+  <entry key="Create_Card_Tests"/>
+</properties>

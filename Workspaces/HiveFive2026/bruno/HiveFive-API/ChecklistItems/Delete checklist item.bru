@@ -1,0 +1,15 @@
+meta {
+  name: Delete checklist item (path)
+  type: http
+  seq: 5
+}
+
+delete {
+  url: {{baseUrl}}/api/v1/checklist-items/delete/{{checklistItemId}}
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

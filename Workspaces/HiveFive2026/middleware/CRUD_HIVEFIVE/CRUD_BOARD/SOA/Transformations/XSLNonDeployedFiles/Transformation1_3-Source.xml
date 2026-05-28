@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<BoardCollection xmlns="http://xmlns.oracle.com/pcbpel/adapter/db/top/dbBoard">
+   <Board>
+      <id>1</id>
+      <name>Hola</name>
+   </Board>
+   <Board>
+      <id>5</id>
+      <name>Prueba Final</name>
+   </Board>
+</BoardCollection>

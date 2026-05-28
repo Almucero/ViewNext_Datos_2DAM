@@ -1,0 +1,91 @@
+<!--
+  Archivo: ts/views/signup.html
+  Proposito: Plantilla de vista con bloques semanticos y enlaces de datos del viewModel.
+-->
+<!--
+ Copyright (c) 2014, 2024, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<!-- Bloque de interfaz: agrupacion de controles y contenido visible. -->
+<div class="auth-page-wrapper">
+  <!-- Bloque de interfaz: agrupacion de controles y contenido visible. -->
+<div class="auth-container">
+    <aside class="auth-side-mascot" aria-hidden="true">
+      <img src="/css/images/viewny.png" alt="" class="mascot-left-image">
+    </aside>
+
+    <section class="auth-form-zone">
+      <div id="MyForm" class="auth-form-card">
+      <h1 id="inicioH1"><oj-bind-text value="[[t('auth.signup.title')]]"></oj-bind-text></h1>
+      <p class="auth-subtitle"><oj-bind-text value="[[t('auth.signup.subtitle')]]"></oj-bind-text></p>
+
+      <form data-bind="submit: registrar" class="auth-form">
+        <!-- Bloque de interfaz: agrupacion de controles y contenido visible. -->
+<div class="form-group">
+          <label for="firstname-input" class="form-label"><oj-bind-text value="[[t('auth.firstName')]]"></oj-bind-text></label>
+          <input
+            id="firstname-input"
+            type="text"
+            data-bind="value: user.firstName"
+            required
+            class="styled-input"
+            autocomplete="given-name"
+          />
+        </div>
+
+        <!-- Bloque de interfaz: agrupacion de controles y contenido visible. -->
+<div class="form-group">
+          <label for="lastname-input" class="form-label"><oj-bind-text value="[[t('auth.lastName')]]"></oj-bind-text></label>
+          <input
+            id="lastname-input"
+            type="text"
+            data-bind="value: user.lastName"
+            required
+            class="styled-input"
+            autocomplete="family-name"
+          />
+        </div>
+
+        <!-- Bloque de interfaz: agrupacion de controles y contenido visible. -->
+<div class="form-group">
+          <label for="signup-email-input" class="form-label"><oj-bind-text value="[[t('auth.email')]]"></oj-bind-text></label>
+          <input
+            id="signup-email-input"
+            type="email"
+            data-bind="value: user.email"
+            required
+            class="styled-input"
+            autocomplete="email"
+          />
+        </div>
+
+        <!-- Bloque de interfaz: agrupacion de controles y contenido visible. -->
+<div class="form-group">
+          <label for="signup-password-input" class="form-label"><oj-bind-text value="[[t('auth.password')]]"></oj-bind-text></label>
+          <input
+            id="signup-password-input"
+            type="password"
+            data-bind="value: user.password"
+            required
+            class="styled-input"
+            autocomplete="new-password"
+          />
+        </div>
+
+        <button type="submit" class="styled-button btn-auth" data-bind="disable: isSubmitting">
+          <oj-bind-text value="[[t('auth.register')]]"></oj-bind-text>
+        </button>
+      </form>
+
+      <!-- Bloque de interfaz: agrupacion de controles y contenido visible. -->
+<div class="auth-footer">
+        <p class="auth-switch-text">
+          <oj-bind-text value="[[t('auth.haveAccount')]]"></oj-bind-text>
+          <a href="?ojr=login" class="auth-switch-link"><oj-bind-text value="[[t('auth.signInLink')]]"></oj-bind-text></a>
+        </p>
+      </div>
+      </div>
+    </section>
+  </div>
+</div>

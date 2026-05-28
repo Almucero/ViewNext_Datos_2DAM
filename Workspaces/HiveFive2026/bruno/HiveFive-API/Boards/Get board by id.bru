@@ -1,0 +1,19 @@
+meta {
+  name: Get board by id
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{baseUrl}}/api/v1/boards/get/{{boardId}}
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}
+
+vars:pre-request {
+  boardId: 1
+}

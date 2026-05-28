@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<properties>
+  <entry key="Test_Delete_Board_Ok.xml"/>
+  <entry key="Test_Delete_Board_NotFound.xml"/>
+  <entry key="test_Delete_Board_Extra_Data.xml"/>
+  <entry key="test_Delete_Board_Real_DB.xml"/>
+</properties>

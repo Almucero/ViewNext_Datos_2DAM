@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<properties>
+  <entry key="test_Update_Board_Ok.xml"/>
+  <entry key="test_Update_Board_Not_Found.xml"/>
+  <entry key="test_Update_Board_Minimal.xml"/>
+  <entry key="test_Update_Board_Real_DB.xml"/>
+</properties>

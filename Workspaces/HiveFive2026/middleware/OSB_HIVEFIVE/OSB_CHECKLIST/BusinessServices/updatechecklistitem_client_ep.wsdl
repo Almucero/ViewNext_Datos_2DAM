@@ -1,0 +1,42 @@
+<wsdl:definitions name="updateChecklistItem" targetNamespace="http://xmlns.oracle.com/CRUD_HIVEFIVE/CRUD_CHECKLIST_ITEM/updateChecklistItem" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:client="http://xmlns.oracle.com/CRUD_HIVEFIVE/CRUD_CHECKLIST_ITEM/updateChecklistItem" xmlns:ns1="http://xmlns.oracle.com/pcbpel/adapter/db/top/dbChecklistItem" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+    <wsdl:documentation>
+        <abstractWSDL>http://localhost:7101/soa-infra/services/default/CRUD_CHECKLIST_ITEM!1.0/WSDLs/updateChecklistItem.wsdl</abstractWSDL>
+    </wsdl:documentation>
+    <plnk:partnerLinkType name="updateChecklistItem">
+        <plnk:role name="updateChecklistItemProvider" portType="client:updateChecklistItem"/>
+    </plnk:partnerLinkType>
+    <wsdl:types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema">
+            <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/dbChecklistItem" schemaLocation="../Schemas/updatechecklistitemSchema.xsd"/>
+        </schema>
+    </wsdl:types>
+    <wsdl:message name="updateChecklistItemRequestMessage">
+        <wsdl:part name="payload" element="ns1:ChecklistItemCollection"/>
+    </wsdl:message>
+    <wsdl:message name="updateChecklistItemResponseMessage">
+        <wsdl:part name="payload" element="ns1:ChecklistItemCollection"/>
+    </wsdl:message>
+    <wsdl:portType name="updateChecklistItem">
+        <wsdl:operation name="process">
+            <wsdl:input message="client:updateChecklistItemRequestMessage"/>
+            <wsdl:output message="client:updateChecklistItemResponseMessage"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="updateChecklistItemBinding" type="client:updateChecklistItem">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="process">
+            <soap:operation style="document" soapAction="process"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="updatechecklistitem_client_ep">
+        <wsdl:port name="updateChecklistItem_pt" binding="client:updateChecklistItemBinding">
+            <soap:address location="http://localhost:7101/soa-infra/services/default/CRUD_CHECKLIST_ITEM/updatechecklistitem_client_ep"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

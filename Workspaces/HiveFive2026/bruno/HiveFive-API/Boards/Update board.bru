@@ -1,0 +1,27 @@
+meta {
+  name: Update board
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{baseUrl}}/api/v1/boards/update
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "Board": [
+      {
+        "id": {{boardId}},
+        "name": "Tablero actualizado"
+      }
+    ]
+  }
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}

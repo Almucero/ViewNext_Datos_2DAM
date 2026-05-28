@@ -1,0 +1,155 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.hivefive</groupId>
+        <artifactId>hivefive-backend</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+    <artifactId>hivefive-api-app</artifactId>
+    <name>hivefive-api-app</name>
+    <description>API principal de HiveFive (modulo ejecutable Spring Boot)</description>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.hivefive</groupId>
+            <artifactId>hivefive-common</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.hivefive</groupId>
+            <artifactId>hivefive-role</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.hivefive</groupId>
+            <artifactId>hivefive-status</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.hivefive</groupId>
+            <artifactId>hivefive-user</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.hivefive</groupId>
+            <artifactId>hivefive-board</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.hivefive</groupId>
+            <artifactId>hivefive-card</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.hivefive</groupId>
+            <artifactId>hivefive-checklist</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.hivefive</groupId>
+            <artifactId>hivefive-userboard</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.mysql</groupId>
+            <artifactId>mysql-connector-j</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.8.11</version>
+                <executions>
+                    <execution>
+                        <id>prepare-agent</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>report</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <outputDirectory>${project.reporting.outputDirectory}/jacoco</outputDirectory>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.gmavenplus</groupId>
+                <artifactId>gmavenplus-plugin</artifactId>
+                <version>3.0.2</version>
+                <executions>
+                    <execution>
+                        <id>print-jacoco-summary</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>execute</goal>
+                        </goals>
+                        <configuration>
+                            <scripts>
+                                <script><![CDATA[
+                                    def reportFile = new File(project.build.directory, "site/jacoco/jacoco.xml")
+                                    if (!reportFile.exists()) {
+                                        log.warn("JaCoCo report not found: ${reportFile}")
+                                        return
+                                    }
+                                    def content = reportFile.getText("UTF-8")
+                                    def pct = { missed, covered ->
+                                        def total = missed + covered
+                                        total == 0 ? 100.0d : (covered * 100.0d / total)
+                                    }
+                                    def lastPackageEnd = content.lastIndexOf("</package>")
+                                    def totalsSection = lastPackageEnd >= 0
+                                        ? content.substring(lastPackageEnd + "</package>".length())
+                                        : content
+                                    println ""
+                                    println "========== JaCoCo Coverage (Spring Boot) =========="
+                                    (totalsSection =~ /<counter type="([A-Z]+)" missed="([0-9]+)" covered="([0-9]+)"\/>/).each { match ->
+                                        def counterType = match[1]
+                                        def missed = match[2] as int
+                                        def covered = match[3] as int
+                                        printf "  %-18s %6.2f%% (%d/%d)%n", counterType, pct(missed, covered), covered, missed + covered
+                                    }
+                                    println "Report HTML: ${reportFile.parent}/index.html"
+                                    println "===================================================="
+                                    println ""
+                                ]]></script>
+                            </scripts>
+                        </configuration>
+                    </execution>
+                </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.apache.groovy</groupId>
+                        <artifactId>groovy</artifactId>
+                        <version>4.0.21</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+        </plugins>
+    </build>
+</project>

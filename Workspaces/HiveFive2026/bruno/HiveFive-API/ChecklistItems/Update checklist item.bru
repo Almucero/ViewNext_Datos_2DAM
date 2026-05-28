@@ -1,0 +1,30 @@
+meta {
+  name: Update checklist item
+  type: http
+  seq: 4
+}
+
+put {
+  url: {{baseUrl}}/api/v1/checklist-items/update
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "ChecklistItem": [
+      {
+        "id": {{checklistItemId}},
+        "cardId": {{cardId}},
+        "text": "Subtarea actualizada desde Bruno",
+        "completed": true,
+        "orderIndex": 2
+      }
+    ]
+  }
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}

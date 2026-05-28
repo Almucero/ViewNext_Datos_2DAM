@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<RoleCollection xmlns="http://xmlns.oracle.com/pcbpel/adapter/db/top/dbReference">
+   <Role>
+      <id>19</id>
+      <name>name20</name>
+   </Role>
+</RoleCollection>

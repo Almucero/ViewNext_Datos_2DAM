@@ -1,0 +1,43 @@
+<wsdl:definitions name="createUser" targetNamespace="http://xmlns.oracle.com/CRUD_HIVEFIVE/CRUD_USER/createUser" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:client="http://xmlns.oracle.com/CRUD_HIVEFIVE/CRUD_USER/createUser" xmlns:ns1="http://xmlns.oracle.com/pcbpel/adapter/db/top/dbReference" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+    <wsdl:documentation>
+        <abstractWSDL>http://pf2wp216.mshome.net:7101/soa-infra/services/default/CRUD_USER!1.0/WSDLs/createUser.wsdl</abstractWSDL>
+    </wsdl:documentation>
+    <plnk:partnerLinkType name="createUser">
+        <plnk:role name="createUserProvider" portType="client:createUser"/>
+    </plnk:partnerLinkType>
+    <wsdl:types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema">
+            <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/dbReference"
+                    schemaLocation="../Schemas/CreateUser_Payload.xsd"/>
+        </schema>
+    </wsdl:types>
+    <wsdl:message name="createUserRequestMessage">
+        <wsdl:part name="payload" element="ns1:UserCollection"/>
+    </wsdl:message>
+    <wsdl:message name="createUserResponseMessage">
+        <wsdl:part name="payload" element="ns1:UserCollection"/>
+    </wsdl:message>
+    <wsdl:portType name="createUser">
+        <wsdl:operation name="process">
+            <wsdl:input message="client:createUserRequestMessage"/>
+            <wsdl:output message="client:createUserResponseMessage"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="createUserBinding" type="client:createUser">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="process">
+            <soap:operation style="document" soapAction="process"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="createuser_client_ep">
+        <wsdl:port name="createUser_pt" binding="client:createUserBinding">
+            <soap:address location="http://pf2wp216.mshome.net:7101/soa-infra/services/default/CRUD_USER/createuser_client_ep"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

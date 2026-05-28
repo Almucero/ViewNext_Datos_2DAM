@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<dbc:CardCollection xmlns:dbc="http://xmlns.oracle.com/pcbpel/adapter/db/top/dbCard">
+  <dbc:Card>
+    <dbc:boardId>5</dbc:boardId>
+    <dbc:endDate>2014-11-07</dbc:endDate>
+    <dbc:id>1</dbc:id>
+    <dbc:priority>2</dbc:priority>
+    <dbc:startDate>2008-09-04</dbc:startDate>
+    <dbc:statusId>2</dbc:statusId>
+    <dbc:userId>1</dbc:userId>
+    <dbc:description>DescripciÃ³n modificada</dbc:description>
+    <dbc:title>Tarjeta Actualizada</dbc:title>
+  </dbc:Card>
+</dbc:CardCollection>

@@ -1,0 +1,2 @@
+define(['exports', '../TabBarItemStyles.css', './TabBarItemBaseTheme.css', './TabBarItemVariants.css', 'css!./../../../TabBarItemStyles.styles.css', 'module', 'css!./../../../TabBarItemVariants.styles2.css', '../../../vanilla-extract-recipes-createRuntimeFn.esm-59c9ccd7'], (function(e,s,a,t,r,c,l,m){"use strict";const i={baseTheme:a.baseTheme,multiVariantStyles:t.multiVariantStyles,variants:s.variants,styles:s.styles};e.TabBarItemStableTheme=i,Object.defineProperty(e,"__esModule",{value:!0})}));
+//# sourceMappingURL=TabBarItemTheme.js.map

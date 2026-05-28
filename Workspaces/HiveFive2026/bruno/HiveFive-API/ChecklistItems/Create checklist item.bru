@@ -1,0 +1,30 @@
+meta {
+  name: Create checklist item
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{baseUrl}}/api/v1/checklist-items/create
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "ChecklistItem": [
+      {
+        "id": {{newChecklistItemId}},
+        "cardId": {{cardId}},
+        "text": "Subtarea creada desde Bruno",
+        "completed": false,
+        "orderIndex": 1
+      }
+    ]
+  }
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}

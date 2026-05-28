@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<properties>
+  <entry key="testCreateStatus"/>
+  <entry key="testDeleteStatus"/>
+  <entry key="testUpdateStatus"/>
+  <entry key="testGetStatusByPK"/>
+  <entry key="testGetAllStatus"/>
+</properties>

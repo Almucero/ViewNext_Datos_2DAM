@@ -1,0 +1,30 @@
+<application xmlns:soa="http://www.oracle.com/soa/rest" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://wadl.dev.java.net/2009/02" xmlns:tns="http://xmlns.oracle.com/OSBHive5/OSB_BOARDS/DeleteBoard_Experience">
+   <doc title="DeleteBoard_Experience">RestService</doc>
+   <grammars>
+      <xsd:schema>
+            <xsd:import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/dbBoard"
+                        schemaLocation="../Schemas/DeleteBoard_Payload.xsd"/>
+        </xsd:schema>
+      <schema targetNamespace="http://xmlns.oracle.com/OSBHive5/OSB_BOARDS/DeleteBoard_Experience" elementFormDefault="qualified" xmlns="http://www.w3.org/2001/XMLSchema">
+            <element name="deleteBoard_params">
+                <complexType>
+                    <sequence>
+                        <element name="id_board" type="string"/>
+                    </sequence>
+                </complexType>
+            </element>
+        </schema>
+   </grammars>
+   <resources>
+      <resource path="/boards/delete/{id_board}">
+         <method name="DELETE" soa:wsdlOperation="deleteBoard">
+            <request soa:paramElement="pns:deleteBoard_params" xmlns:pns="http://xmlns.oracle.com/OSBHive5/OSB_BOARDS/DeleteBoard_Experience">
+               <param name="id_board" style="template" soa:expression="$msg.request/pns:id_board" type="xsd:int"/>
+            </request>
+            <response status="200">
+               <representation mediaType="application/json" element="cns:BoardCollection" xmlns:cns="http://xmlns.oracle.com/pcbpel/adapter/db/top/dbBoard"/>
+            </response>
+         </method>
+      </resource>
+   </resources>
+</application>

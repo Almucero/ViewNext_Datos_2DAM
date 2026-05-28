@@ -1,0 +1,43 @@
+<wsdl:definitions name="GetCardByPrimaryKey_Experience" targetNamespace="http://xmlns.oracle.com/OSB_HIVEFIVE/OSB_CARD/GetCardByPrimaryKey_Experience" xmlns:tns="http://xmlns.oracle.com/OSB_HIVEFIVE/OSB_CARD/GetCardByPrimaryKey_Experience" xmlns:inp1="http://xmlns.oracle.com/pcbpel/adapter/db/top/dbCard" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+    <plnk:partnerLinkType name="GetCardByPrimaryKey_Experience">
+        <plnk:role name="GetCardByPrimaryKey_ExperienceProvider" portType="tns:GetCardByPrimaryKey_Experience_ptt"/>
+    </plnk:partnerLinkType>
+    <wsdl:types>
+        <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+            <xsd:import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/dbCard" schemaLocation="../Schemas/GetCardByPrimaryKey_Payload.xsd"/>
+        </xsd:schema>
+        <schema targetNamespace="http://xmlns.oracle.com/OSB_HIVEFIVE/OSB_CARD/GetCardByPrimaryKey_Experience" elementFormDefault="qualified" xmlns="http://www.w3.org/2001/XMLSchema">
+            <element name="getCardByPrimaryKey_params">
+                <complexType>
+                    <sequence>
+                        <element name="id_card" type="string"/>
+                    </sequence>
+                </complexType>
+            </element>
+        </schema>
+    </wsdl:types>
+    <wsdl:message name="getCardByPrimaryKey_inputMessage">
+        <wsdl:part name="request" element="tns:getCardByPrimaryKey_params"/>
+    </wsdl:message>
+    <wsdl:message name="getCardByPrimaryKey_outputMessage">
+        <wsdl:part name="reply" element="inp1:CardCollection"/>
+    </wsdl:message>
+    <wsdl:portType name="GetCardByPrimaryKey_Experience_ptt">
+        <wsdl:operation name="getCardByPrimaryKey">
+            <wsdl:input message="tns:getCardByPrimaryKey_inputMessage"/>
+            <wsdl:output message="tns:getCardByPrimaryKey_outputMessage"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="GetCardByPrimaryKey_Experience_ptt-binding" type="tns:GetCardByPrimaryKey_Experience_ptt">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="getCardByPrimaryKey">
+            <soap:operation soapAction="getCardByPrimaryKey"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+</wsdl:definitions>

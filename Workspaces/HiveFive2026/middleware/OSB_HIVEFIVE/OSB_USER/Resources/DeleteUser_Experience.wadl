@@ -1,0 +1,30 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<application xmlns:soa="http://www.oracle.com/soa/rest" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://wadl.dev.java.net/2009/02">
+   <doc title="DeleteUser_Experience">Servicio REST para borrar usuarios</doc>
+   <grammars>
+      <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+            <xsd:import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/dbReference" schemaLocation="../Schemas/DeleteUser_Payload.xsd"/>
+        </xsd:schema>
+      <schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://xmlns.oracle.com/OSB_HIVEFIVE/OSB_USER/DeleteUser_Experience" elementFormDefault="qualified">
+            <element name="Operation1_params">
+                <complexType>
+                    <sequence>
+                        <element name="id_user" type="string"/>
+                    </sequence>
+                </complexType>
+            </element>
+        </schema>
+   </grammars>
+   <resources>
+      <resource path="/users/delete/{id_user}">
+         <method name="DELETE" soa:wsdlOperation="Operation1">
+            <request soa:paramElement="pns:Operation1_params" xmlns:pns="http://xmlns.oracle.com/OSB_HIVEFIVE/OSB_USER/DeleteUser_Experience">
+               <param name="id_user" style="template" soa:expression="$msg.request/pns:id_user" type="xsd:string"/>
+            </request>
+            <response status="200">
+               <representation mediaType="application/json" element="cns:UserCollection" xmlns:cns="http://xmlns.oracle.com/pcbpel/adapter/db/top/dbReference"/>
+            </response>
+         </method>
+      </resource>
+   </resources>
+</application>

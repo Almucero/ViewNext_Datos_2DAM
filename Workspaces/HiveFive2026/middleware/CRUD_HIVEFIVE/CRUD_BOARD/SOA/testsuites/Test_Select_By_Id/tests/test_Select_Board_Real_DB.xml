@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<compositeTest compositeDN="CRUD_BOARD" xmlns="http://xmlns.oracle.com/sca/2006/test">
+  <about>Test Real BD de getBoardByPrimaryKey sin emulacion</about>
+
+  <initiate serviceName="getboardbyprimarykey_client_ep" operation="process" isAsync="false" delay="PT0S">
+    <message>
+      <part partName="payload">
+        <content>
+          <Board xmlns="http://xmlns.oracle.com/pcbpel/adapter/db/top/dbBoard">
+            <id>5</id>
+          </Board>
+        </content>
+      </part>
+    </message>
+  </initiate>
+
+  <wireActions wireSource="getBoardByPrimaryKey/dbBoard" operation="selectByPrimaryKey"/>
+
+  <wireActions wireSource="getboardbyprimarykey_client_ep" operation="process">
+    <assert comparisonMethod="string">
+      <description>Verifica consulta real a BD para ID existente</description>
+      <expected>
+        <location key="output" partName="payload" xpath="//*[local-name()='id']"/>
+        <simple>5</simple>
+      </expected>
+    </assert>
+  </wireActions>
+</compositeTest>

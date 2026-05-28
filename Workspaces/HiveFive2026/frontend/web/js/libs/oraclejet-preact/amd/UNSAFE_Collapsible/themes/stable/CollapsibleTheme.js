@@ -1,0 +1,2 @@
+define(['exports', '../CollapsibleStyles.css', './CollapsibleVariants.css', 'css!./../../../CollapsibleStyles.styles.css', 'css!./../../../CollapsibleVariants.styles2.css', '../../../vanilla-extract-recipes-createRuntimeFn.esm-59c9ccd7'], (function(e,s,l,t,a,i){"use strict";const c={baseTheme:"",multiVariantStyles:l.multiVariantStyles,variants:s.variants,styles:s.styles};e.CollapsibleStableTheme=c,Object.defineProperty(e,"__esModule",{value:!0})}));
+//# sourceMappingURL=CollapsibleTheme.js.map

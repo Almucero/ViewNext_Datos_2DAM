@@ -1,0 +1,19 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<application xmlns:soa="http://www.oracle.com/soa/rest" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://wadl.dev.java.net/2009/02">
+   <doc title="RestService">RestService</doc>
+   <grammars>
+      <schema xmlns="http://www.w3.org/2001/XMLSchema">
+            <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/dbUserBoard" schemaLocation="../WSDLs/XMLSchema_1134546974.xsd"/>
+        </schema>
+   </grammars>
+   <resources>
+      <resource path="/boardUser/getall">
+         <method name="GET" soa:wsdlOperation="process">
+            <request soa:paramElement="pns:dbUserBoardSelectInputParameters" xmlns:pns="http://xmlns.oracle.com/pcbpel/adapter/db/top/dbUserBoard"/>
+            <response status="200">
+               <representation mediaType="application/xml" element="cns:UserBoardCollection" xmlns:cns="http://xmlns.oracle.com/pcbpel/adapter/db/top/dbUserBoard"/>
+            </response>
+         </method>
+      </resource>
+   </resources>
+</application>

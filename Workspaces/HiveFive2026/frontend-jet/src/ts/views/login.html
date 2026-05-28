@@ -1,0 +1,64 @@
+<!--
+  Archivo: ts/views/login.html
+  Proposito: Plantilla de vista con bloques semanticos y enlaces de datos del viewModel.
+-->
+<!--
+ Copyright (c) 2014, 2024, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<!-- Bloque de interfaz: agrupacion de controles y contenido visible. -->
+<div class="auth-page-wrapper">
+  <!-- Bloque de interfaz: agrupacion de controles y contenido visible. -->
+<div class="auth-container">
+    <aside class="auth-side-mascot" aria-hidden="true">
+      <img src="/css/images/viewny.png" alt="" class="mascot-left-image">
+    </aside>
+
+    <section class="auth-form-zone">
+
+      <div id="MyForm" class="auth-form-card">
+      <h1 id="inicioH1"><oj-bind-text value="[[t('auth.login.title')]]"></oj-bind-text></h1>
+      <p class="auth-subtitle"><oj-bind-text value="[[t('auth.login.subtitle')]]"></oj-bind-text></p>
+
+      <form data-bind="submit: acceder" class="auth-form">
+        <!-- Bloque de interfaz: agrupacion de controles y contenido visible. -->
+<div class="form-group">
+          <label for="email-input" class="form-label"><oj-bind-text value="[[t('auth.email')]]"></oj-bind-text></label>
+          <input 
+            id="email-input"
+            type="email" 
+            data-bind="value: user.email" 
+            required 
+            class="styled-input"
+            autocomplete="email"
+          >
+        </div>
+
+        <!-- Bloque de interfaz: agrupacion de controles y contenido visible. -->
+<div class="form-group">
+          <label for="password-input" class="form-label"><oj-bind-text value="[[t('auth.password')]]"></oj-bind-text></label>
+          <input 
+            id="password-input"
+            type="password" 
+            data-bind="value: user.password" 
+            required 
+            class="styled-input"
+            autocomplete="current-password"
+          >
+        </div>
+
+        <button type="submit" class="styled-button btn-auth"><oj-bind-text value="[[t('auth.signIn')]]"></oj-bind-text></button>
+      </form>
+
+      <!-- Bloque de interfaz: agrupacion de controles y contenido visible. -->
+<div class="auth-footer">
+        <p class="auth-switch-text">
+          <oj-bind-text value="[[t('auth.noAccount')]]"></oj-bind-text>
+          <a href="#" class="auth-switch-link" data-bind="click: goToSignup"><oj-bind-text value="[[t('auth.registerHere')]]"></oj-bind-text></a>
+        </p>
+      </div>
+      </div>
+    </section>
+  </div>
+</div>

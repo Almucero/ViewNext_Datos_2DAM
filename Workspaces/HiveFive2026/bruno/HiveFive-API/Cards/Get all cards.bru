@@ -1,0 +1,15 @@
+meta {
+  name: Get all cards
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/api/v1/cards/get-all
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

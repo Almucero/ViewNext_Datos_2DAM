@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<properties>
+  <entry key="TestCreate"/>
+  <entry key="TestGetRoleByPrimaryKey"/>
+  <entry key="TestGetAllRole"/>
+  <entry key="TestUpdateRole"/>
+  <entry key="TestDeleteRole"/>
+</properties>

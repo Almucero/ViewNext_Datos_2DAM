@@ -1,0 +1,15 @@
+meta {
+  name: Get all users
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/api/v1/users/get-all
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

@@ -1,0 +1,15 @@
+meta {
+  name: Delete card
+  type: http
+  seq: 5
+}
+
+delete {
+  url: {{baseUrl}}/api/v1/cards/delete/{{cardId}}
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

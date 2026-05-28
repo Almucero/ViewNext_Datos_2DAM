@@ -1,0 +1,34 @@
+meta {
+  name: Create card
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{baseUrl}}/api/v1/cards/create
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "Card": [
+      {
+        "id": {{newCardId}},
+        "title": "Tarjeta Bruno",
+        "description": "Descripcion de al menos diez caracteres para validar.",
+        "startDate": "2026-01-01",
+        "endDate": "2026-01-31",
+        "priority": 3,
+        "boardId": {{boardId}},
+        "statusId": {{statusId}},
+        "userId": {{userId}}
+      }
+    ]
+  }
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}

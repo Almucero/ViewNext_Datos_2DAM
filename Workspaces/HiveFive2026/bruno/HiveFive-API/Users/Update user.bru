@@ -1,0 +1,31 @@
+meta {
+  name: Update user
+  type: http
+  seq: 4
+}
+
+put {
+  url: {{baseUrl}}/api/v1/users/update
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "User": [
+      {
+        "id": {{userId}},
+        "roleId": 3,
+        "email": "actualizado@example.com",
+        "firstName": "Nombre",
+        "lastName": "Apellido",
+        "password": "nuevaContraseña123"
+      }
+    ]
+  }
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}

@@ -1,0 +1,137 @@
+<!--
+  Archivo: ts/views/boardsList.html
+  Proposito: Plantilla de vista con bloques semanticos y enlaces de datos del viewModel.
+-->
+<div id="wrapper">
+  <div style="display: flex; align-items: center">
+    <div style="font-size: 32px; color: #ffffff; font-weight: bold">
+      <oj-bind-text value="[[t('boards.welcome')]]"></oj-bind-text>
+    </div>
+    <div style="font-size: 32px; color: #ffffff; font-weight: bold; margin-left: 10px;">
+      <oj-bind-text value="[[user().firstName]]"></oj-bind-text>
+      <oj-bind-text value="[[user().lastName]]"></oj-bind-text>
+    </div>
+  </div>
+
+  <oj-bind-if test="[[user().role.id == 1]]">
+    <!-- Bloque de interfaz: agrupacion de controles y contenido visible. -->
+<div class="export-cards">
+    </div>
+
+  </oj-bind-if>
+
+  <!-- Bloque de interfaz: agrupacion de controles y contenido visible. -->
+<div class="grid-container-boards">
+    <!-- Bloque de interfaz: agrupacion de controles y contenido visible. -->
+<div class="columna">
+      <!-- Bloque de interfaz: agrupacion de controles y contenido visible. -->
+<div class="header-container">
+        <!-- Bloque de interfaz: agrupacion de controles y contenido visible. -->
+<div class="header-title-group">
+          <h1 id="cardsHeader" class="header-title"><oj-bind-text value="[[t('boards.title')]]"></oj-bind-text></h1>
+          <oj-button class="oj-sm-margin-4x-end boards-create-button" data-oj-clickthrough="disabled" display="icons" chroming="borderless"
+                     on-oj-action="[[showCreateDialog]]">
+            <span slot="startIcon" class="oj-ux-ico-plus-circle"></span>
+            <oj-bind-text value="[[t('boards.create')]]"></oj-bind-text>
+          </oj-button>
+        </div>
+      </div>
+      <oj-bind-if test="[[isLoadingBoards()]]">
+        <!-- Bloque de interfaz: agrupacion de controles y contenido visible. -->
+<div class="boards-skeleton-container" data-bind="foreach: skeletons">
+          <!-- Bloque de interfaz: agrupacion de controles y contenido visible. -->
+<div class="skeleton-board" aria-hidden="true">
+            <!-- Bloque de interfaz: agrupacion de controles y contenido visible. -->
+<div class="skeleton-board-title"></div>
+            <!-- Bloque de interfaz: agrupacion de controles y contenido visible. -->
+<div class="skeleton-board-actions">
+              <!-- Bloque de interfaz: agrupacion de controles y contenido visible. -->
+<div class="skeleton-icon"></div>
+              <!-- Bloque de interfaz: agrupacion de controles y contenido visible. -->
+<div class="skeleton-icon"></div>
+            </div>
+          </div>
+        </div>
+      </oj-bind-if>
+
+      <oj-bind-if test="[[!isLoadingBoards()]]">
+        <oj-list-view id="boardsList" class="card-display" aria-labelledby="cardsHeader" data="[[boardSource]]"
+                      gridlines.item="visible" selection-mode="single" on-selected-changed="[[selectedBoardChanged]]"
+                      scroll-policy="loadMoreOnScroll">
+        <template slot="itemTemplate">
+          <!-- Bloque de interfaz: agrupacion de controles y contenido visible. -->
+<div class="board" style="position: relative;"> <!-- Agregado posición relativa -->
+            <div>
+              <strong>
+                <oj-bind-text value="[[$current.data.name]]"></oj-bind-text>
+
+              </strong>
+              <!-- Bloque de interfaz: agrupacion de controles y contenido visible. -->
+<div class="board-buttons">
+
+                <oj-button data-oj-clickthrough="disabled" :id="[['edit_' + $current.data.id]]" display="icons"
+                           chroming="borderless" on-oj-action="[[showEditDialog]]" class="edit-button">
+                  <span slot="startIcon" class="oj-ux-ico-edit"></span>
+                  <oj-bind-text value="[[t('boards.edit')]]"></oj-bind-text>
+                </oj-button>
+                <oj-button data-oj-clickthrough="disabled" :id="[['delete_' + $current.data.id]]" display="icons"
+                           chroming="borderless" on-oj-action="[[deleteBoard]]" class="delete-button">
+                  <span slot="startIcon" class="oj-ux-ico-trash"></span>
+                  <oj-bind-text value="[[t('boards.delete')]]"></oj-bind-text>
+                </oj-button>
+              </div>
+            </div>
+          </div>
+        </template>
+      </oj-list-view>
+      </oj-bind-if>
+    </div>
+  </div>
+
+  <oj-dialog id="createDialog" style="display: none" dialog-title="[[t('boards.dialogCreateTitle')]]" cancel-behavior="icon">
+    <div slot="body">
+      <oj-input-text value="{{board().name}}" label-hint="[[t('boards.boardName')]]" required
+                     validators="[[validatorTitle]]"></oj-input-text>
+    </div>
+    <div slot="footer">
+      <oj-button on-oj-action="[[createBoard]]"><span data-bind="text: t('common.create')"></span></oj-button>
+    </div>
+  </oj-dialog>
+
+  <oj-dialog id="editDialog" style="display: none" dialog-title="[[t('boards.dialogEditTitle')]]" cancel-behavior="icon">
+    <div slot="body">
+      <oj-input-text value="{{board().name}}" label-hint="[[t('boards.boardName')]]" required
+                     validators="[[validatorTitle]]"></oj-input-text>
+    </div>
+    <div slot="footer">
+      <oj-button on-oj-action="[[updateBoard]]"><span data-bind="text: t('common.update')"></span></oj-button>
+    </div>
+  </oj-dialog>
+
+  <oj-dialog id="exportDialog" style="display: none" dialog-title="[[t('boards.exportTitle')]]"
+             cancel-behavior="icon">
+    <div slot="body">
+      <div>
+        <oj-select-single class="demo-text-field-info" data="[[boardsDPSend]]" value="{{sendBoardId}}"
+                          on-value-changed="[[boardChanged]]" label-hint="[[t('boards.from')]]">
+        </oj-select-single>
+      </div>
+
+      <div>
+        <oj-select-single class="demo-text-field-info" data="[[boardsDPReceive]]" value="{{receivedBoardId}}"
+                          on-value-changed="[[boardChanged]]" label-hint="[[t('boards.to')]]">
+        </oj-select-single>
+      </div>
+    </div>
+    <div slot="footer">
+      <oj-button on-oj-action="[[changeBoard]]"><span data-bind="text: t('boards.move')"></span></oj-button>
+    </div>
+  </oj-dialog>
+
+
+
+
+</div>
+
+
+</div>

@@ -1,0 +1,42 @@
+<wsdl:definitions name="createBoard" targetNamespace="http://xmlns.oracle.com/CRUDHiveFive/CRUD_BOARD/createBoard" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:client="http://xmlns.oracle.com/CRUDHiveFive/CRUD_BOARD/createBoard" xmlns:ns1="http://xmlns.oracle.com/pcbpel/adapter/db/top/dbBoard" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+    <wsdl:documentation>
+        <abstractWSDL>http://localhost:7101/soa-infra/services/default/CRUD_BOARD!1.0/WSDLs/createBoard.wsdl</abstractWSDL>
+    </wsdl:documentation>
+    <plnk:partnerLinkType name="createBoard">
+        <plnk:role name="createBoardProvider" portType="client:createBoard"/>
+    </plnk:partnerLinkType>
+    <wsdl:types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema">
+            <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/dbBoard" schemaLocation="../Schemas/CreateBoards_Payload.xsd"/>
+        </schema>
+    </wsdl:types>
+    <wsdl:message name="createBoardRequestMessage">
+        <wsdl:part name="payload" element="ns1:BoardCollection"/>
+    </wsdl:message>
+    <wsdl:message name="createBoardResponseMessage">
+        <wsdl:part name="payload" element="ns1:BoardCollection"/>
+    </wsdl:message>
+    <wsdl:portType name="createBoard">
+        <wsdl:operation name="process">
+            <wsdl:input message="client:createBoardRequestMessage"/>
+            <wsdl:output message="client:createBoardResponseMessage"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="createBoardBinding" type="client:createBoard">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="process">
+            <soap:operation style="document" soapAction="process"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="createboard_client_ep">
+        <wsdl:port name="createBoard_pt" binding="client:createBoardBinding">
+            <soap:address location="http://localhost:7101/soa-infra/services/default/CRUD_BOARD/createboard_client_ep"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

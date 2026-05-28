@@ -1,0 +1,23 @@
+meta {
+  name: Delete user-board link
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{baseUrl}}/api/v1/user-boards/delete
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "boardId": {{boardId}},
+    "userId": {{userId}}
+  }
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}

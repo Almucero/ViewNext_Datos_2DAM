@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<properties>
+  <entry key="GetCardByPrimaryKey.xml"/>
+  <entry key="GetCardByPrimaryKey_NotFound.xml"/>
+  <entry key="GetCardByPrimaryKey_IgnoreExtraFields.xml"/>
+</properties>

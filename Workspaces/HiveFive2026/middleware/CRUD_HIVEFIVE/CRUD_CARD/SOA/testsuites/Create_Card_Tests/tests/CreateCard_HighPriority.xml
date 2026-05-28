@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<compositeTest compositeDN="CRUD_CARD" xmlns="http://xmlns.oracle.com/sca/2006/test">
+  <about>Valida el contrato minimo de salida en create usando solo el id</about>
+  <initiate serviceName="createcard_client_ep" operation="process" isAsync="false" delay="PT0S">
+    <message>
+      <part partName="payload">
+        <content>
+          <cli:createCard xmlns:cli="http://xmlns.oracle.com/CRUD_HIVEFIVE/CRUD_CARD/createCard">
+            <ns2:Card xmlns:ns2="http://xmlns.oracle.com/pcbpel/adapter/db/top/dbCard">
+              <ns2:boardId>5</ns2:boardId>
+              <ns2:endDate>2027-01-31</ns2:endDate>
+              <ns2:id>1001</ns2:id>
+              <ns2:priority>1</ns2:priority>
+              <ns2:startDate>2026-11-30</ns2:startDate>
+              <ns2:statusId>2</ns2:statusId>
+              <ns2:userId>2</ns2:userId>
+              <ns2:description>Prueba de contrato de salida por XPath</ns2:description>
+              <ns2:title>Tarjeta Contrato</ns2:title>
+            </ns2:Card>
+          </cli:createCard>
+        </content>
+      </part>
+    </message>
+  </initiate>
+  <wireActions wireSource="createcard_client_ep" operation="process">
+    <assert comparisonMethod="string">
+      <expected>
+        <location key="output" partName="payload" xpath="/ns2:CardCollection/ns2:Card/ns2:id" xmlns:ns2="http://xmlns.oracle.com/pcbpel/adapter/db/top/dbCard"/>
+        <simple>1001</simple>
+      </expected>
+    </assert>
+  </wireActions>
+</compositeTest>
